@@ -4,11 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersistentAnalysis", "PersistentAnalysis\PersistentAnalysis.csproj", "{5502A1E7-BB6F-4036-ADDA-4079D3F02A87}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6CC6AA8D-C331-4B2C-A575-1592E17AA47E} = {6CC6AA8D-C331-4B2C-A575-1592E17AA47E}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersistentAnalysisHost", "PersistentAnalysisHost\PersistentAnalysisHost.csproj", "{6CC6AA8D-C331-4B2C-A575-1592E17AA47E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NodeClone", "NodeClone\NodeClone.csproj", "{C3E1CDE2-C299-49CD-B01D-03A3A72F8915}"
 EndProject
@@ -24,9 +19,6 @@ Global
 		{5502A1E7-BB6F-4036-ADDA-4079D3F02A87}.Debug|x64.Build.0 = Debug|x64
 		{5502A1E7-BB6F-4036-ADDA-4079D3F02A87}.Release|x64.ActiveCfg = Release|x64
 		{5502A1E7-BB6F-4036-ADDA-4079D3F02A87}.Release|x64.Build.0 = Release|x64
-		{6CC6AA8D-C331-4B2C-A575-1592E17AA47E}.Debug|x64.ActiveCfg = Debug|x64
-		{6CC6AA8D-C331-4B2C-A575-1592E17AA47E}.Debug|x64.Build.0 = Debug|x64
-		{6CC6AA8D-C331-4B2C-A575-1592E17AA47E}.Release|x64.ActiveCfg = Release|x64
 		{C3E1CDE2-C299-49CD-B01D-03A3A72F8915}.Debug|x64.ActiveCfg = Debug|x64
 		{C3E1CDE2-C299-49CD-B01D-03A3A72F8915}.Debug|x64.Build.0 = Debug|x64
 		{C3E1CDE2-C299-49CD-B01D-03A3A72F8915}.Release|x64.ActiveCfg = Release|x64
