@@ -31,7 +31,7 @@
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(SolutionDir)'!='*Undefined*'">
         <Exec Command="if not exist &quot;..\PersistentAnalysis\bin\x64\$(Configuration)\netstandard2.0&quot; mkdir &quot;..\PersistentAnalysis\bin\x64\$(Configuration)\netstandard2.0&quot;" />
-        <Exec Command="echo if exist &quot;$(TargetPath)&quot; dotnet publish -f $(TargetFramework) -c $(Configuration) -v q -p:PublishSingleFile=true -p:PublishTrimmed=false --no-self-contained -o &quot;..\PersistentAnalysis\bin\x64\$(Configuration)\netstandard2.0&quot;" WorkingDirectory="$(ProjectDir)" />
+        <Exec Command="if exist &quot;$(TargetPath)&quot; dotnet publish -f $(TargetFramework) -c $(Configuration) -v q -p:PublishSingleFile=true -p:PublishTrimmed=false --no-self-contained -o &quot;..\PersistentAnalysis\bin\x64\$(Configuration)\netstandard2.0&quot;" WorkingDirectory="$(ProjectDir)" />
     </Target>
 
 </Project>
