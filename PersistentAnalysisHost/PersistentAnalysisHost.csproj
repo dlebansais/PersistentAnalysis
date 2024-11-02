@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net8.0-windows7.0</TargetFrameworks>
+        <OutputType>WinExe</OutputType>
+        <LangVersion>12</LangVersion>
+        <Nullable>enable</Nullable>
+        <Platforms>x64</Platforms>
+        
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="$(SolutionDir)PersistentAnalysis\Resources\ChannelGuid.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+        <PackageReference Include="Method.Contracts-Debug" Version="1.6.1" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+        <PackageReference Include="Method.Contracts" Version="1.6.1" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
+        <PackageReference Include="dlebansais.ProcessCommunication-Debug" Version="1.1.0" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+        <PackageReference Include="dlebansais.ProcessCommunication" Version="1.1.0" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
+        <PackageReference Include="dlebansais.DebugLogging-Debug" Version="1.0.1" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+        <PackageReference Include="dlebansais.DebugLogging" Version="1.0.1" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\NodeClone\NodeClone.csproj" />
+        <ProjectReference Include="..\PersistentAnalysis\PersistentAnalysis.csproj" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(SolutionDir)'!='*Undefined*'">
+        <Exec Command="if not exist &quot;$(SolutionDir)PersistentAnalysis\bin\x64\$(Configuration)\netstandard2.0&quot; mkdir &quot;$(SolutionDir)PersistentAnalysis\bin\x64\$(Configuration)\netstandard2.0&quot;" />
+        <Exec Command="if exist &quot;$(TargetPath)&quot; dotnet publish -f $(TargetFramework) -c $(Configuration) -v q -p:PublishSingleFile=true -p:PublishTrimmed=false --no-self-contained -o &quot;$(SolutionDir)PersistentAnalysis\bin\x64\$(Configuration)\netstandard2.0&quot;" WorkingDirectory="$(ProjectDir)" />
+    </Target>
+
+</Project>
