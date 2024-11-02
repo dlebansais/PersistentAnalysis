@@ -38,6 +38,10 @@
         <EnableSingleFileAnalyzer>false</EnableSingleFileAnalyzer>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-windows7.0'">
+        <EnableSingleFileAnalyzer>false</EnableSingleFileAnalyzer>
+    </PropertyGroup>
+
     <ItemGroup>
         <None Remove="ChannelGuid.txt" />
     </ItemGroup>
