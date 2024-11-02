@@ -2,6 +2,7 @@
 
 using System;
 using System.Globalization;
+using System.Text.Json;
 
 public static partial class Persist
 {
@@ -35,11 +36,14 @@ public static partial class Persist
         RaiseExitRequested(exitCommand.Delay);
     }
 
-    internal static event EventHandler<ExitRequestedArgs>? ExitRequested;
+    /// <summary>
+    /// Event signaled when exit is requested by a client.
+    /// </summary>
+    public static event EventHandler<ExitRequestedEventArgs>? ExitRequested;
 
     private static void RaiseExitRequested(TimeSpan delay)
     {
-        ExitRequested?.Invoke(null, new ExitRequestedArgs(delay));
+        ExitRequested?.Invoke(null, new ExitRequestedEventArgs(delay));
     }
 
     private static void ParseUpdate(UpdateCommand updateCommand)

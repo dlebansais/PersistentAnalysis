@@ -46,11 +46,8 @@ internal class Program
                 int Offset = 0;
                 while (Converter.TryDecodeString(Data, ref Offset, out string Text))
                 {
-                    if (JsonSerializer.Deserialize<Command>(Text) is Command Command)
-                    {
-                        Trace("Command received");
-                        Persist.Parse(Command);
-                    }
+                    Trace("Data received");
+                    Persist.Parse(Text);
                 }
             }
         }

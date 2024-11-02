@@ -3,6 +3,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text.Json;
 using Contracts;
 using DebugLogging;
 using NodeClone;
@@ -20,6 +21,7 @@ public static partial class Persist
 
     /// <summary>
     /// Initializes persistence.
+    /// This method is intended for the client side.
     /// A program might need several attempts at initialization before it's successful.
     /// </summary>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
@@ -51,6 +53,7 @@ public static partial class Persist
 
     /// <summary>
     /// Exits persistence.
+    /// This method is intended for the client side.
     /// </summary>
     /// <param name="delay">An optional delay before clean up.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
@@ -64,6 +67,7 @@ public static partial class Persist
 
     /// <summary>
     /// Updates the current persistent state with default values for the machine, solution and project.
+    /// This method is intended for the client side.
     /// </summary>
     /// <param name="root">The new root.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
@@ -74,6 +78,7 @@ public static partial class Persist
 
     /// <summary>
     /// Updates the current persistent state.
+    /// This method is intended for the client side.
     /// </summary>
     /// <param name="deviceId">The unique ID of the device on which the caller is running, or <see langword="null"/> for the local machine.</param>
     /// <param name="solutionPath">The full path to the solution file, or <see langword="null"/> for a default solution.</param>
@@ -92,6 +97,17 @@ public static partial class Persist
             ProjectPath = projectPath,
             Root = root,
         }));
+    }
+
+    /// <summary>
+    /// Parses a string containing requests and updates from the client.
+    /// This method is intended for the host side.
+    /// </summary>
+    /// <param name="text">The string to parse.</param>
+    public static void Parse(string text)
+    {
+        if (JsonSerializer.Deserialize<Command>(text) is Command Command)
+            Parse(Command);
     }
 
     private static Channel? Channel;
