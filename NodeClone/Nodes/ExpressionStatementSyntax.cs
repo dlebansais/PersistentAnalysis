@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -9,7 +10,7 @@ public class ExpressionStatementSyntax : StatementSyntax
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
         Expression = ExpressionSyntax.From(node.Expression, this);
-        SemicolonToken = node.SemicolonToken;
+        SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;
     }
 
@@ -17,5 +18,4 @@ public class ExpressionStatementSyntax : StatementSyntax
     public ExpressionSyntax Expression { get; }
     public SyntaxToken SemicolonToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

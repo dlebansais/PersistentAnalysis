@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,13 +9,13 @@ public class EnumDeclarationSyntax : BaseTypeDeclarationSyntax
     public EnumDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.EnumDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
-        EnumKeyword = node.EnumKeyword;
-        Identifier = node.Identifier;
+        EnumKeyword = Cloner.ToToken(node.EnumKeyword);
+        Identifier = Cloner.ToToken(node.Identifier);
         BaseList = node.BaseList is null ? null : new BaseListSyntax(node.BaseList, this);
-        OpenBraceToken = node.OpenBraceToken;
+        OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
         Members = Cloner.SeparatedListFrom<EnumMemberDeclarationSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.EnumMemberDeclarationSyntax>(node.Members, parent);
-        CloseBraceToken = node.CloseBraceToken;
-        SemicolonToken = node.SemicolonToken;
+        CloseBraceToken = Cloner.ToToken(node.CloseBraceToken);
+        SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;
     }
 
@@ -27,5 +28,4 @@ public class EnumDeclarationSyntax : BaseTypeDeclarationSyntax
     public SyntaxToken CloseBraceToken { get; }
     public SyntaxToken SemicolonToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

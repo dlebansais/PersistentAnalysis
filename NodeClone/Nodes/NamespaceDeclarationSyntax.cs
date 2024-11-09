@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,14 +9,14 @@ public class NamespaceDeclarationSyntax : BaseNamespaceDeclarationSyntax
     public NamespaceDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.NamespaceDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
-        NamespaceKeyword = node.NamespaceKeyword;
+        NamespaceKeyword = Cloner.ToToken(node.NamespaceKeyword);
         Name = NameSyntax.From(node.Name, this);
-        OpenBraceToken = node.OpenBraceToken;
+        OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
         Externs = Cloner.ListFrom<ExternAliasDirectiveSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ExternAliasDirectiveSyntax>(node.Externs, parent);
         Usings = Cloner.ListFrom<UsingDirectiveSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.UsingDirectiveSyntax>(node.Usings, parent);
         Members = Cloner.ListFrom<MemberDeclarationSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.MemberDeclarationSyntax>(node.Members, parent);
-        CloseBraceToken = node.CloseBraceToken;
-        SemicolonToken = node.SemicolonToken;
+        CloseBraceToken = Cloner.ToToken(node.CloseBraceToken);
+        SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;
     }
 
@@ -29,5 +30,4 @@ public class NamespaceDeclarationSyntax : BaseNamespaceDeclarationSyntax
     public SyntaxToken CloseBraceToken { get; }
     public SyntaxToken SemicolonToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

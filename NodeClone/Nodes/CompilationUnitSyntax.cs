@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -11,7 +12,7 @@ public class CompilationUnitSyntax : SyntaxNode
         Usings = Cloner.ListFrom<UsingDirectiveSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.UsingDirectiveSyntax>(node.Usings, parent);
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
         Members = Cloner.ListFrom<MemberDeclarationSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.MemberDeclarationSyntax>(node.Members, parent);
-        EndOfFileToken = node.EndOfFileToken;
+        EndOfFileToken = Cloner.ToToken(node.EndOfFileToken);
         Parent = parent;
     }
 
@@ -21,5 +22,4 @@ public class CompilationUnitSyntax : SyntaxNode
     public SyntaxList<MemberDeclarationSyntax> Members { get; }
     public SyntaxToken EndOfFileToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

@@ -5,6 +5,11 @@ using System.Reflection;
 
 public static class Cloner
 {
+    public static SyntaxToken ToToken(Microsoft.CodeAnalysis.SyntaxToken token)
+    {
+        return new SyntaxToken(token.Text);
+    }
+
     public static SyntaxList<TClone> ListFrom<TClone, TNode>(Microsoft.CodeAnalysis.SyntaxList<TNode> items, SyntaxNode? parent)
         where TClone : SyntaxNode
         where TNode : Microsoft.CodeAnalysis.SyntaxNode

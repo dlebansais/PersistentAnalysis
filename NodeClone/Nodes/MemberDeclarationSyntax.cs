@@ -1,8 +1,30 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(ClassDeclarationSyntax))]
+[JsonDerivedType(typeof(ConstructorDeclarationSyntax))]
+[JsonDerivedType(typeof(ConversionOperatorDeclarationSyntax))]
+[JsonDerivedType(typeof(DelegateDeclarationSyntax))]
+[JsonDerivedType(typeof(DestructorDeclarationSyntax))]
+[JsonDerivedType(typeof(EnumMemberDeclarationSyntax))]
+[JsonDerivedType(typeof(EventDeclarationSyntax))]
+[JsonDerivedType(typeof(GlobalStatementSyntax))]
+[JsonDerivedType(typeof(IndexerDeclarationSyntax))]
+[JsonDerivedType(typeof(InterfaceDeclarationSyntax))]
+[JsonDerivedType(typeof(MethodDeclarationSyntax))]
+[JsonDerivedType(typeof(NamespaceDeclarationSyntax))]
+[JsonDerivedType(typeof(OperatorDeclarationSyntax))]
+[JsonDerivedType(typeof(PropertyDeclarationSyntax))]
+[JsonDerivedType(typeof(RecordDeclarationSyntax))]
+[JsonDerivedType(typeof(StructDeclarationSyntax))]
+[JsonDerivedType(typeof(FileScopedNamespaceDeclarationSyntax))]
+[JsonDerivedType(typeof(EnumDeclarationSyntax))]
+[JsonDerivedType(typeof(FieldDeclarationSyntax))]
+[JsonDerivedType(typeof(EventFieldDeclarationSyntax))]
+[JsonDerivedType(typeof(IncompleteMemberSyntax))]
 public abstract class MemberDeclarationSyntax : SyntaxNode
 {
     public static MemberDeclarationSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.MemberDeclarationSyntax node, SyntaxNode? parent)

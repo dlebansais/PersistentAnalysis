@@ -33,7 +33,9 @@ public static partial class Persist
         string GuidString = Reader.ReadToEnd();
         Guid ChannelGuid = new(GuidString);
 
-        Channel = Remote.LaunchAndOpenChannel("PersistentAnalysisHost.exe", ChannelGuid);
+        IChannel? NewChannel = Remote.LaunchAndOpenChannel("PersistentAnalysisHost.exe", ChannelGuid);
+        SetChannel(NewChannel);
+
         bool IsOpen = Channel is not null && Channel.IsOpen;
 
         Trace($"Open: {IsOpen}");
@@ -41,11 +43,7 @@ public static partial class Persist
         if (IsOpen)
         {
             string? Version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
-            _ = Send(Command.Create(new InitCommand()
-            {
-                ClientGuid = ClientGuid.ToString(),
-                Version = Version,
-            }));
+            _ = Send(new Command(new InitCommand(ClientGuid.ToString(), Version)));
         }
 
         return IsOpen;
@@ -59,10 +57,15 @@ public static partial class Persist
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool Exit(TimeSpan delay)
     {
-        return Send(Command.Create(new ExitCommand()
-        {
-            Delay = delay,
-        }));
+        if (Channel is null || !Channel.IsOpen)
+            throw new InvalidOperationException();
+
+        bool IsExitSent = Send(new Command(new ExitCommand(delay)));
+
+        Channel.Close();
+        SetChannel(null);
+
+        return IsExitSent;
     }
 
     /// <summary>
@@ -87,16 +90,13 @@ public static partial class Persist
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool Update(string? deviceId, string? solutionPath, string? projectPath, CompilationUnitSyntax root)
     {
+        if (Channel is null || !Channel.IsOpen)
+            throw new InvalidOperationException();
+
         if (deviceId is null)
             WindowsDeviceId = WindowsDeviceId ?? GetWindowsDeviceId();
 
-        return Send(Command.Create(new UpdateCommand()
-        {
-            DeviceId = deviceId ?? WindowsDeviceId,
-            SolutionPath = solutionPath,
-            ProjectPath = projectPath,
-            Root = root,
-        }));
+        return Send(new Command(new UpdateCommand(deviceId ?? WindowsDeviceId, solutionPath, projectPath, new AttributeSyntax(null!, null!))));
     }
 
     /// <summary>
@@ -110,7 +110,14 @@ public static partial class Persist
             Parse(Command);
     }
 
-    private static Channel? Channel;
+    private static void SetChannel(IChannel? channel)
+    {
+        Channel?.Dispose();
+
+        Channel = channel;
+    }
+
+    private static IChannel? Channel;
     private static readonly DebugLogger Logger = new();
     private static string? WindowsDeviceId;
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,13 +9,13 @@ public class DoStatementSyntax : StatementSyntax
     public DoStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.DoStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
-        DoKeyword = node.DoKeyword;
+        DoKeyword = Cloner.ToToken(node.DoKeyword);
         Statement = StatementSyntax.From(node.Statement, this);
-        WhileKeyword = node.WhileKeyword;
-        OpenParenToken = node.OpenParenToken;
+        WhileKeyword = Cloner.ToToken(node.WhileKeyword);
+        OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         Condition = ExpressionSyntax.From(node.Condition, this);
-        CloseParenToken = node.CloseParenToken;
-        SemicolonToken = node.SemicolonToken;
+        CloseParenToken = Cloner.ToToken(node.CloseParenToken);
+        SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;
     }
 
@@ -27,5 +28,4 @@ public class DoStatementSyntax : StatementSyntax
     public SyntaxToken CloseParenToken { get; }
     public SyntaxToken SemicolonToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

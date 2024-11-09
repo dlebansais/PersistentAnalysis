@@ -1,8 +1,12 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(EventDeclarationSyntax))]
+[JsonDerivedType(typeof(IndexerDeclarationSyntax))]
+[JsonDerivedType(typeof(PropertyDeclarationSyntax))]
 public abstract class BasePropertyDeclarationSyntax : MemberDeclarationSyntax
 {
     public static BasePropertyDeclarationSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BasePropertyDeclarationSyntax node, SyntaxNode? parent)

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,10 +8,10 @@ public class FromClauseSyntax : QueryClauseSyntax
 {
     public FromClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FromClauseSyntax node, SyntaxNode? parent)
     {
-        FromKeyword = node.FromKeyword;
+        FromKeyword = Cloner.ToToken(node.FromKeyword);
         Type = node.Type is null ? null : TypeSyntax.From(node.Type, this);
-        Identifier = node.Identifier;
-        InKeyword = node.InKeyword;
+        Identifier = Cloner.ToToken(node.Identifier);
+        InKeyword = Cloner.ToToken(node.InKeyword);
         Expression = ExpressionSyntax.From(node.Expression, this);
         Parent = parent;
     }
@@ -21,5 +22,4 @@ public class FromClauseSyntax : QueryClauseSyntax
     public SyntaxToken InKeyword { get; }
     public ExpressionSyntax Expression { get; }
     public SyntaxNode? Parent { get; }
-
 }

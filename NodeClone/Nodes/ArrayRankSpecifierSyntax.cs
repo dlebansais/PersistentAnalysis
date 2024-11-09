@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,9 +8,9 @@ public class ArrayRankSpecifierSyntax : SyntaxNode
 {
     public ArrayRankSpecifierSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ArrayRankSpecifierSyntax node, SyntaxNode? parent)
     {
-        OpenBracketToken = node.OpenBracketToken;
+        OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
         Sizes = Cloner.SeparatedListFrom<ExpressionSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax>(node.Sizes, parent);
-        CloseBracketToken = node.CloseBracketToken;
+        CloseBracketToken = Cloner.ToToken(node.CloseBracketToken);
         Parent = parent;
     }
 
@@ -17,5 +18,4 @@ public class ArrayRankSpecifierSyntax : SyntaxNode
     public SeparatedSyntaxList<ExpressionSyntax> Sizes { get; }
     public SyntaxToken CloseBracketToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

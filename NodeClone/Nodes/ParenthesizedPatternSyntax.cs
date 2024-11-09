@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,9 +8,9 @@ public class ParenthesizedPatternSyntax : PatternSyntax
 {
     public ParenthesizedPatternSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ParenthesizedPatternSyntax node, SyntaxNode? parent)
     {
-        OpenParenToken = node.OpenParenToken;
+        OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         Pattern = PatternSyntax.From(node.Pattern, this);
-        CloseParenToken = node.CloseParenToken;
+        CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Parent = parent;
     }
 
@@ -17,5 +18,4 @@ public class ParenthesizedPatternSyntax : PatternSyntax
     public PatternSyntax Pattern { get; }
     public SyntaxToken CloseParenToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

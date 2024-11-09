@@ -2,10 +2,16 @@
 
 using System;
 using System.Globalization;
-using System.Text.Json;
 
+/// <summary>
+/// Provides tools for analyzers that need persistence.
+/// </summary>
 public static partial class Persist
 {
+    /// <summary>
+    /// Parses a command.
+    /// </summary>
+    /// <param name="command">The command to parse.</param>
     internal static void Parse(Command command)
     {
         if (command.InitCommand is InitCommand InitCommand)

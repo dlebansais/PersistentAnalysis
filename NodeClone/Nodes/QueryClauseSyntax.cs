@@ -1,8 +1,14 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(FromClauseSyntax))]
+[JsonDerivedType(typeof(LetClauseSyntax))]
+[JsonDerivedType(typeof(JoinClauseSyntax))]
+[JsonDerivedType(typeof(WhereClauseSyntax))]
+[JsonDerivedType(typeof(OrderByClauseSyntax))]
 public abstract class QueryClauseSyntax : SyntaxNode
 {
     public static QueryClauseSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.QueryClauseSyntax node, SyntaxNode? parent)

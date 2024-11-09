@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,13 +9,13 @@ public class DelegateDeclarationSyntax : MemberDeclarationSyntax
     public DelegateDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.DelegateDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
-        DelegateKeyword = node.DelegateKeyword;
+        DelegateKeyword = Cloner.ToToken(node.DelegateKeyword);
         ReturnType = TypeSyntax.From(node.ReturnType, this);
-        Identifier = node.Identifier;
+        Identifier = Cloner.ToToken(node.Identifier);
         TypeParameterList = node.TypeParameterList is null ? null : new TypeParameterListSyntax(node.TypeParameterList, this);
         ParameterList = new ParameterListSyntax(node.ParameterList, this);
         ConstraintClauses = Cloner.ListFrom<TypeParameterConstraintClauseSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterConstraintClauseSyntax>(node.ConstraintClauses, parent);
-        SemicolonToken = node.SemicolonToken;
+        SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;
     }
 
@@ -27,5 +28,4 @@ public class DelegateDeclarationSyntax : MemberDeclarationSyntax
     public SyntaxList<TypeParameterConstraintClauseSyntax> ConstraintClauses { get; }
     public SyntaxToken SemicolonToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

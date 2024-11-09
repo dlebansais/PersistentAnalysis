@@ -1,8 +1,11 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(GenericNameSyntax))]
+[JsonDerivedType(typeof(IdentifierNameSyntax))]
 public abstract class SimpleNameSyntax : NameSyntax
 {
     public static SimpleNameSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.SimpleNameSyntax node, SyntaxNode? parent)

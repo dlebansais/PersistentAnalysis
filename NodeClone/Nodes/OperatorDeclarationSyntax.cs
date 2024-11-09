@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -10,13 +11,13 @@ public class OperatorDeclarationSyntax : BaseMethodDeclarationSyntax
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
         ReturnType = TypeSyntax.From(node.ReturnType, this);
         ExplicitInterfaceSpecifier = node.ExplicitInterfaceSpecifier is null ? null : new ExplicitInterfaceSpecifierSyntax(node.ExplicitInterfaceSpecifier, this);
-        OperatorKeyword = node.OperatorKeyword;
-        CheckedKeyword = node.CheckedKeyword;
-        OperatorToken = node.OperatorToken;
+        OperatorKeyword = Cloner.ToToken(node.OperatorKeyword);
+        CheckedKeyword = Cloner.ToToken(node.CheckedKeyword);
+        OperatorToken = Cloner.ToToken(node.OperatorToken);
         ParameterList = new ParameterListSyntax(node.ParameterList, this);
         Body = node.Body is null ? null : new BlockSyntax(node.Body, this);
         ExpressionBody = node.ExpressionBody is null ? null : new ArrowExpressionClauseSyntax(node.ExpressionBody, this);
-        SemicolonToken = node.SemicolonToken;
+        SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;
     }
 
@@ -31,5 +32,4 @@ public class OperatorDeclarationSyntax : BaseMethodDeclarationSyntax
     public ArrowExpressionClauseSyntax? ExpressionBody { get; }
     public SyntaxToken SemicolonToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,7 +9,7 @@ public class ConditionalAccessExpressionSyntax : ExpressionSyntax
     public ConditionalAccessExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ConditionalAccessExpressionSyntax node, SyntaxNode? parent)
     {
         Expression = ExpressionSyntax.From(node.Expression, this);
-        OperatorToken = node.OperatorToken;
+        OperatorToken = Cloner.ToToken(node.OperatorToken);
         WhenNotNull = ExpressionSyntax.From(node.WhenNotNull, this);
         Parent = parent;
     }
@@ -17,5 +18,4 @@ public class ConditionalAccessExpressionSyntax : ExpressionSyntax
     public SyntaxToken OperatorToken { get; }
     public ExpressionSyntax WhenNotNull { get; }
     public SyntaxNode? Parent { get; }
-
 }

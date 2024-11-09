@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,13 +9,13 @@ public class UsingDirectiveSyntax : SyntaxNode
     public UsingDirectiveSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.UsingDirectiveSyntax node, SyntaxNode? parent)
     {
         Name = node.Name is null ? null : NameSyntax.From(node.Name, this);
-        GlobalKeyword = node.GlobalKeyword;
-        UsingKeyword = node.UsingKeyword;
-        StaticKeyword = node.StaticKeyword;
-        UnsafeKeyword = node.UnsafeKeyword;
+        GlobalKeyword = Cloner.ToToken(node.GlobalKeyword);
+        UsingKeyword = Cloner.ToToken(node.UsingKeyword);
+        StaticKeyword = Cloner.ToToken(node.StaticKeyword);
+        UnsafeKeyword = Cloner.ToToken(node.UnsafeKeyword);
         Alias = node.Alias is null ? null : new NameEqualsSyntax(node.Alias, this);
         NamespaceOrType = TypeSyntax.From(node.NamespaceOrType, this);
-        SemicolonToken = node.SemicolonToken;
+        SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;
     }
 
@@ -27,5 +28,4 @@ public class UsingDirectiveSyntax : SyntaxNode
     public TypeSyntax NamespaceOrType { get; }
     public SyntaxToken SemicolonToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

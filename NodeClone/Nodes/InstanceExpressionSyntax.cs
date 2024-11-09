@@ -1,8 +1,11 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(ThisExpressionSyntax))]
+[JsonDerivedType(typeof(BaseExpressionSyntax))]
 public abstract class InstanceExpressionSyntax : ExpressionSyntax
 {
     public static InstanceExpressionSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.InstanceExpressionSyntax node, SyntaxNode? parent)

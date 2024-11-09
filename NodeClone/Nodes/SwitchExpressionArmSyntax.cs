@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -9,7 +10,7 @@ public class SwitchExpressionArmSyntax : SyntaxNode
     {
         Pattern = PatternSyntax.From(node.Pattern, this);
         WhenClause = node.WhenClause is null ? null : new WhenClauseSyntax(node.WhenClause, this);
-        EqualsGreaterThanToken = node.EqualsGreaterThanToken;
+        EqualsGreaterThanToken = Cloner.ToToken(node.EqualsGreaterThanToken);
         Expression = ExpressionSyntax.From(node.Expression, this);
         Parent = parent;
     }
@@ -19,5 +20,4 @@ public class SwitchExpressionArmSyntax : SyntaxNode
     public SyntaxToken EqualsGreaterThanToken { get; }
     public ExpressionSyntax Expression { get; }
     public SyntaxNode? Parent { get; }
-
 }

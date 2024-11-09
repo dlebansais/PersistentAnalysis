@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -15,5 +16,4 @@ public class InvocationExpressionSyntax : ExpressionSyntax
     public ExpressionSyntax Expression { get; }
     public ArgumentListSyntax ArgumentList { get; }
     public SyntaxNode? Parent { get; }
-
 }

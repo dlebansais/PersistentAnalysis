@@ -1,8 +1,22 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(AliasQualifiedNameSyntax))]
+[JsonDerivedType(typeof(GenericNameSyntax))]
+[JsonDerivedType(typeof(IdentifierNameSyntax))]
+[JsonDerivedType(typeof(QualifiedNameSyntax))]
+[JsonDerivedType(typeof(RefTypeSyntax))]
+[JsonDerivedType(typeof(PredefinedTypeSyntax))]
+[JsonDerivedType(typeof(ArrayTypeSyntax))]
+[JsonDerivedType(typeof(PointerTypeSyntax))]
+[JsonDerivedType(typeof(FunctionPointerTypeSyntax))]
+[JsonDerivedType(typeof(NullableTypeSyntax))]
+[JsonDerivedType(typeof(TupleTypeSyntax))]
+[JsonDerivedType(typeof(OmittedTypeArgumentSyntax))]
+[JsonDerivedType(typeof(ScopedTypeSyntax))]
 public abstract class TypeSyntax : ExpressionSyntax
 {
     public static TypeSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax node, SyntaxNode? parent)

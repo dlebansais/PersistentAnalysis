@@ -23,7 +23,7 @@ internal class Program
         string GuidString = Reader.ReadToEnd();
         Guid ChannelGuid = new(GuidString);
 
-        Channel = new Channel(ChannelGuid, Mode.Receive);
+        Channel = new Channel(ChannelGuid, ChannelMode.Receive);
         Channel.Open();
 
         if (!Channel.IsOpen)
@@ -39,9 +39,10 @@ internal class Program
         Stopwatch Stopwatch = Stopwatch.StartNew();
         while (Stopwatch.Elapsed < ExitTimeout)
         {
-            Thread.Sleep(50);
+            Thread.Sleep(500);
+            Trace("Reading");
 
-            if (Channel.Read() is byte[] Data)
+            if (Channel.TryRead(out byte[] Data))
             {
                 int Offset = 0;
                 while (Converter.TryDecodeString(Data, ref Offset, out string Text))
@@ -51,6 +52,10 @@ internal class Program
                 }
             }
         }
+
+        Trace("No longer listening");
+
+        Channel.Close();
 
         Trace("End");
     }
@@ -67,5 +72,6 @@ internal class Program
 
     private static Channel? Channel;
     private static readonly DebugLogger Logger = new();
-    private static TimeSpan ExitTimeout = Timeout.InfiniteTimeSpan;
+    //private static TimeSpan ExitTimeout = TimeSpan.FromDays(100000);
+    private static TimeSpan ExitTimeout = TimeSpan.FromSeconds(30);
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -9,7 +10,7 @@ public class NameColonSyntax : BaseExpressionColonSyntax
     {
         Expression = ExpressionSyntax.From(node.Expression, this);
         Name = new IdentifierNameSyntax(node.Name, this);
-        ColonToken = node.ColonToken;
+        ColonToken = Cloner.ToToken(node.ColonToken);
         Parent = parent;
     }
 
@@ -17,5 +18,4 @@ public class NameColonSyntax : BaseExpressionColonSyntax
     public IdentifierNameSyntax Name { get; }
     public SyntaxToken ColonToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

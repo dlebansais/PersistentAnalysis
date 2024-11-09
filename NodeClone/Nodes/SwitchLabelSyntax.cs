@@ -1,8 +1,12 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(CasePatternSwitchLabelSyntax))]
+[JsonDerivedType(typeof(CaseSwitchLabelSyntax))]
+[JsonDerivedType(typeof(DefaultSwitchLabelSyntax))]
 public abstract class SwitchLabelSyntax : SyntaxNode
 {
     public static SwitchLabelSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.SwitchLabelSyntax node, SyntaxNode? parent)

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -15,5 +16,4 @@ public class GlobalStatementSyntax : MemberDeclarationSyntax
     public SyntaxList<AttributeListSyntax> AttributeLists { get; }
     public StatementSyntax Statement { get; }
     public SyntaxNode? Parent { get; }
-
 }

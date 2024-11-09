@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -10,11 +11,11 @@ public class PropertyDeclarationSyntax : BasePropertyDeclarationSyntax
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
         Type = TypeSyntax.From(node.Type, this);
         ExplicitInterfaceSpecifier = node.ExplicitInterfaceSpecifier is null ? null : new ExplicitInterfaceSpecifierSyntax(node.ExplicitInterfaceSpecifier, this);
-        Identifier = node.Identifier;
+        Identifier = Cloner.ToToken(node.Identifier);
         AccessorList = node.AccessorList is null ? null : new AccessorListSyntax(node.AccessorList, this);
         ExpressionBody = node.ExpressionBody is null ? null : new ArrowExpressionClauseSyntax(node.ExpressionBody, this);
         Initializer = node.Initializer is null ? null : new EqualsValueClauseSyntax(node.Initializer, this);
-        SemicolonToken = node.SemicolonToken;
+        SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;
     }
 
@@ -27,5 +28,4 @@ public class PropertyDeclarationSyntax : BasePropertyDeclarationSyntax
     public EqualsValueClauseSyntax? Initializer { get; }
     public SyntaxToken SemicolonToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -9,7 +10,7 @@ public class ParameterSyntax : BaseParameterSyntax
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
         Type = node.Type is null ? null : TypeSyntax.From(node.Type, this);
-        Identifier = node.Identifier;
+        Identifier = Cloner.ToToken(node.Identifier);
         Default = node.Default is null ? null : new EqualsValueClauseSyntax(node.Default, this);
         Parent = parent;
     }
@@ -19,5 +20,4 @@ public class ParameterSyntax : BaseParameterSyntax
     public SyntaxToken Identifier { get; }
     public EqualsValueClauseSyntax? Default { get; }
     public SyntaxNode? Parent { get; }
-
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,10 +8,10 @@ public class AttributeListSyntax : SyntaxNode
 {
     public AttributeListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax node, SyntaxNode? parent)
     {
-        OpenBracketToken = node.OpenBracketToken;
+        OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
         Target = node.Target is null ? null : new AttributeTargetSpecifierSyntax(node.Target, this);
         Attributes = Cloner.SeparatedListFrom<AttributeSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeSyntax>(node.Attributes, parent);
-        CloseBracketToken = node.CloseBracketToken;
+        CloseBracketToken = Cloner.ToToken(node.CloseBracketToken);
         Parent = parent;
     }
 
@@ -19,5 +20,4 @@ public class AttributeListSyntax : SyntaxNode
     public SeparatedSyntaxList<AttributeSyntax> Attributes { get; }
     public SyntaxToken CloseBracketToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

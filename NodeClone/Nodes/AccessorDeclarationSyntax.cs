@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,10 +9,10 @@ public class AccessorDeclarationSyntax : SyntaxNode
     public AccessorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AccessorDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
-        Keyword = node.Keyword;
+        Keyword = Cloner.ToToken(node.Keyword);
         Body = node.Body is null ? null : new BlockSyntax(node.Body, this);
         ExpressionBody = node.ExpressionBody is null ? null : new ArrowExpressionClauseSyntax(node.ExpressionBody, this);
-        SemicolonToken = node.SemicolonToken;
+        SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;
     }
 
@@ -21,5 +22,4 @@ public class AccessorDeclarationSyntax : SyntaxNode
     public ArrowExpressionClauseSyntax? ExpressionBody { get; }
     public SyntaxToken SemicolonToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

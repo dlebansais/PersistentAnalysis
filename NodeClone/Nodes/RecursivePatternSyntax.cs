@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -19,5 +20,4 @@ public class RecursivePatternSyntax : PatternSyntax
     public PropertyPatternClauseSyntax? PropertyPatternClause { get; }
     public VariableDesignationSyntax? Designation { get; }
     public SyntaxNode? Parent { get; }
-
 }

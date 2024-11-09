@@ -2,7 +2,13 @@
 
 using System;
 
-internal class ExitCommand
+/// <summary>
+/// Represents the Exit command.
+/// </summary>
+internal class ExitCommand(TimeSpan delay)
 {
-    public TimeSpan Delay { get; init; }
+    /// <summary>
+    /// Gets the delay before exiting.
+    /// </summary>
+    public TimeSpan Delay { get; } = delay;
 }

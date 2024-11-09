@@ -1,8 +1,11 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(ExpressionElementSyntax))]
+[JsonDerivedType(typeof(SpreadElementSyntax))]
 public abstract class CollectionElementSyntax : SyntaxNode
 {
     public static CollectionElementSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.CollectionElementSyntax node, SyntaxNode? parent)

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,10 +8,10 @@ public class CatchDeclarationSyntax : SyntaxNode
 {
     public CatchDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.CatchDeclarationSyntax node, SyntaxNode? parent)
     {
-        OpenParenToken = node.OpenParenToken;
+        OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         Type = TypeSyntax.From(node.Type, this);
-        Identifier = node.Identifier;
-        CloseParenToken = node.CloseParenToken;
+        Identifier = Cloner.ToToken(node.Identifier);
+        CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Parent = parent;
     }
 
@@ -19,5 +20,4 @@ public class CatchDeclarationSyntax : SyntaxNode
     public SyntaxToken Identifier { get; }
     public SyntaxToken CloseParenToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

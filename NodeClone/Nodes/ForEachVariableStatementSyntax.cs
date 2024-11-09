@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,13 +9,13 @@ public class ForEachVariableStatementSyntax : CommonForEachStatementSyntax
     public ForEachVariableStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ForEachVariableStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
-        AwaitKeyword = node.AwaitKeyword;
-        ForEachKeyword = node.ForEachKeyword;
-        OpenParenToken = node.OpenParenToken;
+        AwaitKeyword = Cloner.ToToken(node.AwaitKeyword);
+        ForEachKeyword = Cloner.ToToken(node.ForEachKeyword);
+        OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         Variable = ExpressionSyntax.From(node.Variable, this);
-        InKeyword = node.InKeyword;
+        InKeyword = Cloner.ToToken(node.InKeyword);
         Expression = ExpressionSyntax.From(node.Expression, this);
-        CloseParenToken = node.CloseParenToken;
+        CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Statement = StatementSyntax.From(node.Statement, this);
         Parent = parent;
     }
@@ -29,5 +30,4 @@ public class ForEachVariableStatementSyntax : CommonForEachStatementSyntax
     public SyntaxToken CloseParenToken { get; }
     public StatementSyntax Statement { get; }
     public SyntaxNode? Parent { get; }
-
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,12 +9,12 @@ public class DestructorDeclarationSyntax : BaseMethodDeclarationSyntax
     public DestructorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.DestructorDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
-        TildeToken = node.TildeToken;
-        Identifier = node.Identifier;
+        TildeToken = Cloner.ToToken(node.TildeToken);
+        Identifier = Cloner.ToToken(node.Identifier);
         ParameterList = new ParameterListSyntax(node.ParameterList, this);
         Body = node.Body is null ? null : new BlockSyntax(node.Body, this);
         ExpressionBody = node.ExpressionBody is null ? null : new ArrowExpressionClauseSyntax(node.ExpressionBody, this);
-        SemicolonToken = node.SemicolonToken;
+        SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;
     }
 
@@ -25,5 +26,4 @@ public class DestructorDeclarationSyntax : BaseMethodDeclarationSyntax
     public ArrowExpressionClauseSyntax? ExpressionBody { get; }
     public SyntaxToken SemicolonToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

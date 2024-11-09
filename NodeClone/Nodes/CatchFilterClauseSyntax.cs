@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,10 +8,10 @@ public class CatchFilterClauseSyntax : SyntaxNode
 {
     public CatchFilterClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.CatchFilterClauseSyntax node, SyntaxNode? parent)
     {
-        WhenKeyword = node.WhenKeyword;
-        OpenParenToken = node.OpenParenToken;
+        WhenKeyword = Cloner.ToToken(node.WhenKeyword);
+        OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         FilterExpression = ExpressionSyntax.From(node.FilterExpression, this);
-        CloseParenToken = node.CloseParenToken;
+        CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Parent = parent;
     }
 
@@ -19,5 +20,4 @@ public class CatchFilterClauseSyntax : SyntaxNode
     public ExpressionSyntax FilterExpression { get; }
     public SyntaxToken CloseParenToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

@@ -3,59 +3,56 @@
 /// <summary>
 /// Represents a command.
 /// </summary>
-internal class Command
+/// <param name="name">The command name.</param>
+internal class Command(string name)
 {
     /// <summary>
-    /// Initializes.
+    /// Initializes a new instance of the <see cref="Command"/> class.
     /// </summary>
-    private Command()
+    /// <param name="initCommand">The init command.</param>
+    public Command(InitCommand initCommand)
+        : this(nameof(InitCommand))
     {
+        InitCommand = initCommand;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Command"/> class.
+    /// </summary>
+    /// <param name="exitCommand">The exit command.</param>
+    public Command(ExitCommand exitCommand)
+        : this(nameof(ExitCommand))
+    {
+        ExitCommand = exitCommand;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Command"/> class.
+    /// </summary>
+    /// <param name="updateCommand">The update command.</param>
+    public Command(UpdateCommand updateCommand)
+        : this(nameof(UpdateCommand))
+    {
+        UpdateCommand = updateCommand;
     }
 
     /// <summary>
     /// Gets the command name.
     /// </summary>
-    public required string Name { get; init; }
+    public string Name { get; } = name;
 
     /// <summary>
-    /// Gets or sets the InitCommand.
+    /// Gets the InitCommand.
     /// </summary>
-    public InitCommand? InitCommand { get; set; }
+    public InitCommand? InitCommand { get; }
 
     /// <summary>
-    /// Gets or sets the ExitCommand.
+    /// Gets the ExitCommand.
     /// </summary>
-    public ExitCommand? ExitCommand { get; set; }
+    public ExitCommand? ExitCommand { get; }
 
     /// <summary>
-    /// Gets or sets the UpdateCommand.
+    /// Gets the UpdateCommand.
     /// </summary>
-    public UpdateCommand? UpdateCommand { get; set; }
-
-    /// <summary>
-    /// Creates a new instance of a <see cref="Command"/> from the provided <see cref="InitCommand"/>.
-    /// </summary>
-    /// <param name="initCommand">The init command.</param>
-    public static Command Create(InitCommand initCommand)
-    {
-        return new() { Name = nameof(InitCommand), InitCommand = initCommand };
-    }
-
-    /// <summary>
-    /// Creates a new instance of a <see cref="Command"/> from the provided <see cref="ExitCommand"/>.
-    /// </summary>
-    /// <param name="exitCommand">The exit command.</param>
-    public static Command Create(ExitCommand exitCommand)
-    {
-        return new() { Name = nameof(ExitCommand), ExitCommand = exitCommand };
-    }
-
-    /// <summary>
-    /// Creates a new instance of a <see cref="Command"/> from the provided <see cref="UpdateCommand"/>.
-    /// </summary>
-    /// <param name="updateCommand">The update command.</param>
-    public static Command Create(UpdateCommand updateCommand)
-    {
-        return new() { Name = nameof(UpdateCommand), UpdateCommand = updateCommand };
-    }
+    public UpdateCommand? UpdateCommand { get; }
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,7 +8,7 @@ public class ObjectCreationExpressionSyntax : BaseObjectCreationExpressionSyntax
 {
     public ObjectCreationExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ObjectCreationExpressionSyntax node, SyntaxNode? parent)
     {
-        NewKeyword = node.NewKeyword;
+        NewKeyword = Cloner.ToToken(node.NewKeyword);
         Type = TypeSyntax.From(node.Type, this);
         ArgumentList = node.ArgumentList is null ? null : new ArgumentListSyntax(node.ArgumentList, this);
         Initializer = node.Initializer is null ? null : new InitializerExpressionSyntax(node.Initializer, this);
@@ -19,5 +20,4 @@ public class ObjectCreationExpressionSyntax : BaseObjectCreationExpressionSyntax
     public ArgumentListSyntax? ArgumentList { get; }
     public InitializerExpressionSyntax? Initializer { get; }
     public SyntaxNode? Parent { get; }
-
 }

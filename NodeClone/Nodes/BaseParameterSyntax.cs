@@ -1,8 +1,11 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(ParameterSyntax))]
+[JsonDerivedType(typeof(FunctionPointerParameterSyntax))]
 public abstract class BaseParameterSyntax : SyntaxNode
 {
     public static BaseParameterSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BaseParameterSyntax node, SyntaxNode? parent)

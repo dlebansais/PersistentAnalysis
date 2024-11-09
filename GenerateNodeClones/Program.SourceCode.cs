@@ -35,6 +35,20 @@ internal partial class Program
         using StreamWriter writer = new(Stream, Encoding.UTF8);
 
         string BaseClassName = nodeCloneInfo.BaseClassName ?? nameof(Microsoft.CodeAnalysis.SyntaxNode);
+
+        string JsonString = string.Empty;
+
+        foreach (KeyValuePair<Type, NodeCloneInfo?> Entry in nodeTypes)
+        {
+            Type OtherType = Entry.Key;
+            if (!OtherType.IsAbstract && type.IsAssignableFrom(OtherType))
+            {
+                string OtherTypeName = OtherType.Name;
+                JsonString += @$"
+[JsonDerivedType(typeof({OtherTypeName}))]";
+            }
+        }
+
         string ConversionString = string.Empty;
 
         foreach (KeyValuePair<Type, NodeCloneInfo?> Entry in nodeTypes)
@@ -53,9 +67,10 @@ internal partial class Program
 
         writer.WriteLine(@$"namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-
+{JsonString}
 public abstract class {ClassName} : {BaseClassName}
 {{
     public static {ClassName} From(Microsoft.CodeAnalysis.CSharp.Syntax.{ClassName} node, SyntaxNode? parent)
@@ -97,16 +112,20 @@ public abstract class {ClassName} : {BaseClassName}
 
         foreach (KeyValuePair<string, NodePropertyInfo> Entry in nodeCloneInfo.PropertiesInfo)
         {
+            if (PropertiesSourceCode.Length > 0)
+                PropertiesSourceCode += @$"
+";
+
             string PropertyName = Entry.Key;
             NodePropertyInfo NodePropertyInfo = Entry.Value;
 
             string PropertySourceCode = GeneratePropertySourceCode(PropertyName, NodePropertyInfo);
-            PropertiesSourceCode += @$"    {PropertySourceCode}
-";
+            PropertiesSourceCode += $"    {PropertySourceCode}";
         }
 
         writer.WriteLine(@$"namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -127,7 +146,7 @@ public class {ClassName} : {BaseClassName}
 
         if (nodePropertyInfo.IsToken)
         {
-            ValueString = $"node.{propertyName}";
+            ValueString = $"Cloner.ToToken(node.{propertyName})";
         }
 
         if (nodePropertyInfo.Node is Type NodeType)

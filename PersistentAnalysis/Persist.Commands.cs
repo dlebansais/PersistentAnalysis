@@ -1,9 +1,13 @@
 ﻿namespace PersistentAnalysis;
 
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.Win32;
 using ProcessCommunication;
 
+/// <summary>
+/// Provides tools for analyzers that need persistence.
+/// </summary>
 public static partial class Persist
 {
     private static string? GetWindowsDeviceId()
@@ -27,7 +31,16 @@ public static partial class Persist
     {
         if (Channel is not null && Channel.IsOpen)
         {
-            string Text = JsonSerializer.Serialize(command);
+            Options = Options ?? new JsonSerializerOptions
+            {
+                Converters =
+                {
+                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
+                },
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+            };
+
+            string Text = JsonSerializer.Serialize(command, Options);
             byte[] Data = Converter.EncodeString(Text);
             if (Channel.GetFreeLength() >= Data.Length)
             {
@@ -43,4 +56,6 @@ public static partial class Persist
     {
         Logger.Log(message);
     }
+
+    private static JsonSerializerOptions? Options;
 }

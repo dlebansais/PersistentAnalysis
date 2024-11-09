@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,9 +8,9 @@ public class GroupClauseSyntax : SelectOrGroupClauseSyntax
 {
     public GroupClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.GroupClauseSyntax node, SyntaxNode? parent)
     {
-        GroupKeyword = node.GroupKeyword;
+        GroupKeyword = Cloner.ToToken(node.GroupKeyword);
         GroupExpression = ExpressionSyntax.From(node.GroupExpression, this);
-        ByKeyword = node.ByKeyword;
+        ByKeyword = Cloner.ToToken(node.ByKeyword);
         ByExpression = ExpressionSyntax.From(node.ByExpression, this);
         Parent = parent;
     }
@@ -19,5 +20,4 @@ public class GroupClauseSyntax : SelectOrGroupClauseSyntax
     public SyntaxToken ByKeyword { get; }
     public ExpressionSyntax ByExpression { get; }
     public SyntaxNode? Parent { get; }
-
 }

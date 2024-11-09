@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,7 +8,7 @@ public class WhereClauseSyntax : QueryClauseSyntax
 {
     public WhereClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.WhereClauseSyntax node, SyntaxNode? parent)
     {
-        WhereKeyword = node.WhereKeyword;
+        WhereKeyword = Cloner.ToToken(node.WhereKeyword);
         Condition = ExpressionSyntax.From(node.Condition, this);
         Parent = parent;
     }
@@ -15,5 +16,4 @@ public class WhereClauseSyntax : QueryClauseSyntax
     public SyntaxToken WhereKeyword { get; }
     public ExpressionSyntax Condition { get; }
     public SyntaxNode? Parent { get; }
-
 }

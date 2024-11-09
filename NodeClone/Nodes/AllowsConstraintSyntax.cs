@@ -1,8 +1,10 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(RefStructConstraintSyntax))]
 public abstract class AllowsConstraintSyntax : SyntaxNode
 {
     public static AllowsConstraintSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.AllowsConstraintSyntax node, SyntaxNode? parent)

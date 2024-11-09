@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -15,5 +16,4 @@ public class AttributeSyntax : SyntaxNode
     public NameSyntax Name { get; }
     public AttributeArgumentListSyntax? ArgumentList { get; }
     public SyntaxNode? Parent { get; }
-
 }

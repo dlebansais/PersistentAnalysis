@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,9 +8,9 @@ public class PropertyPatternClauseSyntax : SyntaxNode
 {
     public PropertyPatternClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.PropertyPatternClauseSyntax node, SyntaxNode? parent)
     {
-        OpenBraceToken = node.OpenBraceToken;
+        OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
         Subpatterns = Cloner.SeparatedListFrom<SubpatternSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.SubpatternSyntax>(node.Subpatterns, parent);
-        CloseBraceToken = node.CloseBraceToken;
+        CloseBraceToken = Cloner.ToToken(node.CloseBraceToken);
         Parent = parent;
     }
 
@@ -17,5 +18,4 @@ public class PropertyPatternClauseSyntax : SyntaxNode
     public SeparatedSyntaxList<SubpatternSyntax> Subpatterns { get; }
     public SyntaxToken CloseBraceToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

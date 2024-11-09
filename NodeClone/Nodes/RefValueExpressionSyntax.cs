@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,12 +8,12 @@ public class RefValueExpressionSyntax : ExpressionSyntax
 {
     public RefValueExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.RefValueExpressionSyntax node, SyntaxNode? parent)
     {
-        Keyword = node.Keyword;
-        OpenParenToken = node.OpenParenToken;
+        Keyword = Cloner.ToToken(node.Keyword);
+        OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         Expression = ExpressionSyntax.From(node.Expression, this);
-        Comma = node.Comma;
+        Comma = Cloner.ToToken(node.Comma);
         Type = TypeSyntax.From(node.Type, this);
-        CloseParenToken = node.CloseParenToken;
+        CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Parent = parent;
     }
 
@@ -23,5 +24,4 @@ public class RefValueExpressionSyntax : ExpressionSyntax
     public TypeSyntax Type { get; }
     public SyntaxToken CloseParenToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

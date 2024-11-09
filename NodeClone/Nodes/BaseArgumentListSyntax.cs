@@ -1,8 +1,11 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(BracketedArgumentListSyntax))]
+[JsonDerivedType(typeof(ArgumentListSyntax))]
 public abstract class BaseArgumentListSyntax : SyntaxNode
 {
     public static BaseArgumentListSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BaseArgumentListSyntax node, SyntaxNode? parent)

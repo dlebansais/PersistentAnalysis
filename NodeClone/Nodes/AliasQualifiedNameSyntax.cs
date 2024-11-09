@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,7 +9,7 @@ public class AliasQualifiedNameSyntax : NameSyntax
     public AliasQualifiedNameSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AliasQualifiedNameSyntax node, SyntaxNode? parent)
     {
         Alias = new IdentifierNameSyntax(node.Alias, this);
-        ColonColonToken = node.ColonColonToken;
+        ColonColonToken = Cloner.ToToken(node.ColonColonToken);
         Name = SimpleNameSyntax.From(node.Name, this);
         Parent = parent;
     }
@@ -17,5 +18,4 @@ public class AliasQualifiedNameSyntax : NameSyntax
     public SyntaxToken ColonColonToken { get; }
     public SimpleNameSyntax Name { get; }
     public SyntaxNode? Parent { get; }
-
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,9 +8,9 @@ public class ParenthesizedVariableDesignationSyntax : VariableDesignationSyntax
 {
     public ParenthesizedVariableDesignationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ParenthesizedVariableDesignationSyntax node, SyntaxNode? parent)
     {
-        OpenParenToken = node.OpenParenToken;
+        OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         Variables = Cloner.SeparatedListFrom<VariableDesignationSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.VariableDesignationSyntax>(node.Variables, parent);
-        CloseParenToken = node.CloseParenToken;
+        CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Parent = parent;
     }
 
@@ -17,5 +18,4 @@ public class ParenthesizedVariableDesignationSyntax : VariableDesignationSyntax
     public SeparatedSyntaxList<VariableDesignationSyntax> Variables { get; }
     public SyntaxToken CloseParenToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

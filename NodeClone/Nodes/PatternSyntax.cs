@@ -1,8 +1,21 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(DiscardPatternSyntax))]
+[JsonDerivedType(typeof(DeclarationPatternSyntax))]
+[JsonDerivedType(typeof(VarPatternSyntax))]
+[JsonDerivedType(typeof(RecursivePatternSyntax))]
+[JsonDerivedType(typeof(ConstantPatternSyntax))]
+[JsonDerivedType(typeof(ParenthesizedPatternSyntax))]
+[JsonDerivedType(typeof(RelationalPatternSyntax))]
+[JsonDerivedType(typeof(TypePatternSyntax))]
+[JsonDerivedType(typeof(BinaryPatternSyntax))]
+[JsonDerivedType(typeof(UnaryPatternSyntax))]
+[JsonDerivedType(typeof(ListPatternSyntax))]
+[JsonDerivedType(typeof(SlicePatternSyntax))]
 public abstract class PatternSyntax : ExpressionOrPatternSyntax
 {
     public static PatternSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.PatternSyntax node, SyntaxNode? parent)

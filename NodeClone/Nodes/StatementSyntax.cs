@@ -1,8 +1,34 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(BlockSyntax))]
+[JsonDerivedType(typeof(BreakStatementSyntax))]
+[JsonDerivedType(typeof(CheckedStatementSyntax))]
+[JsonDerivedType(typeof(ContinueStatementSyntax))]
+[JsonDerivedType(typeof(LocalDeclarationStatementSyntax))]
+[JsonDerivedType(typeof(DoStatementSyntax))]
+[JsonDerivedType(typeof(EmptyStatementSyntax))]
+[JsonDerivedType(typeof(ExpressionStatementSyntax))]
+[JsonDerivedType(typeof(FixedStatementSyntax))]
+[JsonDerivedType(typeof(ForEachStatementSyntax))]
+[JsonDerivedType(typeof(ForEachVariableStatementSyntax))]
+[JsonDerivedType(typeof(ForStatementSyntax))]
+[JsonDerivedType(typeof(GotoStatementSyntax))]
+[JsonDerivedType(typeof(IfStatementSyntax))]
+[JsonDerivedType(typeof(LabeledStatementSyntax))]
+[JsonDerivedType(typeof(LocalFunctionStatementSyntax))]
+[JsonDerivedType(typeof(LockStatementSyntax))]
+[JsonDerivedType(typeof(ReturnStatementSyntax))]
+[JsonDerivedType(typeof(SwitchStatementSyntax))]
+[JsonDerivedType(typeof(ThrowStatementSyntax))]
+[JsonDerivedType(typeof(TryStatementSyntax))]
+[JsonDerivedType(typeof(UnsafeStatementSyntax))]
+[JsonDerivedType(typeof(UsingStatementSyntax))]
+[JsonDerivedType(typeof(WhileStatementSyntax))]
+[JsonDerivedType(typeof(YieldStatementSyntax))]
 public abstract class StatementSyntax : SyntaxNode
 {
     public static StatementSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax node, SyntaxNode? parent)

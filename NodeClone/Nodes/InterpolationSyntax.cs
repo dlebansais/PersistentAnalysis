@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,11 +8,11 @@ public class InterpolationSyntax : InterpolatedStringContentSyntax
 {
     public InterpolationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.InterpolationSyntax node, SyntaxNode? parent)
     {
-        OpenBraceToken = node.OpenBraceToken;
+        OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
         Expression = ExpressionSyntax.From(node.Expression, this);
         AlignmentClause = node.AlignmentClause is null ? null : new InterpolationAlignmentClauseSyntax(node.AlignmentClause, this);
         FormatClause = node.FormatClause is null ? null : new InterpolationFormatClauseSyntax(node.FormatClause, this);
-        CloseBraceToken = node.CloseBraceToken;
+        CloseBraceToken = Cloner.ToToken(node.CloseBraceToken);
         Parent = parent;
     }
 
@@ -21,5 +22,4 @@ public class InterpolationSyntax : InterpolatedStringContentSyntax
     public InterpolationFormatClauseSyntax? FormatClause { get; }
     public SyntaxToken CloseBraceToken { get; }
     public SyntaxNode? Parent { get; }
-
 }

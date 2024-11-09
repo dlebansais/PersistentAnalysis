@@ -1,8 +1,11 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[JsonDerivedType(typeof(NamespaceDeclarationSyntax))]
+[JsonDerivedType(typeof(FileScopedNamespaceDeclarationSyntax))]
 public abstract class BaseNamespaceDeclarationSyntax : MemberDeclarationSyntax
 {
     public static BaseNamespaceDeclarationSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BaseNamespaceDeclarationSyntax node, SyntaxNode? parent)

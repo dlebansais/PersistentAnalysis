@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,7 +8,7 @@ public class VariableDeclaratorSyntax : SyntaxNode
 {
     public VariableDeclaratorSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.VariableDeclaratorSyntax node, SyntaxNode? parent)
     {
-        Identifier = node.Identifier;
+        Identifier = Cloner.ToToken(node.Identifier);
         ArgumentList = node.ArgumentList is null ? null : new BracketedArgumentListSyntax(node.ArgumentList, this);
         Initializer = node.Initializer is null ? null : new EqualsValueClauseSyntax(node.Initializer, this);
         Parent = parent;
@@ -17,5 +18,4 @@ public class VariableDeclaratorSyntax : SyntaxNode
     public BracketedArgumentListSyntax? ArgumentList { get; }
     public EqualsValueClauseSyntax? Initializer { get; }
     public SyntaxNode? Parent { get; }
-
 }

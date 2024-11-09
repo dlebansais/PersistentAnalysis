@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,7 +9,7 @@ public class BinaryPatternSyntax : PatternSyntax
     public BinaryPatternSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.BinaryPatternSyntax node, SyntaxNode? parent)
     {
         Left = PatternSyntax.From(node.Left, this);
-        OperatorToken = node.OperatorToken;
+        OperatorToken = Cloner.ToToken(node.OperatorToken);
         Right = PatternSyntax.From(node.Right, this);
         Parent = parent;
     }
@@ -17,5 +18,4 @@ public class BinaryPatternSyntax : PatternSyntax
     public SyntaxToken OperatorToken { get; }
     public PatternSyntax Right { get; }
     public SyntaxNode? Parent { get; }
-
 }
