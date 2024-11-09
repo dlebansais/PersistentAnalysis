@@ -1,5 +1,6 @@
 ﻿namespace PersistentAnalysis;
 
+using System.Text.Json.Serialization;
 using NodeClone;
 
 /// <summary>
@@ -9,7 +10,8 @@ using NodeClone;
 /// <param name="solutionPath">The solution path.</param>
 /// <param name="projectPath">The project path.</param>
 /// <param name="root">The root to update.</param>
-internal class UpdateCommand(string? deviceId, string? solutionPath, string? projectPath, AttributeSyntax? root)
+[method: JsonConstructor]
+internal class UpdateCommand(string? deviceId, string? solutionPath, string? projectPath, CompilationUnitSyntax? root)
 {
     /// <summary>
     /// Gets the device ID. <see langword="null"/> for the local machine.
@@ -29,5 +31,5 @@ internal class UpdateCommand(string? deviceId, string? solutionPath, string? pro
     /// <summary>
     /// Gets the root to update.
     /// </summary>
-    public AttributeSyntax? Root { get; } = root;
+    public CompilationUnitSyntax? Root { get; } = root;
 }

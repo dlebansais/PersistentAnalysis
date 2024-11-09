@@ -1,10 +1,12 @@
 ﻿namespace PersistentAnalysis;
 
 using System;
+using System.Text.Json.Serialization;
 
 /// <summary>
 /// Represents the Exit command.
 /// </summary>
+[method: JsonConstructor]
 internal class ExitCommand(TimeSpan delay)
 {
     /// <summary>

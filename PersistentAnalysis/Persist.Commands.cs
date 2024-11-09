@@ -31,15 +31,6 @@ public static partial class Persist
     {
         if (Channel is not null && Channel.IsOpen)
         {
-            Options = Options ?? new JsonSerializerOptions
-            {
-                Converters =
-                {
-                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
-                },
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
-            };
-
             string Text = JsonSerializer.Serialize(command, Options);
             byte[] Data = Converter.EncodeString(Text);
             if (Channel.GetFreeLength() >= Data.Length)
@@ -57,5 +48,13 @@ public static partial class Persist
         Logger.Log(message);
     }
 
-    private static JsonSerializerOptions? Options;
+    private static readonly JsonSerializerOptions Options = new()
+    {
+        Converters =
+        {
+            new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
+        },
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+        PropertyNameCaseInsensitive = true,
+    };
 }

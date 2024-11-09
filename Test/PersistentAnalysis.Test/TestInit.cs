@@ -26,4 +26,10 @@ public class TestInit
 
         await Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(true);
     }
+
+    [Test]
+    public void TestDeserialization()
+    {
+        Persist.Parse("{\"Name\":\"InitCommand\",\"InitCommand\":{\"ClientGuid\":\"f54476ed-c30b-4d3b-949f-a01a75b57f7d\",\"Version\":\"1.0.0.1\"}}");
+    }
 }

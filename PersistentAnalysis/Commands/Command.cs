@@ -1,9 +1,12 @@
 ﻿namespace PersistentAnalysis;
 
+using System.Text.Json.Serialization;
+
 /// <summary>
 /// Represents a command.
 /// </summary>
 /// <param name="name">The command name.</param>
+[method: JsonConstructor]
 internal class Command(string name)
 {
     /// <summary>

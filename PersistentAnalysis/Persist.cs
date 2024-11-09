@@ -96,7 +96,7 @@ public static partial class Persist
         if (deviceId is null)
             WindowsDeviceId = WindowsDeviceId ?? GetWindowsDeviceId();
 
-        return Send(new Command(new UpdateCommand(deviceId ?? WindowsDeviceId, solutionPath, projectPath, new AttributeSyntax(null!, null!))));
+        return Send(new Command(new UpdateCommand(deviceId ?? WindowsDeviceId, solutionPath, projectPath, root)));
     }
 
     /// <summary>
@@ -106,7 +106,7 @@ public static partial class Persist
     /// <param name="text">The string to parse.</param>
     public static void Parse(string text)
     {
-        if (JsonSerializer.Deserialize<Command>(text) is Command Command)
+        if (JsonSerializer.Deserialize<Command>(text, Options) is Command Command)
             Parse(Command);
     }
 
