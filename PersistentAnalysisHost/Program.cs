@@ -20,7 +20,7 @@ internal class Program
             ExitTimeout = TimeSpan.FromSeconds(MaxDuration);
 
             // Propagate the max duration to the debugger.
-            Logger.DisplayAppArguments = $"{MaxDuration + 300}";
+            Logger.DisplayAppArguments = $"{MaxDuration + 60}";
 
             Trace($"Starting, exit timeout is: {ExitTimeout}");
         }
@@ -60,6 +60,8 @@ internal class Program
                     Trace("Data received");
                     Persist.Parse(Text);
                 }
+
+                Stopwatch.Restart();
             }
         }
 

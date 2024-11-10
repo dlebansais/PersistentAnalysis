@@ -34,7 +34,7 @@ public class Foo
 
         _ = Persist.Exit(TimeSpan.Zero);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 2)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
     }
 
     [Test]
@@ -68,7 +68,7 @@ public class Foo
         bool IsUpdated = Persist.Update(Root);
         Assert.That(IsUpdated, Is.True);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 2)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
     }
 
     [Test]
@@ -102,7 +102,7 @@ public class Foo
 
         _ = Persist.Exit(TimeSpan.Zero);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 2)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
     }
 
     [Test]
@@ -126,6 +126,6 @@ public class Foo
 
         _ = Persist.Exit(TimeSpan.Zero);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 2)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
     }
 }

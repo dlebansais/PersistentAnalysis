@@ -41,7 +41,7 @@ public static partial class Persist
 
         // Propagate the max duration to the debugger.
         if (duration > TimeSpan.Zero)
-            Logger.DisplayAppArguments = $"{Seconds + 300}";
+            Logger.DisplayAppArguments = $"{Seconds + 60}";
 
         IChannel? NewChannel = Remote.LaunchAndOpenChannel(HostResourceName, ChannelGuid, Arguments);
         SetChannel(NewChannel);
@@ -70,7 +70,7 @@ public static partial class Persist
 
         // Propagate the max duration to the debugger.
         if (duration > TimeSpan.Zero)
-            Logger.DisplayAppArguments = $"{Seconds + 300}";
+            Logger.DisplayAppArguments = $"{Seconds + 60}";
 
         IChannel? NewChannel = await Remote.LaunchAndOpenChannelAsync(HostResourceName, ChannelGuid, Arguments).ConfigureAwait(false);
         SetChannel(NewChannel);

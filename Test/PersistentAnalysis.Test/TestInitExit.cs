@@ -38,7 +38,7 @@ public class TestInitExit
         IsExitSent = Persist.Exit(TimeSpan.FromSeconds(1));
         Assert.That(IsExitSent, Is.True);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 2)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
     }
 
     [Test]
@@ -77,7 +77,7 @@ public class TestInitExit
         IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(ExitDelay)).ConfigureAwait(true);
         Assert.That(IsOpen, Is.False);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
     }
 
     [Test]
@@ -96,6 +96,6 @@ public class TestInitExit
         IsOpen = await Persist.InitAsync(TimeSpan.Zero).ConfigureAwait(true);
         Assert.That(IsOpen, Is.False);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(true);
     }
 }
