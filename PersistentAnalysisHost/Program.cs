@@ -15,13 +15,17 @@ internal class Program
 {
     public static void Main(string[] args)
     {
-        Trace("Starting");
-
         if (args.Length > 0 && int.TryParse(args[0], out int MaxDuration) && MaxDuration > 0)
         {
             ExitTimeout = TimeSpan.FromSeconds(MaxDuration);
-            Trace($"ExitTimeout is: {ExitTimeout}");
+
+            // Propagate the max duration to the debugger.
+            Logger.DisplayAppArguments = $"{MaxDuration + 300}";
+
+            Trace($"Starting, exit timeout is: {ExitTimeout}");
         }
+        else
+            Trace("Starting, no timeout");
 
         using Stream? Stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{typeof(Program).Assembly.GetName().Name}.ChannelGuid.txt");
         Stream ResourceStream = Contract.AssertNotNull(Stream);

@@ -36,7 +36,12 @@ public static partial class Persist
     public static bool Init(TimeSpan duration)
     {
         Guid ChannelGuid = new(GetResourceString(ChannelGuidResourceName));
-        string Arguments = ((int)duration.TotalSeconds).ToString(CultureInfo.InvariantCulture);
+        int Seconds = (int)duration.TotalSeconds;
+        string Arguments = Seconds.ToString(CultureInfo.InvariantCulture);
+
+        // Propagate the max duration to the debugger.
+        if (duration > TimeSpan.Zero)
+            Logger.DisplayAppArguments = $"{Seconds + 300}";
 
         IChannel? NewChannel = Remote.LaunchAndOpenChannel(HostResourceName, ChannelGuid, Arguments);
         SetChannel(NewChannel);
@@ -60,7 +65,12 @@ public static partial class Persist
     public static async Task<bool> InitAsync(TimeSpan duration)
     {
         Guid ChannelGuid = new(GetResourceString(ChannelGuidResourceName));
-        string Arguments = ((int)duration.TotalSeconds).ToString(CultureInfo.InvariantCulture);
+        int Seconds = (int)duration.TotalSeconds;
+        string Arguments = Seconds.ToString(CultureInfo.InvariantCulture);
+
+        // Propagate the max duration to the debugger.
+        if (duration > TimeSpan.Zero)
+            Logger.DisplayAppArguments = $"{Seconds + 300}";
 
         IChannel? NewChannel = await Remote.LaunchAndOpenChannelAsync(HostResourceName, ChannelGuid, Arguments).ConfigureAwait(false);
         SetChannel(NewChannel);
