@@ -6,12 +6,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class InterpolatedStringTextSyntax : InterpolatedStringContentSyntax
 {
+    public InterpolatedStringTextSyntax()
+    {
+        TextToken = null!;
+        Parent = null;
+    }
+
     public InterpolatedStringTextSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.InterpolatedStringTextSyntax node, SyntaxNode? parent)
     {
         TextToken = Cloner.ToToken(node.TextToken);
         Parent = parent;
     }
 
-    public SyntaxToken TextToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken TextToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

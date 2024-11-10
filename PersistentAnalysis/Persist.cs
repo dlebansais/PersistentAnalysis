@@ -1,11 +1,15 @@
 ﻿namespace PersistentAnalysis;
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 using Contracts;
 using DebugLogging;
+using Microsoft.Extensions.Logging;
 using NodeClone;
 using ProcessCommunication;
 
@@ -14,6 +18,9 @@ using ProcessCommunication;
 /// </summary>
 public static partial class Persist
 {
+    private const string ChannelGuidResourceName = "ChannelGuid.txt";
+    private const string HostResourceName = "PersistentAnalysisHost.exe";
+
     /// <summary>
     /// Gets the default client GUID.
     /// </summary>
@@ -24,16 +31,14 @@ public static partial class Persist
     /// This method is intended for the client side.
     /// A program might need several attempts at initialization before it's successful.
     /// </summary>
+    /// <param name="duration">The persistence duration. Use <see cref="TimeSpan.Zero"/> for no limit.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool Init()
+    public static bool Init(TimeSpan duration)
     {
-        using Stream? Stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{typeof(Persist).Assembly.GetName().Name}.Resources.ChannelGuid.txt");
-        Stream ResourceStream = Contract.AssertNotNull(Stream);
-        using StreamReader Reader = new(ResourceStream);
-        string GuidString = Reader.ReadToEnd();
-        Guid ChannelGuid = new(GuidString);
+        Guid ChannelGuid = new(GetResourceString(ChannelGuidResourceName));
+        string Arguments = ((int)duration.TotalSeconds).ToString(CultureInfo.InvariantCulture);
 
-        IChannel? NewChannel = Remote.LaunchAndOpenChannel("PersistentAnalysisHost.exe", ChannelGuid);
+        IChannel? NewChannel = Remote.LaunchAndOpenChannel(HostResourceName, ChannelGuid, Arguments);
         SetChannel(NewChannel);
 
         bool IsOpen = Channel is not null && Channel.IsOpen;
@@ -41,12 +46,48 @@ public static partial class Persist
         Trace($"Open: {IsOpen}");
 
         if (IsOpen)
-        {
-            string? Version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
-            _ = Send(new Command(new InitCommand(ClientGuid.ToString(), Version)));
-        }
+            SendInit();
 
         return IsOpen;
+    }
+
+    /// <summary>
+    /// Initializes persistence.
+    /// This method is intended for the client side.
+    /// </summary>
+    /// <param name="duration">The persistence duration. Use <see cref="TimeSpan.Zero"/> for no limit.</param>
+    /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+    public static async Task<bool> InitAsync(TimeSpan duration)
+    {
+        Guid ChannelGuid = new(GetResourceString(ChannelGuidResourceName));
+        string Arguments = ((int)duration.TotalSeconds).ToString(CultureInfo.InvariantCulture);
+
+        IChannel? NewChannel = await Remote.LaunchAndOpenChannelAsync(HostResourceName, ChannelGuid, Arguments).ConfigureAwait(false);
+        SetChannel(NewChannel);
+
+        bool IsOpen = Channel is not null;
+
+        Trace($"Open: {IsOpen}");
+
+        if (IsOpen)
+            SendInit();
+
+        return IsOpen;
+    }
+
+    private static string GetResourceString(string resourceName)
+    {
+        using Stream? Stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{typeof(Persist).Assembly.GetName().Name}.Resources.{resourceName}");
+        Stream ResourceStream = Contract.AssertNotNull(Stream);
+        using StreamReader Reader = new(ResourceStream);
+
+        return Reader.ReadToEnd();
+    }
+
+    private static void SendInit()
+    {
+        string Version = $"{Assembly.GetExecutingAssembly().GetName().Version}";
+        _ = Send(new Command(new InitCommand(ClientGuid.ToString(), Version)));
     }
 
     /// <summary>
@@ -106,8 +147,17 @@ public static partial class Persist
     /// <param name="text">The string to parse.</param>
     public static void Parse(string text)
     {
-        if (JsonSerializer.Deserialize<Command>(text, Options) is Command Command)
-            Parse(Command);
+        try
+        {
+            if (JsonSerializer.Deserialize<Command>(text, DeserializingOptions) is Command Command)
+                Parse(Command);
+        }
+        catch (JsonException e)
+        {
+#pragma warning disable CA1848
+            Logger.LogError(e, "Exception while deserializing a command.");
+#pragma warning restore CA1848
+        }
     }
 
     private static void SetChannel(IChannel? channel)

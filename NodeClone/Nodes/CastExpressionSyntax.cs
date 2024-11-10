@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class CastExpressionSyntax : ExpressionSyntax
 {
+    public CastExpressionSyntax()
+    {
+        OpenParenToken = null!;
+        Type = null!;
+        CloseParenToken = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public CastExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.CastExpressionSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
@@ -15,9 +24,9 @@ public class CastExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OpenParenToken { get; }
-    public TypeSyntax Type { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public TypeSyntax Type { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

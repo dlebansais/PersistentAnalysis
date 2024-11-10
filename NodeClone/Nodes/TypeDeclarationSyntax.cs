@@ -4,10 +4,11 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(ClassDeclarationSyntax))]
-[JsonDerivedType(typeof(InterfaceDeclarationSyntax))]
-[JsonDerivedType(typeof(RecordDeclarationSyntax))]
-[JsonDerivedType(typeof(StructDeclarationSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(ClassDeclarationSyntax), typeDiscriminator: "ClassDeclarationSyntax")]
+[JsonDerivedType(typeof(InterfaceDeclarationSyntax), typeDiscriminator: "InterfaceDeclarationSyntax")]
+[JsonDerivedType(typeof(RecordDeclarationSyntax), typeDiscriminator: "RecordDeclarationSyntax")]
+[JsonDerivedType(typeof(StructDeclarationSyntax), typeDiscriminator: "StructDeclarationSyntax")]
 public abstract class TypeDeclarationSyntax : BaseTypeDeclarationSyntax
 {
     public static TypeDeclarationSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.TypeDeclarationSyntax node, SyntaxNode? parent)

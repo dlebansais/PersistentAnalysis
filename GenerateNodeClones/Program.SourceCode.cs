@@ -45,8 +45,14 @@ internal partial class Program
             {
                 string OtherTypeName = OtherType.Name;
                 JsonString += @$"
-[JsonDerivedType(typeof({OtherTypeName}))]";
+[JsonDerivedType(typeof({OtherTypeName}), typeDiscriminator: ""{OtherTypeName}"")]";
             }
+        }
+
+        if (JsonString != string.Empty)
+        {
+            JsonString = @$"
+[JsonPolymorphic(TypeDiscriminatorPropertyName = ""$discriminator"")]" + JsonString;
         }
 
         string ConversionString = string.Empty;
@@ -93,6 +99,21 @@ public abstract class {ClassName} : {BaseClassName}
 
         string BaseClassName = nodeCloneInfo.BaseClassName ?? nameof(Microsoft.CodeAnalysis.SyntaxNode);
 
+        string EmptyConstructorInitCode = string.Empty;
+
+        foreach (KeyValuePair<string, NodePropertyInfo> Entry in nodeCloneInfo.PropertiesInfo)
+        {
+            if (EmptyConstructorInitCode.Length > 0)
+                EmptyConstructorInitCode += @$"
+";
+
+            string PropertyName = Entry.Key;
+            NodePropertyInfo NodePropertyInfo = Entry.Value;
+
+            string InitCode = GenerateEmptyInitCode(PropertyName, NodePropertyInfo);
+            EmptyConstructorInitCode += $"        {InitCode}";
+        }
+
         string ConstructorInitCode = string.Empty;
 
         foreach (KeyValuePair<string, NodePropertyInfo> Entry in nodeCloneInfo.PropertiesInfo)
@@ -131,6 +152,11 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class {ClassName} : {BaseClassName}
 {{
+    public {ClassName}()
+    {{
+{EmptyConstructorInitCode}
+    }}
+
     public {ClassName}(Microsoft.CodeAnalysis.CSharp.Syntax.{ClassName} node, SyntaxNode? parent)
     {{
 {ConstructorInitCode}
@@ -138,6 +164,18 @@ public class {ClassName} : {BaseClassName}
 
 {PropertiesSourceCode}
 }}");
+    }
+
+    private static string GenerateEmptyInitCode(string propertyName, NodePropertyInfo nodePropertyInfo)
+    {
+        string? ValueString;
+
+        if (nodePropertyInfo.Node is Type NodeType && propertyName == "Parent")
+            ValueString = "null";
+        else
+            ValueString = "null!";
+
+        return $"{propertyName} = {ValueString};";
     }
 
     private static string GenerateInitCode(string propertyName, NodePropertyInfo nodePropertyInfo)
@@ -210,6 +248,6 @@ public class {ClassName} : {BaseClassName}
 
         string? Nullability = nodePropertyInfo.IsNullable ? "?" : string.Empty;
 
-        return $"public {PropertyTypeString}{Nullability} {propertyName} {{ get; }}";
+        return $"public {PropertyTypeString}{Nullability} {propertyName} {{ get; init; }}";
     }
 }

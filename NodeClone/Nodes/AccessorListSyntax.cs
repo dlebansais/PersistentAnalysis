@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AccessorListSyntax : SyntaxNode
 {
+    public AccessorListSyntax()
+    {
+        OpenBraceToken = null!;
+        Accessors = null!;
+        CloseBraceToken = null!;
+        Parent = null;
+    }
+
     public AccessorListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AccessorListSyntax node, SyntaxNode? parent)
     {
         OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
@@ -14,8 +22,8 @@ public class AccessorListSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken OpenBraceToken { get; }
-    public SyntaxList<AccessorDeclarationSyntax> Accessors { get; }
-    public SyntaxToken CloseBraceToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenBraceToken { get; init; }
+    public SyntaxList<AccessorDeclarationSyntax> Accessors { get; init; }
+    public SyntaxToken CloseBraceToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AttributeTargetSpecifierSyntax : SyntaxNode
 {
+    public AttributeTargetSpecifierSyntax()
+    {
+        Identifier = null!;
+        ColonToken = null!;
+        Parent = null;
+    }
+
     public AttributeTargetSpecifierSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AttributeTargetSpecifierSyntax node, SyntaxNode? parent)
     {
         Identifier = Cloner.ToToken(node.Identifier);
@@ -13,7 +20,7 @@ public class AttributeTargetSpecifierSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken Identifier { get; }
-    public SyntaxToken ColonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken Identifier { get; init; }
+    public SyntaxToken ColonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

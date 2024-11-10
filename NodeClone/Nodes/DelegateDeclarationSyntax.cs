@@ -6,6 +6,19 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class DelegateDeclarationSyntax : MemberDeclarationSyntax
 {
+    public DelegateDeclarationSyntax()
+    {
+        AttributeLists = null!;
+        DelegateKeyword = null!;
+        ReturnType = null!;
+        Identifier = null!;
+        TypeParameterList = null!;
+        ParameterList = null!;
+        ConstraintClauses = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public DelegateDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.DelegateDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -19,13 +32,13 @@ public class DelegateDeclarationSyntax : MemberDeclarationSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken DelegateKeyword { get; }
-    public TypeSyntax ReturnType { get; }
-    public SyntaxToken Identifier { get; }
-    public TypeParameterListSyntax? TypeParameterList { get; }
-    public ParameterListSyntax ParameterList { get; }
-    public SyntaxList<TypeParameterConstraintClauseSyntax> ConstraintClauses { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken DelegateKeyword { get; init; }
+    public TypeSyntax ReturnType { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public TypeParameterListSyntax? TypeParameterList { get; init; }
+    public ParameterListSyntax ParameterList { get; init; }
+    public SyntaxList<TypeParameterConstraintClauseSyntax> ConstraintClauses { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class RangeExpressionSyntax : ExpressionSyntax
 {
+    public RangeExpressionSyntax()
+    {
+        LeftOperand = null!;
+        OperatorToken = null!;
+        RightOperand = null!;
+        Parent = null;
+    }
+
     public RangeExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.RangeExpressionSyntax node, SyntaxNode? parent)
     {
         LeftOperand = node.LeftOperand is null ? null : ExpressionSyntax.From(node.LeftOperand, this);
@@ -14,8 +22,8 @@ public class RangeExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public ExpressionSyntax? LeftOperand { get; }
-    public SyntaxToken OperatorToken { get; }
-    public ExpressionSyntax? RightOperand { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax? LeftOperand { get; init; }
+    public SyntaxToken OperatorToken { get; init; }
+    public ExpressionSyntax? RightOperand { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

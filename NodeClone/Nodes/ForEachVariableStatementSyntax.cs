@@ -6,6 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ForEachVariableStatementSyntax : CommonForEachStatementSyntax
 {
+    public ForEachVariableStatementSyntax()
+    {
+        AttributeLists = null!;
+        AwaitKeyword = null!;
+        ForEachKeyword = null!;
+        OpenParenToken = null!;
+        Variable = null!;
+        InKeyword = null!;
+        Expression = null!;
+        CloseParenToken = null!;
+        Statement = null!;
+        Parent = null;
+    }
+
     public ForEachVariableStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ForEachVariableStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -20,14 +34,14 @@ public class ForEachVariableStatementSyntax : CommonForEachStatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken AwaitKeyword { get; }
-    public SyntaxToken ForEachKeyword { get; }
-    public SyntaxToken OpenParenToken { get; }
-    public ExpressionSyntax Variable { get; }
-    public SyntaxToken InKeyword { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public StatementSyntax Statement { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken AwaitKeyword { get; init; }
+    public SyntaxToken ForEachKeyword { get; init; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public ExpressionSyntax Variable { get; init; }
+    public SyntaxToken InKeyword { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public StatementSyntax Statement { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

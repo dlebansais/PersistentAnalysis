@@ -6,12 +6,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class LiteralExpressionSyntax : ExpressionSyntax
 {
+    public LiteralExpressionSyntax()
+    {
+        Token = null!;
+        Parent = null;
+    }
+
     public LiteralExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.LiteralExpressionSyntax node, SyntaxNode? parent)
     {
         Token = Cloner.ToToken(node.Token);
         Parent = parent;
     }
 
-    public SyntaxToken Token { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken Token { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

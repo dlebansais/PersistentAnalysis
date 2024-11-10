@@ -4,11 +4,12 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(ConstructorDeclarationSyntax))]
-[JsonDerivedType(typeof(ConversionOperatorDeclarationSyntax))]
-[JsonDerivedType(typeof(DestructorDeclarationSyntax))]
-[JsonDerivedType(typeof(MethodDeclarationSyntax))]
-[JsonDerivedType(typeof(OperatorDeclarationSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(ConstructorDeclarationSyntax), typeDiscriminator: "ConstructorDeclarationSyntax")]
+[JsonDerivedType(typeof(ConversionOperatorDeclarationSyntax), typeDiscriminator: "ConversionOperatorDeclarationSyntax")]
+[JsonDerivedType(typeof(DestructorDeclarationSyntax), typeDiscriminator: "DestructorDeclarationSyntax")]
+[JsonDerivedType(typeof(MethodDeclarationSyntax), typeDiscriminator: "MethodDeclarationSyntax")]
+[JsonDerivedType(typeof(OperatorDeclarationSyntax), typeDiscriminator: "OperatorDeclarationSyntax")]
 public abstract class BaseMethodDeclarationSyntax : MemberDeclarationSyntax
 {
     public static BaseMethodDeclarationSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BaseMethodDeclarationSyntax node, SyntaxNode? parent)

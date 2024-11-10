@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AliasQualifiedNameSyntax : NameSyntax
 {
+    public AliasQualifiedNameSyntax()
+    {
+        Alias = null!;
+        ColonColonToken = null!;
+        Name = null!;
+        Parent = null;
+    }
+
     public AliasQualifiedNameSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AliasQualifiedNameSyntax node, SyntaxNode? parent)
     {
         Alias = new IdentifierNameSyntax(node.Alias, this);
@@ -14,8 +22,8 @@ public class AliasQualifiedNameSyntax : NameSyntax
         Parent = parent;
     }
 
-    public IdentifierNameSyntax Alias { get; }
-    public SyntaxToken ColonColonToken { get; }
-    public SimpleNameSyntax Name { get; }
-    public SyntaxNode? Parent { get; }
+    public IdentifierNameSyntax Alias { get; init; }
+    public SyntaxToken ColonColonToken { get; init; }
+    public SimpleNameSyntax Name { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

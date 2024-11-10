@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class RecursivePatternSyntax : PatternSyntax
 {
+    public RecursivePatternSyntax()
+    {
+        Type = null!;
+        PositionalPatternClause = null!;
+        PropertyPatternClause = null!;
+        Designation = null!;
+        Parent = null;
+    }
+
     public RecursivePatternSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.RecursivePatternSyntax node, SyntaxNode? parent)
     {
         Type = node.Type is null ? null : TypeSyntax.From(node.Type, this);
@@ -15,9 +24,9 @@ public class RecursivePatternSyntax : PatternSyntax
         Parent = parent;
     }
 
-    public TypeSyntax? Type { get; }
-    public PositionalPatternClauseSyntax? PositionalPatternClause { get; }
-    public PropertyPatternClauseSyntax? PropertyPatternClause { get; }
-    public VariableDesignationSyntax? Designation { get; }
-    public SyntaxNode? Parent { get; }
+    public TypeSyntax? Type { get; init; }
+    public PositionalPatternClauseSyntax? PositionalPatternClause { get; init; }
+    public PropertyPatternClauseSyntax? PropertyPatternClause { get; init; }
+    public VariableDesignationSyntax? Designation { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -4,11 +4,12 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(FromClauseSyntax))]
-[JsonDerivedType(typeof(LetClauseSyntax))]
-[JsonDerivedType(typeof(JoinClauseSyntax))]
-[JsonDerivedType(typeof(WhereClauseSyntax))]
-[JsonDerivedType(typeof(OrderByClauseSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(FromClauseSyntax), typeDiscriminator: "FromClauseSyntax")]
+[JsonDerivedType(typeof(LetClauseSyntax), typeDiscriminator: "LetClauseSyntax")]
+[JsonDerivedType(typeof(JoinClauseSyntax), typeDiscriminator: "JoinClauseSyntax")]
+[JsonDerivedType(typeof(WhereClauseSyntax), typeDiscriminator: "WhereClauseSyntax")]
+[JsonDerivedType(typeof(OrderByClauseSyntax), typeDiscriminator: "OrderByClauseSyntax")]
 public abstract class QueryClauseSyntax : SyntaxNode
 {
     public static QueryClauseSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.QueryClauseSyntax node, SyntaxNode? parent)

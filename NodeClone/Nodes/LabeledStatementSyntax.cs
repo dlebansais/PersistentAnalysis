@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class LabeledStatementSyntax : StatementSyntax
 {
+    public LabeledStatementSyntax()
+    {
+        AttributeLists = null!;
+        Identifier = null!;
+        ColonToken = null!;
+        Statement = null!;
+        Parent = null;
+    }
+
     public LabeledStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.LabeledStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -15,9 +24,9 @@ public class LabeledStatementSyntax : StatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken Identifier { get; }
-    public SyntaxToken ColonToken { get; }
-    public StatementSyntax Statement { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public SyntaxToken ColonToken { get; init; }
+    public StatementSyntax Statement { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class FinallyClauseSyntax : SyntaxNode
 {
+    public FinallyClauseSyntax()
+    {
+        FinallyKeyword = null!;
+        Block = null!;
+        Parent = null;
+    }
+
     public FinallyClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FinallyClauseSyntax node, SyntaxNode? parent)
     {
         FinallyKeyword = Cloner.ToToken(node.FinallyKeyword);
@@ -13,7 +20,7 @@ public class FinallyClauseSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken FinallyKeyword { get; }
-    public BlockSyntax Block { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken FinallyKeyword { get; init; }
+    public BlockSyntax Block { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -4,18 +4,19 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(DiscardPatternSyntax))]
-[JsonDerivedType(typeof(DeclarationPatternSyntax))]
-[JsonDerivedType(typeof(VarPatternSyntax))]
-[JsonDerivedType(typeof(RecursivePatternSyntax))]
-[JsonDerivedType(typeof(ConstantPatternSyntax))]
-[JsonDerivedType(typeof(ParenthesizedPatternSyntax))]
-[JsonDerivedType(typeof(RelationalPatternSyntax))]
-[JsonDerivedType(typeof(TypePatternSyntax))]
-[JsonDerivedType(typeof(BinaryPatternSyntax))]
-[JsonDerivedType(typeof(UnaryPatternSyntax))]
-[JsonDerivedType(typeof(ListPatternSyntax))]
-[JsonDerivedType(typeof(SlicePatternSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(DiscardPatternSyntax), typeDiscriminator: "DiscardPatternSyntax")]
+[JsonDerivedType(typeof(DeclarationPatternSyntax), typeDiscriminator: "DeclarationPatternSyntax")]
+[JsonDerivedType(typeof(VarPatternSyntax), typeDiscriminator: "VarPatternSyntax")]
+[JsonDerivedType(typeof(RecursivePatternSyntax), typeDiscriminator: "RecursivePatternSyntax")]
+[JsonDerivedType(typeof(ConstantPatternSyntax), typeDiscriminator: "ConstantPatternSyntax")]
+[JsonDerivedType(typeof(ParenthesizedPatternSyntax), typeDiscriminator: "ParenthesizedPatternSyntax")]
+[JsonDerivedType(typeof(RelationalPatternSyntax), typeDiscriminator: "RelationalPatternSyntax")]
+[JsonDerivedType(typeof(TypePatternSyntax), typeDiscriminator: "TypePatternSyntax")]
+[JsonDerivedType(typeof(BinaryPatternSyntax), typeDiscriminator: "BinaryPatternSyntax")]
+[JsonDerivedType(typeof(UnaryPatternSyntax), typeDiscriminator: "UnaryPatternSyntax")]
+[JsonDerivedType(typeof(ListPatternSyntax), typeDiscriminator: "ListPatternSyntax")]
+[JsonDerivedType(typeof(SlicePatternSyntax), typeDiscriminator: "SlicePatternSyntax")]
 public abstract class PatternSyntax : ExpressionOrPatternSyntax
 {
     public static PatternSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.PatternSyntax node, SyntaxNode? parent)

@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class QueryContinuationSyntax : SyntaxNode
 {
+    public QueryContinuationSyntax()
+    {
+        IntoKeyword = null!;
+        Identifier = null!;
+        Body = null!;
+        Parent = null;
+    }
+
     public QueryContinuationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.QueryContinuationSyntax node, SyntaxNode? parent)
     {
         IntoKeyword = Cloner.ToToken(node.IntoKeyword);
@@ -14,8 +22,8 @@ public class QueryContinuationSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken IntoKeyword { get; }
-    public SyntaxToken Identifier { get; }
-    public QueryBodySyntax Body { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken IntoKeyword { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public QueryBodySyntax Body { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

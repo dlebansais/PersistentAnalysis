@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ConstructorInitializerSyntax : SyntaxNode
 {
+    public ConstructorInitializerSyntax()
+    {
+        ColonToken = null!;
+        ThisOrBaseKeyword = null!;
+        ArgumentList = null!;
+        Parent = null;
+    }
+
     public ConstructorInitializerSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorInitializerSyntax node, SyntaxNode? parent)
     {
         ColonToken = Cloner.ToToken(node.ColonToken);
@@ -14,8 +22,8 @@ public class ConstructorInitializerSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken ColonToken { get; }
-    public SyntaxToken ThisOrBaseKeyword { get; }
-    public ArgumentListSyntax ArgumentList { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken ColonToken { get; init; }
+    public SyntaxToken ThisOrBaseKeyword { get; init; }
+    public ArgumentListSyntax ArgumentList { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

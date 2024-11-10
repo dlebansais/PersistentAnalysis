@@ -6,6 +6,17 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class SimpleLambdaExpressionSyntax : LambdaExpressionSyntax
 {
+    public SimpleLambdaExpressionSyntax()
+    {
+        AsyncKeyword = null!;
+        AttributeLists = null!;
+        Parameter = null!;
+        ArrowToken = null!;
+        Block = null!;
+        ExpressionBody = null!;
+        Parent = null;
+    }
+
     public SimpleLambdaExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.SimpleLambdaExpressionSyntax node, SyntaxNode? parent)
     {
         AsyncKeyword = Cloner.ToToken(node.AsyncKeyword);
@@ -17,11 +28,11 @@ public class SimpleLambdaExpressionSyntax : LambdaExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken AsyncKeyword { get; }
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public ParameterSyntax Parameter { get; }
-    public SyntaxToken ArrowToken { get; }
-    public BlockSyntax? Block { get; }
-    public ExpressionSyntax? ExpressionBody { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken AsyncKeyword { get; init; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public ParameterSyntax Parameter { get; init; }
+    public SyntaxToken ArrowToken { get; init; }
+    public BlockSyntax? Block { get; init; }
+    public ExpressionSyntax? ExpressionBody { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

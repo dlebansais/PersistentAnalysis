@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class PrimaryConstructorBaseTypeSyntax : BaseTypeSyntax
 {
+    public PrimaryConstructorBaseTypeSyntax()
+    {
+        Type = null!;
+        ArgumentList = null!;
+        Parent = null;
+    }
+
     public PrimaryConstructorBaseTypeSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.PrimaryConstructorBaseTypeSyntax node, SyntaxNode? parent)
     {
         Type = TypeSyntax.From(node.Type, this);
@@ -13,7 +20,7 @@ public class PrimaryConstructorBaseTypeSyntax : BaseTypeSyntax
         Parent = parent;
     }
 
-    public TypeSyntax Type { get; }
-    public ArgumentListSyntax ArgumentList { get; }
-    public SyntaxNode? Parent { get; }
+    public TypeSyntax Type { get; init; }
+    public ArgumentListSyntax ArgumentList { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

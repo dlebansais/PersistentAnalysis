@@ -6,6 +6,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class EventDeclarationSyntax : BasePropertyDeclarationSyntax
 {
+    public EventDeclarationSyntax()
+    {
+        AttributeLists = null!;
+        EventKeyword = null!;
+        Type = null!;
+        ExplicitInterfaceSpecifier = null!;
+        Identifier = null!;
+        AccessorList = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public EventDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.EventDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -18,12 +30,12 @@ public class EventDeclarationSyntax : BasePropertyDeclarationSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken EventKeyword { get; }
-    public TypeSyntax Type { get; }
-    public ExplicitInterfaceSpecifierSyntax? ExplicitInterfaceSpecifier { get; }
-    public SyntaxToken Identifier { get; }
-    public AccessorListSyntax? AccessorList { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken EventKeyword { get; init; }
+    public TypeSyntax Type { get; init; }
+    public ExplicitInterfaceSpecifierSyntax? ExplicitInterfaceSpecifier { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public AccessorListSyntax? AccessorList { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

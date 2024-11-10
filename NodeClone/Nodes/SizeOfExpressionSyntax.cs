@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class SizeOfExpressionSyntax : ExpressionSyntax
 {
+    public SizeOfExpressionSyntax()
+    {
+        Keyword = null!;
+        OpenParenToken = null!;
+        Type = null!;
+        CloseParenToken = null!;
+        Parent = null;
+    }
+
     public SizeOfExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.SizeOfExpressionSyntax node, SyntaxNode? parent)
     {
         Keyword = Cloner.ToToken(node.Keyword);
@@ -15,9 +24,9 @@ public class SizeOfExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken Keyword { get; }
-    public SyntaxToken OpenParenToken { get; }
-    public TypeSyntax Type { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken Keyword { get; init; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public TypeSyntax Type { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class GlobalStatementSyntax : MemberDeclarationSyntax
 {
+    public GlobalStatementSyntax()
+    {
+        AttributeLists = null!;
+        Statement = null!;
+        Parent = null;
+    }
+
     public GlobalStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.GlobalStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -13,7 +20,7 @@ public class GlobalStatementSyntax : MemberDeclarationSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public StatementSyntax Statement { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public StatementSyntax Statement { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

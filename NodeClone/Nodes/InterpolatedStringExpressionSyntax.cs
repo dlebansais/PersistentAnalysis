@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class InterpolatedStringExpressionSyntax : ExpressionSyntax
 {
+    public InterpolatedStringExpressionSyntax()
+    {
+        StringStartToken = null!;
+        Contents = null!;
+        StringEndToken = null!;
+        Parent = null;
+    }
+
     public InterpolatedStringExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.InterpolatedStringExpressionSyntax node, SyntaxNode? parent)
     {
         StringStartToken = Cloner.ToToken(node.StringStartToken);
@@ -14,8 +22,8 @@ public class InterpolatedStringExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken StringStartToken { get; }
-    public SyntaxList<InterpolatedStringContentSyntax> Contents { get; }
-    public SyntaxToken StringEndToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken StringStartToken { get; init; }
+    public SyntaxList<InterpolatedStringContentSyntax> Contents { get; init; }
+    public SyntaxToken StringEndToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

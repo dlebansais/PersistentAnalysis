@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class DeclarationPatternSyntax : PatternSyntax
 {
+    public DeclarationPatternSyntax()
+    {
+        Type = null!;
+        Designation = null!;
+        Parent = null;
+    }
+
     public DeclarationPatternSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.DeclarationPatternSyntax node, SyntaxNode? parent)
     {
         Type = TypeSyntax.From(node.Type, this);
@@ -13,7 +20,7 @@ public class DeclarationPatternSyntax : PatternSyntax
         Parent = parent;
     }
 
-    public TypeSyntax Type { get; }
-    public VariableDesignationSyntax Designation { get; }
-    public SyntaxNode? Parent { get; }
+    public TypeSyntax Type { get; init; }
+    public VariableDesignationSyntax Designation { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

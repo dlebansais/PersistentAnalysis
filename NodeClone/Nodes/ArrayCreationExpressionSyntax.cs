@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ArrayCreationExpressionSyntax : ExpressionSyntax
 {
+    public ArrayCreationExpressionSyntax()
+    {
+        NewKeyword = null!;
+        Type = null!;
+        Initializer = null!;
+        Parent = null;
+    }
+
     public ArrayCreationExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ArrayCreationExpressionSyntax node, SyntaxNode? parent)
     {
         NewKeyword = Cloner.ToToken(node.NewKeyword);
@@ -14,8 +22,8 @@ public class ArrayCreationExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken NewKeyword { get; }
-    public ArrayTypeSyntax Type { get; }
-    public InitializerExpressionSyntax? Initializer { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken NewKeyword { get; init; }
+    public ArrayTypeSyntax Type { get; init; }
+    public InitializerExpressionSyntax? Initializer { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

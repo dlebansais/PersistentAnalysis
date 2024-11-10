@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class MemberBindingExpressionSyntax : ExpressionSyntax
 {
+    public MemberBindingExpressionSyntax()
+    {
+        OperatorToken = null!;
+        Name = null!;
+        Parent = null;
+    }
+
     public MemberBindingExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.MemberBindingExpressionSyntax node, SyntaxNode? parent)
     {
         OperatorToken = Cloner.ToToken(node.OperatorToken);
@@ -13,7 +20,7 @@ public class MemberBindingExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OperatorToken { get; }
-    public SimpleNameSyntax Name { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OperatorToken { get; init; }
+    public SimpleNameSyntax Name { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

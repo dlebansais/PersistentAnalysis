@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class IsPatternExpressionSyntax : ExpressionSyntax
 {
+    public IsPatternExpressionSyntax()
+    {
+        Expression = null!;
+        IsKeyword = null!;
+        Pattern = null!;
+        Parent = null;
+    }
+
     public IsPatternExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.IsPatternExpressionSyntax node, SyntaxNode? parent)
     {
         Expression = ExpressionSyntax.From(node.Expression, this);
@@ -14,8 +22,8 @@ public class IsPatternExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public ExpressionSyntax Expression { get; }
-    public SyntaxToken IsKeyword { get; }
-    public PatternSyntax Pattern { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxToken IsKeyword { get; init; }
+    public PatternSyntax Pattern { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

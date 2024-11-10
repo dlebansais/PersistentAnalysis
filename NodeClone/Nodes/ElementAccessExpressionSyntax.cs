@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ElementAccessExpressionSyntax : ExpressionSyntax
 {
+    public ElementAccessExpressionSyntax()
+    {
+        Expression = null!;
+        ArgumentList = null!;
+        Parent = null;
+    }
+
     public ElementAccessExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ElementAccessExpressionSyntax node, SyntaxNode? parent)
     {
         Expression = ExpressionSyntax.From(node.Expression, this);
@@ -13,7 +20,7 @@ public class ElementAccessExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public ExpressionSyntax Expression { get; }
-    public BracketedArgumentListSyntax ArgumentList { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax Expression { get; init; }
+    public BracketedArgumentListSyntax ArgumentList { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

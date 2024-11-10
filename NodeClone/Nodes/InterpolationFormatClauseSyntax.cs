@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class InterpolationFormatClauseSyntax : SyntaxNode
 {
+    public InterpolationFormatClauseSyntax()
+    {
+        ColonToken = null!;
+        FormatStringToken = null!;
+        Parent = null;
+    }
+
     public InterpolationFormatClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.InterpolationFormatClauseSyntax node, SyntaxNode? parent)
     {
         ColonToken = Cloner.ToToken(node.ColonToken);
@@ -13,7 +20,7 @@ public class InterpolationFormatClauseSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken ColonToken { get; }
-    public SyntaxToken FormatStringToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken ColonToken { get; init; }
+    public SyntaxToken FormatStringToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

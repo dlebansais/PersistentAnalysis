@@ -6,6 +6,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class FileScopedNamespaceDeclarationSyntax : BaseNamespaceDeclarationSyntax
 {
+    public FileScopedNamespaceDeclarationSyntax()
+    {
+        AttributeLists = null!;
+        NamespaceKeyword = null!;
+        Name = null!;
+        SemicolonToken = null!;
+        Externs = null!;
+        Usings = null!;
+        Members = null!;
+        Parent = null;
+    }
+
     public FileScopedNamespaceDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FileScopedNamespaceDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -18,12 +30,12 @@ public class FileScopedNamespaceDeclarationSyntax : BaseNamespaceDeclarationSynt
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken NamespaceKeyword { get; }
-    public NameSyntax Name { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxList<ExternAliasDirectiveSyntax> Externs { get; }
-    public SyntaxList<UsingDirectiveSyntax> Usings { get; }
-    public SyntaxList<MemberDeclarationSyntax> Members { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken NamespaceKeyword { get; init; }
+    public NameSyntax Name { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxList<ExternAliasDirectiveSyntax> Externs { get; init; }
+    public SyntaxList<UsingDirectiveSyntax> Usings { get; init; }
+    public SyntaxList<MemberDeclarationSyntax> Members { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

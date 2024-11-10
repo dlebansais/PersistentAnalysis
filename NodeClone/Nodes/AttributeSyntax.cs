@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AttributeSyntax : SyntaxNode
 {
+    public AttributeSyntax()
+    {
+        Name = null!;
+        ArgumentList = null!;
+        Parent = null;
+    }
+
     public AttributeSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AttributeSyntax node, SyntaxNode? parent)
     {
         Name = NameSyntax.From(node.Name, this);
@@ -13,7 +20,7 @@ public class AttributeSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public NameSyntax Name { get; }
-    public AttributeArgumentListSyntax? ArgumentList { get; }
-    public SyntaxNode? Parent { get; }
+    public NameSyntax Name { get; init; }
+    public AttributeArgumentListSyntax? ArgumentList { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

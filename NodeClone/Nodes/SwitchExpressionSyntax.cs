@@ -6,6 +6,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class SwitchExpressionSyntax : ExpressionSyntax
 {
+    public SwitchExpressionSyntax()
+    {
+        GoverningExpression = null!;
+        SwitchKeyword = null!;
+        OpenBraceToken = null!;
+        Arms = null!;
+        CloseBraceToken = null!;
+        Parent = null;
+    }
+
     public SwitchExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.SwitchExpressionSyntax node, SyntaxNode? parent)
     {
         GoverningExpression = ExpressionSyntax.From(node.GoverningExpression, this);
@@ -16,10 +26,10 @@ public class SwitchExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public ExpressionSyntax GoverningExpression { get; }
-    public SyntaxToken SwitchKeyword { get; }
-    public SyntaxToken OpenBraceToken { get; }
-    public SeparatedSyntaxList<SwitchExpressionArmSyntax> Arms { get; }
-    public SyntaxToken CloseBraceToken { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax GoverningExpression { get; init; }
+    public SyntaxToken SwitchKeyword { get; init; }
+    public SyntaxToken OpenBraceToken { get; init; }
+    public SeparatedSyntaxList<SwitchExpressionArmSyntax> Arms { get; init; }
+    public SyntaxToken CloseBraceToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

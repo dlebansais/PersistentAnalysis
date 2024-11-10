@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ParenthesizedVariableDesignationSyntax : VariableDesignationSyntax
 {
+    public ParenthesizedVariableDesignationSyntax()
+    {
+        OpenParenToken = null!;
+        Variables = null!;
+        CloseParenToken = null!;
+        Parent = null;
+    }
+
     public ParenthesizedVariableDesignationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ParenthesizedVariableDesignationSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
@@ -14,8 +22,8 @@ public class ParenthesizedVariableDesignationSyntax : VariableDesignationSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OpenParenToken { get; }
-    public SeparatedSyntaxList<VariableDesignationSyntax> Variables { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public SeparatedSyntaxList<VariableDesignationSyntax> Variables { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class OrderByClauseSyntax : QueryClauseSyntax
 {
+    public OrderByClauseSyntax()
+    {
+        OrderByKeyword = null!;
+        Orderings = null!;
+        Parent = null;
+    }
+
     public OrderByClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.OrderByClauseSyntax node, SyntaxNode? parent)
     {
         OrderByKeyword = Cloner.ToToken(node.OrderByKeyword);
@@ -13,7 +20,7 @@ public class OrderByClauseSyntax : QueryClauseSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OrderByKeyword { get; }
-    public SeparatedSyntaxList<OrderingSyntax> Orderings { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OrderByKeyword { get; init; }
+    public SeparatedSyntaxList<OrderingSyntax> Orderings { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

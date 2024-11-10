@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class CheckedStatementSyntax : StatementSyntax
 {
+    public CheckedStatementSyntax()
+    {
+        AttributeLists = null!;
+        Keyword = null!;
+        Block = null!;
+        Parent = null;
+    }
+
     public CheckedStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.CheckedStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -14,8 +22,8 @@ public class CheckedStatementSyntax : StatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken Keyword { get; }
-    public BlockSyntax Block { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken Keyword { get; init; }
+    public BlockSyntax Block { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

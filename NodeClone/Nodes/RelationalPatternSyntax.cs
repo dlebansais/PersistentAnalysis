@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class RelationalPatternSyntax : PatternSyntax
 {
+    public RelationalPatternSyntax()
+    {
+        OperatorToken = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public RelationalPatternSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.RelationalPatternSyntax node, SyntaxNode? parent)
     {
         OperatorToken = Cloner.ToToken(node.OperatorToken);
@@ -13,7 +20,7 @@ public class RelationalPatternSyntax : PatternSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OperatorToken { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OperatorToken { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ExternAliasDirectiveSyntax : SyntaxNode
 {
+    public ExternAliasDirectiveSyntax()
+    {
+        ExternKeyword = null!;
+        AliasKeyword = null!;
+        Identifier = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public ExternAliasDirectiveSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ExternAliasDirectiveSyntax node, SyntaxNode? parent)
     {
         ExternKeyword = Cloner.ToToken(node.ExternKeyword);
@@ -15,9 +24,9 @@ public class ExternAliasDirectiveSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken ExternKeyword { get; }
-    public SyntaxToken AliasKeyword { get; }
-    public SyntaxToken Identifier { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken ExternKeyword { get; init; }
+    public SyntaxToken AliasKeyword { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

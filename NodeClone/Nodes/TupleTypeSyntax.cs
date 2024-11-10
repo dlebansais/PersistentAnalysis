@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class TupleTypeSyntax : TypeSyntax
 {
+    public TupleTypeSyntax()
+    {
+        OpenParenToken = null!;
+        Elements = null!;
+        CloseParenToken = null!;
+        Parent = null;
+    }
+
     public TupleTypeSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TupleTypeSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
@@ -14,8 +22,8 @@ public class TupleTypeSyntax : TypeSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OpenParenToken { get; }
-    public SeparatedSyntaxList<TupleElementSyntax> Elements { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public SeparatedSyntaxList<TupleElementSyntax> Elements { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

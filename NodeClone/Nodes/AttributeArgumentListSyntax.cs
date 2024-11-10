@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AttributeArgumentListSyntax : SyntaxNode
 {
+    public AttributeArgumentListSyntax()
+    {
+        OpenParenToken = null!;
+        Arguments = null!;
+        CloseParenToken = null!;
+        Parent = null;
+    }
+
     public AttributeArgumentListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AttributeArgumentListSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
@@ -14,8 +22,8 @@ public class AttributeArgumentListSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken OpenParenToken { get; }
-    public SeparatedSyntaxList<AttributeArgumentSyntax> Arguments { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public SeparatedSyntaxList<AttributeArgumentSyntax> Arguments { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

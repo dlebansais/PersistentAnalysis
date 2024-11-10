@@ -4,8 +4,9 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(ParenthesizedLambdaExpressionSyntax))]
-[JsonDerivedType(typeof(SimpleLambdaExpressionSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(ParenthesizedLambdaExpressionSyntax), typeDiscriminator: "ParenthesizedLambdaExpressionSyntax")]
+[JsonDerivedType(typeof(SimpleLambdaExpressionSyntax), typeDiscriminator: "SimpleLambdaExpressionSyntax")]
 public abstract class LambdaExpressionSyntax : AnonymousFunctionExpressionSyntax
 {
     public static LambdaExpressionSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.LambdaExpressionSyntax node, SyntaxNode? parent)

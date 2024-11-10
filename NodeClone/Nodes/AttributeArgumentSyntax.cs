@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AttributeArgumentSyntax : SyntaxNode
 {
+    public AttributeArgumentSyntax()
+    {
+        NameEquals = null!;
+        NameColon = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public AttributeArgumentSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AttributeArgumentSyntax node, SyntaxNode? parent)
     {
         NameEquals = node.NameEquals is null ? null : new NameEqualsSyntax(node.NameEquals, this);
@@ -14,8 +22,8 @@ public class AttributeArgumentSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public NameEqualsSyntax? NameEquals { get; }
-    public NameColonSyntax? NameColon { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public NameEqualsSyntax? NameEquals { get; init; }
+    public NameColonSyntax? NameColon { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

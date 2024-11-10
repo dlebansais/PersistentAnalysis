@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class PostfixUnaryExpressionSyntax : ExpressionSyntax
 {
+    public PostfixUnaryExpressionSyntax()
+    {
+        Operand = null!;
+        OperatorToken = null!;
+        Parent = null;
+    }
+
     public PostfixUnaryExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.PostfixUnaryExpressionSyntax node, SyntaxNode? parent)
     {
         Operand = ExpressionSyntax.From(node.Operand, this);
@@ -13,7 +20,7 @@ public class PostfixUnaryExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public ExpressionSyntax Operand { get; }
-    public SyntaxToken OperatorToken { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax Operand { get; init; }
+    public SyntaxToken OperatorToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

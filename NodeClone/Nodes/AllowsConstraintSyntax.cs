@@ -4,7 +4,8 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(RefStructConstraintSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(RefStructConstraintSyntax), typeDiscriminator: "RefStructConstraintSyntax")]
 public abstract class AllowsConstraintSyntax : SyntaxNode
 {
     public static AllowsConstraintSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.AllowsConstraintSyntax node, SyntaxNode? parent)

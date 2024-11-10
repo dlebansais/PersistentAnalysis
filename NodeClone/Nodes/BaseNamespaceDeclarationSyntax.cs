@@ -4,8 +4,9 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(NamespaceDeclarationSyntax))]
-[JsonDerivedType(typeof(FileScopedNamespaceDeclarationSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(NamespaceDeclarationSyntax), typeDiscriminator: "NamespaceDeclarationSyntax")]
+[JsonDerivedType(typeof(FileScopedNamespaceDeclarationSyntax), typeDiscriminator: "FileScopedNamespaceDeclarationSyntax")]
 public abstract class BaseNamespaceDeclarationSyntax : MemberDeclarationSyntax
 {
     public static BaseNamespaceDeclarationSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BaseNamespaceDeclarationSyntax node, SyntaxNode? parent)

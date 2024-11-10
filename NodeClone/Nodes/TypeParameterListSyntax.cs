@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class TypeParameterListSyntax : SyntaxNode
 {
+    public TypeParameterListSyntax()
+    {
+        LessThanToken = null!;
+        Parameters = null!;
+        GreaterThanToken = null!;
+        Parent = null;
+    }
+
     public TypeParameterListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterListSyntax node, SyntaxNode? parent)
     {
         LessThanToken = Cloner.ToToken(node.LessThanToken);
@@ -14,8 +22,8 @@ public class TypeParameterListSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken LessThanToken { get; }
-    public SeparatedSyntaxList<TypeParameterSyntax> Parameters { get; }
-    public SyntaxToken GreaterThanToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken LessThanToken { get; init; }
+    public SeparatedSyntaxList<TypeParameterSyntax> Parameters { get; init; }
+    public SyntaxToken GreaterThanToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

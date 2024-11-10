@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class WithExpressionSyntax : ExpressionSyntax
 {
+    public WithExpressionSyntax()
+    {
+        Expression = null!;
+        WithKeyword = null!;
+        Initializer = null!;
+        Parent = null;
+    }
+
     public WithExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.WithExpressionSyntax node, SyntaxNode? parent)
     {
         Expression = ExpressionSyntax.From(node.Expression, this);
@@ -14,8 +22,8 @@ public class WithExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public ExpressionSyntax Expression { get; }
-    public SyntaxToken WithKeyword { get; }
-    public InitializerExpressionSyntax Initializer { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxToken WithKeyword { get; init; }
+    public InitializerExpressionSyntax Initializer { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

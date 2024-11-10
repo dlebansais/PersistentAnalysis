@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class RefExpressionSyntax : ExpressionSyntax
 {
+    public RefExpressionSyntax()
+    {
+        RefKeyword = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public RefExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.RefExpressionSyntax node, SyntaxNode? parent)
     {
         RefKeyword = Cloner.ToToken(node.RefKeyword);
@@ -13,7 +20,7 @@ public class RefExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken RefKeyword { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken RefKeyword { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class OrderingSyntax : SyntaxNode
 {
+    public OrderingSyntax()
+    {
+        Expression = null!;
+        AscendingOrDescendingKeyword = null!;
+        Parent = null;
+    }
+
     public OrderingSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.OrderingSyntax node, SyntaxNode? parent)
     {
         Expression = ExpressionSyntax.From(node.Expression, this);
@@ -13,7 +20,7 @@ public class OrderingSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public ExpressionSyntax Expression { get; }
-    public SyntaxToken AscendingOrDescendingKeyword { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxToken AscendingOrDescendingKeyword { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

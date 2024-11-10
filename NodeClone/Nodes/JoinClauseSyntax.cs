@@ -6,6 +6,21 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class JoinClauseSyntax : QueryClauseSyntax
 {
+    public JoinClauseSyntax()
+    {
+        JoinKeyword = null!;
+        Type = null!;
+        Identifier = null!;
+        InKeyword = null!;
+        InExpression = null!;
+        OnKeyword = null!;
+        LeftExpression = null!;
+        EqualsKeyword = null!;
+        RightExpression = null!;
+        Into = null!;
+        Parent = null;
+    }
+
     public JoinClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.JoinClauseSyntax node, SyntaxNode? parent)
     {
         JoinKeyword = Cloner.ToToken(node.JoinKeyword);
@@ -21,15 +36,15 @@ public class JoinClauseSyntax : QueryClauseSyntax
         Parent = parent;
     }
 
-    public SyntaxToken JoinKeyword { get; }
-    public TypeSyntax? Type { get; }
-    public SyntaxToken Identifier { get; }
-    public SyntaxToken InKeyword { get; }
-    public ExpressionSyntax InExpression { get; }
-    public SyntaxToken OnKeyword { get; }
-    public ExpressionSyntax LeftExpression { get; }
-    public SyntaxToken EqualsKeyword { get; }
-    public ExpressionSyntax RightExpression { get; }
-    public JoinIntoClauseSyntax? Into { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken JoinKeyword { get; init; }
+    public TypeSyntax? Type { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public SyntaxToken InKeyword { get; init; }
+    public ExpressionSyntax InExpression { get; init; }
+    public SyntaxToken OnKeyword { get; init; }
+    public ExpressionSyntax LeftExpression { get; init; }
+    public SyntaxToken EqualsKeyword { get; init; }
+    public ExpressionSyntax RightExpression { get; init; }
+    public JoinIntoClauseSyntax? Into { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

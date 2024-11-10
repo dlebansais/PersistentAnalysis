@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ParameterSyntax : BaseParameterSyntax
 {
+    public ParameterSyntax()
+    {
+        AttributeLists = null!;
+        Type = null!;
+        Identifier = null!;
+        Default = null!;
+        Parent = null;
+    }
+
     public ParameterSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ParameterSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -15,9 +24,9 @@ public class ParameterSyntax : BaseParameterSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public TypeSyntax? Type { get; }
-    public SyntaxToken Identifier { get; }
-    public EqualsValueClauseSyntax? Default { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public TypeSyntax? Type { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public EqualsValueClauseSyntax? Default { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

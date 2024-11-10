@@ -4,8 +4,9 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(SimpleBaseTypeSyntax))]
-[JsonDerivedType(typeof(PrimaryConstructorBaseTypeSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(SimpleBaseTypeSyntax), typeDiscriminator: "SimpleBaseTypeSyntax")]
+[JsonDerivedType(typeof(PrimaryConstructorBaseTypeSyntax), typeDiscriminator: "PrimaryConstructorBaseTypeSyntax")]
 public abstract class BaseTypeSyntax : SyntaxNode
 {
     public static BaseTypeSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BaseTypeSyntax node, SyntaxNode? parent)

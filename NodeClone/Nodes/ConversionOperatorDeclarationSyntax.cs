@@ -6,6 +6,21 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ConversionOperatorDeclarationSyntax : BaseMethodDeclarationSyntax
 {
+    public ConversionOperatorDeclarationSyntax()
+    {
+        AttributeLists = null!;
+        ImplicitOrExplicitKeyword = null!;
+        ExplicitInterfaceSpecifier = null!;
+        OperatorKeyword = null!;
+        CheckedKeyword = null!;
+        Type = null!;
+        ParameterList = null!;
+        Body = null!;
+        ExpressionBody = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public ConversionOperatorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ConversionOperatorDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -21,15 +36,15 @@ public class ConversionOperatorDeclarationSyntax : BaseMethodDeclarationSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken ImplicitOrExplicitKeyword { get; }
-    public ExplicitInterfaceSpecifierSyntax? ExplicitInterfaceSpecifier { get; }
-    public SyntaxToken OperatorKeyword { get; }
-    public SyntaxToken CheckedKeyword { get; }
-    public TypeSyntax Type { get; }
-    public ParameterListSyntax ParameterList { get; }
-    public BlockSyntax? Body { get; }
-    public ArrowExpressionClauseSyntax? ExpressionBody { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken ImplicitOrExplicitKeyword { get; init; }
+    public ExplicitInterfaceSpecifierSyntax? ExplicitInterfaceSpecifier { get; init; }
+    public SyntaxToken OperatorKeyword { get; init; }
+    public SyntaxToken CheckedKeyword { get; init; }
+    public TypeSyntax Type { get; init; }
+    public ParameterListSyntax ParameterList { get; init; }
+    public BlockSyntax? Body { get; init; }
+    public ArrowExpressionClauseSyntax? ExpressionBody { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

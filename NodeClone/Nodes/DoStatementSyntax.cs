@@ -6,6 +6,19 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class DoStatementSyntax : StatementSyntax
 {
+    public DoStatementSyntax()
+    {
+        AttributeLists = null!;
+        DoKeyword = null!;
+        Statement = null!;
+        WhileKeyword = null!;
+        OpenParenToken = null!;
+        Condition = null!;
+        CloseParenToken = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public DoStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.DoStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -19,13 +32,13 @@ public class DoStatementSyntax : StatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken DoKeyword { get; }
-    public StatementSyntax Statement { get; }
-    public SyntaxToken WhileKeyword { get; }
-    public SyntaxToken OpenParenToken { get; }
-    public ExpressionSyntax Condition { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken DoKeyword { get; init; }
+    public StatementSyntax Statement { get; init; }
+    public SyntaxToken WhileKeyword { get; init; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public ExpressionSyntax Condition { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

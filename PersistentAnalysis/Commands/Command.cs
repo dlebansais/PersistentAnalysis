@@ -47,15 +47,15 @@ internal class Command(string name)
     /// <summary>
     /// Gets the InitCommand.
     /// </summary>
-    public InitCommand? InitCommand { get; }
+    public InitCommand? InitCommand { get; init; }
 
     /// <summary>
     /// Gets the ExitCommand.
     /// </summary>
-    public ExitCommand? ExitCommand { get; }
+    public ExitCommand? ExitCommand { get; init; }
 
     /// <summary>
     /// Gets the UpdateCommand.
     /// </summary>
-    public UpdateCommand? UpdateCommand { get; }
+    public UpdateCommand? UpdateCommand { get; init; }
 }

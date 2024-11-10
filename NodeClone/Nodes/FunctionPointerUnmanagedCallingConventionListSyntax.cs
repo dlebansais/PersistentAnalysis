@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class FunctionPointerUnmanagedCallingConventionListSyntax : SyntaxNode
 {
+    public FunctionPointerUnmanagedCallingConventionListSyntax()
+    {
+        OpenBracketToken = null!;
+        CallingConventions = null!;
+        CloseBracketToken = null!;
+        Parent = null;
+    }
+
     public FunctionPointerUnmanagedCallingConventionListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FunctionPointerUnmanagedCallingConventionListSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
@@ -14,8 +22,8 @@ public class FunctionPointerUnmanagedCallingConventionListSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken OpenBracketToken { get; }
-    public SeparatedSyntaxList<FunctionPointerUnmanagedCallingConventionSyntax> CallingConventions { get; }
-    public SyntaxToken CloseBracketToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenBracketToken { get; init; }
+    public SeparatedSyntaxList<FunctionPointerUnmanagedCallingConventionSyntax> CallingConventions { get; init; }
+    public SyntaxToken CloseBracketToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

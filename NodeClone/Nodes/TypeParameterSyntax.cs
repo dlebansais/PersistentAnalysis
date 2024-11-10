@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class TypeParameterSyntax : SyntaxNode
 {
+    public TypeParameterSyntax()
+    {
+        AttributeLists = null!;
+        VarianceKeyword = null!;
+        Identifier = null!;
+        Parent = null;
+    }
+
     public TypeParameterSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -14,8 +22,8 @@ public class TypeParameterSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken VarianceKeyword { get; }
-    public SyntaxToken Identifier { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken VarianceKeyword { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

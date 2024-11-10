@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ConstructorConstraintSyntax : TypeParameterConstraintSyntax
 {
+    public ConstructorConstraintSyntax()
+    {
+        NewKeyword = null!;
+        OpenParenToken = null!;
+        CloseParenToken = null!;
+        Parent = null;
+    }
+
     public ConstructorConstraintSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorConstraintSyntax node, SyntaxNode? parent)
     {
         NewKeyword = Cloner.ToToken(node.NewKeyword);
@@ -14,8 +22,8 @@ public class ConstructorConstraintSyntax : TypeParameterConstraintSyntax
         Parent = parent;
     }
 
-    public SyntaxToken NewKeyword { get; }
-    public SyntaxToken OpenParenToken { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken NewKeyword { get; init; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

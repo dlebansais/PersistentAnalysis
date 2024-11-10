@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class TypeParameterConstraintClauseSyntax : SyntaxNode
 {
+    public TypeParameterConstraintClauseSyntax()
+    {
+        WhereKeyword = null!;
+        Name = null!;
+        ColonToken = null!;
+        Constraints = null!;
+        Parent = null;
+    }
+
     public TypeParameterConstraintClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterConstraintClauseSyntax node, SyntaxNode? parent)
     {
         WhereKeyword = Cloner.ToToken(node.WhereKeyword);
@@ -15,9 +24,9 @@ public class TypeParameterConstraintClauseSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken WhereKeyword { get; }
-    public IdentifierNameSyntax Name { get; }
-    public SyntaxToken ColonToken { get; }
-    public SeparatedSyntaxList<TypeParameterConstraintSyntax> Constraints { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken WhereKeyword { get; init; }
+    public IdentifierNameSyntax Name { get; init; }
+    public SyntaxToken ColonToken { get; init; }
+    public SeparatedSyntaxList<TypeParameterConstraintSyntax> Constraints { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,12 +6,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ElementBindingExpressionSyntax : ExpressionSyntax
 {
+    public ElementBindingExpressionSyntax()
+    {
+        ArgumentList = null!;
+        Parent = null;
+    }
+
     public ElementBindingExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ElementBindingExpressionSyntax node, SyntaxNode? parent)
     {
         ArgumentList = new BracketedArgumentListSyntax(node.ArgumentList, this);
         Parent = parent;
     }
 
-    public BracketedArgumentListSyntax ArgumentList { get; }
-    public SyntaxNode? Parent { get; }
+    public BracketedArgumentListSyntax ArgumentList { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

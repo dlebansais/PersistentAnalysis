@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class CollectionExpressionSyntax : ExpressionSyntax
 {
+    public CollectionExpressionSyntax()
+    {
+        OpenBracketToken = null!;
+        Elements = null!;
+        CloseBracketToken = null!;
+        Parent = null;
+    }
+
     public CollectionExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.CollectionExpressionSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
@@ -14,8 +22,8 @@ public class CollectionExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OpenBracketToken { get; }
-    public SeparatedSyntaxList<CollectionElementSyntax> Elements { get; }
-    public SyntaxToken CloseBracketToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenBracketToken { get; init; }
+    public SeparatedSyntaxList<CollectionElementSyntax> Elements { get; init; }
+    public SyntaxToken CloseBracketToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

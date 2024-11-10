@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AwaitExpressionSyntax : ExpressionSyntax
 {
+    public AwaitExpressionSyntax()
+    {
+        AwaitKeyword = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public AwaitExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AwaitExpressionSyntax node, SyntaxNode? parent)
     {
         AwaitKeyword = Cloner.ToToken(node.AwaitKeyword);
@@ -13,7 +20,7 @@ public class AwaitExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken AwaitKeyword { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken AwaitKeyword { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ClassOrStructConstraintSyntax : TypeParameterConstraintSyntax
 {
+    public ClassOrStructConstraintSyntax()
+    {
+        ClassOrStructKeyword = null!;
+        QuestionToken = null!;
+        Parent = null;
+    }
+
     public ClassOrStructConstraintSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ClassOrStructConstraintSyntax node, SyntaxNode? parent)
     {
         ClassOrStructKeyword = Cloner.ToToken(node.ClassOrStructKeyword);
@@ -13,7 +20,7 @@ public class ClassOrStructConstraintSyntax : TypeParameterConstraintSyntax
         Parent = parent;
     }
 
-    public SyntaxToken ClassOrStructKeyword { get; }
-    public SyntaxToken QuestionToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken ClassOrStructKeyword { get; init; }
+    public SyntaxToken QuestionToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

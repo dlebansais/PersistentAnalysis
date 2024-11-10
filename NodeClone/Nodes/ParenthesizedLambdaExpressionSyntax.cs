@@ -6,6 +6,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ParenthesizedLambdaExpressionSyntax : LambdaExpressionSyntax
 {
+    public ParenthesizedLambdaExpressionSyntax()
+    {
+        AsyncKeyword = null!;
+        AttributeLists = null!;
+        ReturnType = null!;
+        ParameterList = null!;
+        ArrowToken = null!;
+        Block = null!;
+        ExpressionBody = null!;
+        Parent = null;
+    }
+
     public ParenthesizedLambdaExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ParenthesizedLambdaExpressionSyntax node, SyntaxNode? parent)
     {
         AsyncKeyword = Cloner.ToToken(node.AsyncKeyword);
@@ -18,12 +30,12 @@ public class ParenthesizedLambdaExpressionSyntax : LambdaExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken AsyncKeyword { get; }
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public TypeSyntax? ReturnType { get; }
-    public ParameterListSyntax ParameterList { get; }
-    public SyntaxToken ArrowToken { get; }
-    public BlockSyntax? Block { get; }
-    public ExpressionSyntax? ExpressionBody { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken AsyncKeyword { get; init; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public TypeSyntax? ReturnType { get; init; }
+    public ParameterListSyntax ParameterList { get; init; }
+    public SyntaxToken ArrowToken { get; init; }
+    public BlockSyntax? Block { get; init; }
+    public ExpressionSyntax? ExpressionBody { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

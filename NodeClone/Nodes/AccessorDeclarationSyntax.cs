@@ -6,6 +6,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AccessorDeclarationSyntax : SyntaxNode
 {
+    public AccessorDeclarationSyntax()
+    {
+        AttributeLists = null!;
+        Keyword = null!;
+        Body = null!;
+        ExpressionBody = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public AccessorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AccessorDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -16,10 +26,10 @@ public class AccessorDeclarationSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken Keyword { get; }
-    public BlockSyntax? Body { get; }
-    public ArrowExpressionClauseSyntax? ExpressionBody { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken Keyword { get; init; }
+    public BlockSyntax? Body { get; init; }
+    public ArrowExpressionClauseSyntax? ExpressionBody { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

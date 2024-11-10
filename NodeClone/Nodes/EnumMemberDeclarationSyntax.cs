@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class EnumMemberDeclarationSyntax : MemberDeclarationSyntax
 {
+    public EnumMemberDeclarationSyntax()
+    {
+        AttributeLists = null!;
+        Identifier = null!;
+        EqualsValue = null!;
+        Parent = null;
+    }
+
     public EnumMemberDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.EnumMemberDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -14,8 +22,8 @@ public class EnumMemberDeclarationSyntax : MemberDeclarationSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken Identifier { get; }
-    public EqualsValueClauseSyntax? EqualsValue { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public EqualsValueClauseSyntax? EqualsValue { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

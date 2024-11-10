@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class BinaryPatternSyntax : PatternSyntax
 {
+    public BinaryPatternSyntax()
+    {
+        Left = null!;
+        OperatorToken = null!;
+        Right = null!;
+        Parent = null;
+    }
+
     public BinaryPatternSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.BinaryPatternSyntax node, SyntaxNode? parent)
     {
         Left = PatternSyntax.From(node.Left, this);
@@ -14,8 +22,8 @@ public class BinaryPatternSyntax : PatternSyntax
         Parent = parent;
     }
 
-    public PatternSyntax Left { get; }
-    public SyntaxToken OperatorToken { get; }
-    public PatternSyntax Right { get; }
-    public SyntaxNode? Parent { get; }
+    public PatternSyntax Left { get; init; }
+    public SyntaxToken OperatorToken { get; init; }
+    public PatternSyntax Right { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

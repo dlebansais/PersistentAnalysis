@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class PropertyPatternClauseSyntax : SyntaxNode
 {
+    public PropertyPatternClauseSyntax()
+    {
+        OpenBraceToken = null!;
+        Subpatterns = null!;
+        CloseBraceToken = null!;
+        Parent = null;
+    }
+
     public PropertyPatternClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.PropertyPatternClauseSyntax node, SyntaxNode? parent)
     {
         OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
@@ -14,8 +22,8 @@ public class PropertyPatternClauseSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken OpenBraceToken { get; }
-    public SeparatedSyntaxList<SubpatternSyntax> Subpatterns { get; }
-    public SyntaxToken CloseBraceToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenBraceToken { get; init; }
+    public SeparatedSyntaxList<SubpatternSyntax> Subpatterns { get; init; }
+    public SyntaxToken CloseBraceToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

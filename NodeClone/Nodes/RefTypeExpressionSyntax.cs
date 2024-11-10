@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class RefTypeExpressionSyntax : ExpressionSyntax
 {
+    public RefTypeExpressionSyntax()
+    {
+        Keyword = null!;
+        OpenParenToken = null!;
+        Expression = null!;
+        CloseParenToken = null!;
+        Parent = null;
+    }
+
     public RefTypeExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.RefTypeExpressionSyntax node, SyntaxNode? parent)
     {
         Keyword = Cloner.ToToken(node.Keyword);
@@ -15,9 +24,9 @@ public class RefTypeExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken Keyword { get; }
-    public SyntaxToken OpenParenToken { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken Keyword { get; init; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

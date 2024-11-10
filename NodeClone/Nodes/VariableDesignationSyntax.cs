@@ -4,9 +4,10 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(SingleVariableDesignationSyntax))]
-[JsonDerivedType(typeof(DiscardDesignationSyntax))]
-[JsonDerivedType(typeof(ParenthesizedVariableDesignationSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(SingleVariableDesignationSyntax), typeDiscriminator: "SingleVariableDesignationSyntax")]
+[JsonDerivedType(typeof(DiscardDesignationSyntax), typeDiscriminator: "DiscardDesignationSyntax")]
+[JsonDerivedType(typeof(ParenthesizedVariableDesignationSyntax), typeDiscriminator: "ParenthesizedVariableDesignationSyntax")]
 public abstract class VariableDesignationSyntax : SyntaxNode
 {
     public static VariableDesignationSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.VariableDesignationSyntax node, SyntaxNode? parent)

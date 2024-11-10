@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class WhereClauseSyntax : QueryClauseSyntax
 {
+    public WhereClauseSyntax()
+    {
+        WhereKeyword = null!;
+        Condition = null!;
+        Parent = null;
+    }
+
     public WhereClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.WhereClauseSyntax node, SyntaxNode? parent)
     {
         WhereKeyword = Cloner.ToToken(node.WhereKeyword);
@@ -13,7 +20,7 @@ public class WhereClauseSyntax : QueryClauseSyntax
         Parent = parent;
     }
 
-    public SyntaxToken WhereKeyword { get; }
-    public ExpressionSyntax Condition { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken WhereKeyword { get; init; }
+    public ExpressionSyntax Condition { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

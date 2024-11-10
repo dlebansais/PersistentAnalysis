@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class SwitchExpressionArmSyntax : SyntaxNode
 {
+    public SwitchExpressionArmSyntax()
+    {
+        Pattern = null!;
+        WhenClause = null!;
+        EqualsGreaterThanToken = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public SwitchExpressionArmSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.SwitchExpressionArmSyntax node, SyntaxNode? parent)
     {
         Pattern = PatternSyntax.From(node.Pattern, this);
@@ -15,9 +24,9 @@ public class SwitchExpressionArmSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public PatternSyntax Pattern { get; }
-    public WhenClauseSyntax? WhenClause { get; }
-    public SyntaxToken EqualsGreaterThanToken { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public PatternSyntax Pattern { get; init; }
+    public WhenClauseSyntax? WhenClause { get; init; }
+    public SyntaxToken EqualsGreaterThanToken { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class DefaultSwitchLabelSyntax : SwitchLabelSyntax
 {
+    public DefaultSwitchLabelSyntax()
+    {
+        Keyword = null!;
+        ColonToken = null!;
+        Parent = null;
+    }
+
     public DefaultSwitchLabelSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.DefaultSwitchLabelSyntax node, SyntaxNode? parent)
     {
         Keyword = Cloner.ToToken(node.Keyword);
@@ -13,7 +20,7 @@ public class DefaultSwitchLabelSyntax : SwitchLabelSyntax
         Parent = parent;
     }
 
-    public SyntaxToken Keyword { get; }
-    public SyntaxToken ColonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken Keyword { get; init; }
+    public SyntaxToken ColonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

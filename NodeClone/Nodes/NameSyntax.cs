@@ -4,10 +4,11 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(AliasQualifiedNameSyntax))]
-[JsonDerivedType(typeof(GenericNameSyntax))]
-[JsonDerivedType(typeof(IdentifierNameSyntax))]
-[JsonDerivedType(typeof(QualifiedNameSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(AliasQualifiedNameSyntax), typeDiscriminator: "AliasQualifiedNameSyntax")]
+[JsonDerivedType(typeof(GenericNameSyntax), typeDiscriminator: "GenericNameSyntax")]
+[JsonDerivedType(typeof(IdentifierNameSyntax), typeDiscriminator: "IdentifierNameSyntax")]
+[JsonDerivedType(typeof(QualifiedNameSyntax), typeDiscriminator: "QualifiedNameSyntax")]
 public abstract class NameSyntax : TypeSyntax
 {
     public static NameSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.NameSyntax node, SyntaxNode? parent)

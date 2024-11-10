@@ -6,6 +6,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ConstructorDeclarationSyntax : BaseMethodDeclarationSyntax
 {
+    public ConstructorDeclarationSyntax()
+    {
+        AttributeLists = null!;
+        Identifier = null!;
+        ParameterList = null!;
+        Initializer = null!;
+        Body = null!;
+        ExpressionBody = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public ConstructorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -18,12 +30,12 @@ public class ConstructorDeclarationSyntax : BaseMethodDeclarationSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken Identifier { get; }
-    public ParameterListSyntax ParameterList { get; }
-    public ConstructorInitializerSyntax? Initializer { get; }
-    public BlockSyntax? Body { get; }
-    public ArrowExpressionClauseSyntax? ExpressionBody { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public ParameterListSyntax ParameterList { get; init; }
+    public ConstructorInitializerSyntax? Initializer { get; init; }
+    public BlockSyntax? Body { get; init; }
+    public ArrowExpressionClauseSyntax? ExpressionBody { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

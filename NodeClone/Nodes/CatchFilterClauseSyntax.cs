@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class CatchFilterClauseSyntax : SyntaxNode
 {
+    public CatchFilterClauseSyntax()
+    {
+        WhenKeyword = null!;
+        OpenParenToken = null!;
+        FilterExpression = null!;
+        CloseParenToken = null!;
+        Parent = null;
+    }
+
     public CatchFilterClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.CatchFilterClauseSyntax node, SyntaxNode? parent)
     {
         WhenKeyword = Cloner.ToToken(node.WhenKeyword);
@@ -15,9 +24,9 @@ public class CatchFilterClauseSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken WhenKeyword { get; }
-    public SyntaxToken OpenParenToken { get; }
-    public ExpressionSyntax FilterExpression { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken WhenKeyword { get; init; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public ExpressionSyntax FilterExpression { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

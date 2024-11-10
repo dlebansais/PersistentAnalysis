@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ElseClauseSyntax : SyntaxNode
 {
+    public ElseClauseSyntax()
+    {
+        ElseKeyword = null!;
+        Statement = null!;
+        Parent = null;
+    }
+
     public ElseClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ElseClauseSyntax node, SyntaxNode? parent)
     {
         ElseKeyword = Cloner.ToToken(node.ElseKeyword);
@@ -13,7 +20,7 @@ public class ElseClauseSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken ElseKeyword { get; }
-    public StatementSyntax Statement { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken ElseKeyword { get; init; }
+    public StatementSyntax Statement { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

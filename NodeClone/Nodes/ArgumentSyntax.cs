@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ArgumentSyntax : SyntaxNode
 {
+    public ArgumentSyntax()
+    {
+        RefOrOutKeyword = null!;
+        NameColon = null!;
+        RefKindKeyword = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public ArgumentSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ArgumentSyntax node, SyntaxNode? parent)
     {
         RefOrOutKeyword = Cloner.ToToken(node.RefOrOutKeyword);
@@ -15,9 +24,9 @@ public class ArgumentSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken RefOrOutKeyword { get; }
-    public NameColonSyntax? NameColon { get; }
-    public SyntaxToken RefKindKeyword { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken RefOrOutKeyword { get; init; }
+    public NameColonSyntax? NameColon { get; init; }
+    public SyntaxToken RefKindKeyword { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

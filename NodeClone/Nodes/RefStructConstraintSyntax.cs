@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class RefStructConstraintSyntax : AllowsConstraintSyntax
 {
+    public RefStructConstraintSyntax()
+    {
+        RefKeyword = null!;
+        StructKeyword = null!;
+        Parent = null;
+    }
+
     public RefStructConstraintSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.RefStructConstraintSyntax node, SyntaxNode? parent)
     {
         RefKeyword = Cloner.ToToken(node.RefKeyword);
@@ -13,7 +20,7 @@ public class RefStructConstraintSyntax : AllowsConstraintSyntax
         Parent = parent;
     }
 
-    public SyntaxToken RefKeyword { get; }
-    public SyntaxToken StructKeyword { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken RefKeyword { get; init; }
+    public SyntaxToken StructKeyword { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

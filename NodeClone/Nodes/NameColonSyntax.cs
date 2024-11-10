@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class NameColonSyntax : BaseExpressionColonSyntax
 {
+    public NameColonSyntax()
+    {
+        Expression = null!;
+        Name = null!;
+        ColonToken = null!;
+        Parent = null;
+    }
+
     public NameColonSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.NameColonSyntax node, SyntaxNode? parent)
     {
         Expression = ExpressionSyntax.From(node.Expression, this);
@@ -14,8 +22,8 @@ public class NameColonSyntax : BaseExpressionColonSyntax
         Parent = parent;
     }
 
-    public ExpressionSyntax Expression { get; }
-    public IdentifierNameSyntax Name { get; }
-    public SyntaxToken ColonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax Expression { get; init; }
+    public IdentifierNameSyntax Name { get; init; }
+    public SyntaxToken ColonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

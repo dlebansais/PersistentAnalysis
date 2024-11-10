@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class SubpatternSyntax : SyntaxNode
 {
+    public SubpatternSyntax()
+    {
+        NameColon = null!;
+        ExpressionColon = null!;
+        Pattern = null!;
+        Parent = null;
+    }
+
     public SubpatternSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.SubpatternSyntax node, SyntaxNode? parent)
     {
         NameColon = node.NameColon is null ? null : new NameColonSyntax(node.NameColon, this);
@@ -14,8 +22,8 @@ public class SubpatternSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public NameColonSyntax? NameColon { get; }
-    public BaseExpressionColonSyntax? ExpressionColon { get; }
-    public PatternSyntax Pattern { get; }
-    public SyntaxNode? Parent { get; }
+    public NameColonSyntax? NameColon { get; init; }
+    public BaseExpressionColonSyntax? ExpressionColon { get; init; }
+    public PatternSyntax Pattern { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

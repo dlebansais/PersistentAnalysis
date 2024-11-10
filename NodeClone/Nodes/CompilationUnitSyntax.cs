@@ -6,6 +6,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class CompilationUnitSyntax : SyntaxNode
 {
+    public CompilationUnitSyntax()
+    {
+        Externs = null!;
+        Usings = null!;
+        AttributeLists = null!;
+        Members = null!;
+        EndOfFileToken = null!;
+        Parent = null;
+    }
+
     public CompilationUnitSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.CompilationUnitSyntax node, SyntaxNode? parent)
     {
         Externs = Cloner.ListFrom<ExternAliasDirectiveSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ExternAliasDirectiveSyntax>(node.Externs, parent);
@@ -16,10 +26,10 @@ public class CompilationUnitSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxList<ExternAliasDirectiveSyntax> Externs { get; }
-    public SyntaxList<UsingDirectiveSyntax> Usings { get; }
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxList<MemberDeclarationSyntax> Members { get; }
-    public SyntaxToken EndOfFileToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<ExternAliasDirectiveSyntax> Externs { get; init; }
+    public SyntaxList<UsingDirectiveSyntax> Usings { get; init; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxList<MemberDeclarationSyntax> Members { get; init; }
+    public SyntaxToken EndOfFileToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class CaseSwitchLabelSyntax : SwitchLabelSyntax
 {
+    public CaseSwitchLabelSyntax()
+    {
+        Keyword = null!;
+        Value = null!;
+        ColonToken = null!;
+        Parent = null;
+    }
+
     public CaseSwitchLabelSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.CaseSwitchLabelSyntax node, SyntaxNode? parent)
     {
         Keyword = Cloner.ToToken(node.Keyword);
@@ -14,8 +22,8 @@ public class CaseSwitchLabelSyntax : SwitchLabelSyntax
         Parent = parent;
     }
 
-    public SyntaxToken Keyword { get; }
-    public ExpressionSyntax Value { get; }
-    public SyntaxToken ColonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken Keyword { get; init; }
+    public ExpressionSyntax Value { get; init; }
+    public SyntaxToken ColonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

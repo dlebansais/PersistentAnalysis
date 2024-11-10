@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ArrayTypeSyntax : TypeSyntax
 {
+    public ArrayTypeSyntax()
+    {
+        ElementType = null!;
+        RankSpecifiers = null!;
+        Parent = null;
+    }
+
     public ArrayTypeSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ArrayTypeSyntax node, SyntaxNode? parent)
     {
         ElementType = TypeSyntax.From(node.ElementType, this);
@@ -13,7 +20,7 @@ public class ArrayTypeSyntax : TypeSyntax
         Parent = parent;
     }
 
-    public TypeSyntax ElementType { get; }
-    public SyntaxList<ArrayRankSpecifierSyntax> RankSpecifiers { get; }
-    public SyntaxNode? Parent { get; }
+    public TypeSyntax ElementType { get; init; }
+    public SyntaxList<ArrayRankSpecifierSyntax> RankSpecifiers { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

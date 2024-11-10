@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class WhenClauseSyntax : SyntaxNode
 {
+    public WhenClauseSyntax()
+    {
+        WhenKeyword = null!;
+        Condition = null!;
+        Parent = null;
+    }
+
     public WhenClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.WhenClauseSyntax node, SyntaxNode? parent)
     {
         WhenKeyword = Cloner.ToToken(node.WhenKeyword);
@@ -13,7 +20,7 @@ public class WhenClauseSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken WhenKeyword { get; }
-    public ExpressionSyntax Condition { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken WhenKeyword { get; init; }
+    public ExpressionSyntax Condition { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

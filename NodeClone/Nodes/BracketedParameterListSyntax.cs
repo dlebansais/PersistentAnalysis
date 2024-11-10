@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class BracketedParameterListSyntax : BaseParameterListSyntax
 {
+    public BracketedParameterListSyntax()
+    {
+        OpenBracketToken = null!;
+        Parameters = null!;
+        CloseBracketToken = null!;
+        Parent = null;
+    }
+
     public BracketedParameterListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.BracketedParameterListSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
@@ -14,8 +22,8 @@ public class BracketedParameterListSyntax : BaseParameterListSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OpenBracketToken { get; }
-    public SeparatedSyntaxList<ParameterSyntax> Parameters { get; }
-    public SyntaxToken CloseBracketToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenBracketToken { get; init; }
+    public SeparatedSyntaxList<ParameterSyntax> Parameters { get; init; }
+    public SyntaxToken CloseBracketToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

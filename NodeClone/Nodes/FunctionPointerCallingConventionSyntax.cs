@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class FunctionPointerCallingConventionSyntax : SyntaxNode
 {
+    public FunctionPointerCallingConventionSyntax()
+    {
+        ManagedOrUnmanagedKeyword = null!;
+        UnmanagedCallingConventionList = null!;
+        Parent = null;
+    }
+
     public FunctionPointerCallingConventionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FunctionPointerCallingConventionSyntax node, SyntaxNode? parent)
     {
         ManagedOrUnmanagedKeyword = Cloner.ToToken(node.ManagedOrUnmanagedKeyword);
@@ -13,7 +20,7 @@ public class FunctionPointerCallingConventionSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken ManagedOrUnmanagedKeyword { get; }
-    public FunctionPointerUnmanagedCallingConventionListSyntax? UnmanagedCallingConventionList { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken ManagedOrUnmanagedKeyword { get; init; }
+    public FunctionPointerUnmanagedCallingConventionListSyntax? UnmanagedCallingConventionList { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

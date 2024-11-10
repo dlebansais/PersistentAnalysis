@@ -4,8 +4,9 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(ImplicitObjectCreationExpressionSyntax))]
-[JsonDerivedType(typeof(ObjectCreationExpressionSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(ImplicitObjectCreationExpressionSyntax), typeDiscriminator: "ImplicitObjectCreationExpressionSyntax")]
+[JsonDerivedType(typeof(ObjectCreationExpressionSyntax), typeDiscriminator: "ObjectCreationExpressionSyntax")]
 public abstract class BaseObjectCreationExpressionSyntax : ExpressionSyntax
 {
     public static BaseObjectCreationExpressionSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BaseObjectCreationExpressionSyntax node, SyntaxNode? parent)

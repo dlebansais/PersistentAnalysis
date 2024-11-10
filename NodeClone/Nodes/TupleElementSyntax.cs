@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class TupleElementSyntax : SyntaxNode
 {
+    public TupleElementSyntax()
+    {
+        Type = null!;
+        Identifier = null!;
+        Parent = null;
+    }
+
     public TupleElementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TupleElementSyntax node, SyntaxNode? parent)
     {
         Type = TypeSyntax.From(node.Type, this);
@@ -13,7 +20,7 @@ public class TupleElementSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public TypeSyntax Type { get; }
-    public SyntaxToken Identifier { get; }
-    public SyntaxNode? Parent { get; }
+    public TypeSyntax Type { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ConditionalExpressionSyntax : ExpressionSyntax
 {
+    public ConditionalExpressionSyntax()
+    {
+        Condition = null!;
+        QuestionToken = null!;
+        WhenTrue = null!;
+        ColonToken = null!;
+        WhenFalse = null!;
+        Parent = null;
+    }
+
     public ConditionalExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ConditionalExpressionSyntax node, SyntaxNode? parent)
     {
         Condition = ExpressionSyntax.From(node.Condition, this);
@@ -16,10 +26,10 @@ public class ConditionalExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public ExpressionSyntax Condition { get; }
-    public SyntaxToken QuestionToken { get; }
-    public ExpressionSyntax WhenTrue { get; }
-    public SyntaxToken ColonToken { get; }
-    public ExpressionSyntax WhenFalse { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax Condition { get; init; }
+    public SyntaxToken QuestionToken { get; init; }
+    public ExpressionSyntax WhenTrue { get; init; }
+    public SyntaxToken ColonToken { get; init; }
+    public ExpressionSyntax WhenFalse { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class SwitchSectionSyntax : SyntaxNode
 {
+    public SwitchSectionSyntax()
+    {
+        Labels = null!;
+        Statements = null!;
+        Parent = null;
+    }
+
     public SwitchSectionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.SwitchSectionSyntax node, SyntaxNode? parent)
     {
         Labels = Cloner.ListFrom<SwitchLabelSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.SwitchLabelSyntax>(node.Labels, parent);
@@ -13,7 +20,7 @@ public class SwitchSectionSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxList<SwitchLabelSyntax> Labels { get; }
-    public SyntaxList<StatementSyntax> Statements { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<SwitchLabelSyntax> Labels { get; init; }
+    public SyntaxList<StatementSyntax> Statements { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

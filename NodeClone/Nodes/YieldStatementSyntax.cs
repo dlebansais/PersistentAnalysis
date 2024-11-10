@@ -6,6 +6,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class YieldStatementSyntax : StatementSyntax
 {
+    public YieldStatementSyntax()
+    {
+        AttributeLists = null!;
+        YieldKeyword = null!;
+        ReturnOrBreakKeyword = null!;
+        Expression = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public YieldStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.YieldStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -16,10 +26,10 @@ public class YieldStatementSyntax : StatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken YieldKeyword { get; }
-    public SyntaxToken ReturnOrBreakKeyword { get; }
-    public ExpressionSyntax? Expression { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken YieldKeyword { get; init; }
+    public SyntaxToken ReturnOrBreakKeyword { get; init; }
+    public ExpressionSyntax? Expression { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

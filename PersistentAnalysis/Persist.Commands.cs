@@ -1,7 +1,9 @@
 ﻿namespace PersistentAnalysis;
 
+using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Contracts;
 using Microsoft.Win32;
 using ProcessCommunication;
 
@@ -12,32 +14,29 @@ public static partial class Persist
 {
     private static string? GetWindowsDeviceId()
     {
-        try
-        {
-            string? DeviceId = null;
+        using RegistryKey LocalKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+        using RegistryKey? SqmClientKey = LocalKey.OpenSubKey(@"SOFTWARE\Microsoft\SQMClient");
+        RegistryKey Key = Contract.AssertNotNull(SqmClientKey);
+        object MachineId = Contract.AssertNotNull(Key.GetValue("MachineId"));
+        string MachineIdString = Contract.AssertNotNull(MachineId.ToString());
+        string DeviceId = MachineIdString.Trim();
 
-            using RegistryKey LocalKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
-            using RegistryKey? SqmClientKey = LocalKey.OpenSubKey(@"SOFTWARE\Microsoft\SQMClient");
-            DeviceId = SqmClientKey?.GetValue("MachineId")?.ToString()?.Trim();
-            return DeviceId;
-        }
-        catch
-        {
-            return null;
-        }
+        return DeviceId;
     }
 
     private static bool Send(Command command)
     {
-        if (Channel is not null && Channel.IsOpen)
+        IChannel OpenChannel = Contract.AssertNotNull(Channel);
+        Contract.Assert(OpenChannel.IsOpen);
+
+        string Text = JsonSerializer.Serialize(command, SerializingOptions);
+        Console.WriteLine(Text);
+
+        byte[] Data = Converter.EncodeString(Text);
+        if (OpenChannel.GetFreeLength() >= Data.Length)
         {
-            string Text = JsonSerializer.Serialize(command, Options);
-            byte[] Data = Converter.EncodeString(Text);
-            if (Channel.GetFreeLength() >= Data.Length)
-            {
-                Channel.Write(Data);
-                return true;
-            }
+            OpenChannel.Write(Data);
+            return true;
         }
 
         return false;
@@ -48,13 +47,22 @@ public static partial class Persist
         Logger.Log(message);
     }
 
-    private static readonly JsonSerializerOptions Options = new()
+    private static readonly JsonSerializerOptions SerializingOptions = new()
     {
         Converters =
         {
             new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
         },
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+        PropertyNameCaseInsensitive = true,
+    };
+
+    private static readonly JsonSerializerOptions DeserializingOptions = new()
+    {
+        Converters =
+        {
+            new JsonStringEnumConverter(JsonNamingPolicy.CamelCase),
+        },
         PropertyNameCaseInsensitive = true,
     };
 }

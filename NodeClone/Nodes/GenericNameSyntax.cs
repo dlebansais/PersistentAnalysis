@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class GenericNameSyntax : SimpleNameSyntax
 {
+    public GenericNameSyntax()
+    {
+        Identifier = null!;
+        TypeArgumentList = null!;
+        Parent = null;
+    }
+
     public GenericNameSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.GenericNameSyntax node, SyntaxNode? parent)
     {
         Identifier = Cloner.ToToken(node.Identifier);
@@ -13,7 +20,7 @@ public class GenericNameSyntax : SimpleNameSyntax
         Parent = parent;
     }
 
-    public SyntaxToken Identifier { get; }
-    public TypeArgumentListSyntax TypeArgumentList { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken Identifier { get; init; }
+    public TypeArgumentListSyntax TypeArgumentList { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

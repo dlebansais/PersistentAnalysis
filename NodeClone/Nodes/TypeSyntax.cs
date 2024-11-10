@@ -4,19 +4,20 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(AliasQualifiedNameSyntax))]
-[JsonDerivedType(typeof(GenericNameSyntax))]
-[JsonDerivedType(typeof(IdentifierNameSyntax))]
-[JsonDerivedType(typeof(QualifiedNameSyntax))]
-[JsonDerivedType(typeof(RefTypeSyntax))]
-[JsonDerivedType(typeof(PredefinedTypeSyntax))]
-[JsonDerivedType(typeof(ArrayTypeSyntax))]
-[JsonDerivedType(typeof(PointerTypeSyntax))]
-[JsonDerivedType(typeof(FunctionPointerTypeSyntax))]
-[JsonDerivedType(typeof(NullableTypeSyntax))]
-[JsonDerivedType(typeof(TupleTypeSyntax))]
-[JsonDerivedType(typeof(OmittedTypeArgumentSyntax))]
-[JsonDerivedType(typeof(ScopedTypeSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(AliasQualifiedNameSyntax), typeDiscriminator: "AliasQualifiedNameSyntax")]
+[JsonDerivedType(typeof(GenericNameSyntax), typeDiscriminator: "GenericNameSyntax")]
+[JsonDerivedType(typeof(IdentifierNameSyntax), typeDiscriminator: "IdentifierNameSyntax")]
+[JsonDerivedType(typeof(QualifiedNameSyntax), typeDiscriminator: "QualifiedNameSyntax")]
+[JsonDerivedType(typeof(RefTypeSyntax), typeDiscriminator: "RefTypeSyntax")]
+[JsonDerivedType(typeof(PredefinedTypeSyntax), typeDiscriminator: "PredefinedTypeSyntax")]
+[JsonDerivedType(typeof(ArrayTypeSyntax), typeDiscriminator: "ArrayTypeSyntax")]
+[JsonDerivedType(typeof(PointerTypeSyntax), typeDiscriminator: "PointerTypeSyntax")]
+[JsonDerivedType(typeof(FunctionPointerTypeSyntax), typeDiscriminator: "FunctionPointerTypeSyntax")]
+[JsonDerivedType(typeof(NullableTypeSyntax), typeDiscriminator: "NullableTypeSyntax")]
+[JsonDerivedType(typeof(TupleTypeSyntax), typeDiscriminator: "TupleTypeSyntax")]
+[JsonDerivedType(typeof(OmittedTypeArgumentSyntax), typeDiscriminator: "OmittedTypeArgumentSyntax")]
+[JsonDerivedType(typeof(ScopedTypeSyntax), typeDiscriminator: "ScopedTypeSyntax")]
 public abstract class TypeSyntax : ExpressionSyntax
 {
     public static TypeSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax node, SyntaxNode? parent)

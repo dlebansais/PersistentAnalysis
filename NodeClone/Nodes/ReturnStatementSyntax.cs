@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ReturnStatementSyntax : StatementSyntax
 {
+    public ReturnStatementSyntax()
+    {
+        AttributeLists = null!;
+        ReturnKeyword = null!;
+        Expression = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public ReturnStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ReturnStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -15,9 +24,9 @@ public class ReturnStatementSyntax : StatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken ReturnKeyword { get; }
-    public ExpressionSyntax? Expression { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken ReturnKeyword { get; init; }
+    public ExpressionSyntax? Expression { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

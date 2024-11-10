@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class FieldDeclarationSyntax : BaseFieldDeclarationSyntax
 {
+    public FieldDeclarationSyntax()
+    {
+        AttributeLists = null!;
+        Declaration = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public FieldDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FieldDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -14,8 +22,8 @@ public class FieldDeclarationSyntax : BaseFieldDeclarationSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public VariableDeclarationSyntax Declaration { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public VariableDeclarationSyntax Declaration { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

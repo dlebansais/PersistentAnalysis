@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class SelectClauseSyntax : SelectOrGroupClauseSyntax
 {
+    public SelectClauseSyntax()
+    {
+        SelectKeyword = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public SelectClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.SelectClauseSyntax node, SyntaxNode? parent)
     {
         SelectKeyword = Cloner.ToToken(node.SelectKeyword);
@@ -13,7 +20,7 @@ public class SelectClauseSyntax : SelectOrGroupClauseSyntax
         Parent = parent;
     }
 
-    public SyntaxToken SelectKeyword { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken SelectKeyword { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

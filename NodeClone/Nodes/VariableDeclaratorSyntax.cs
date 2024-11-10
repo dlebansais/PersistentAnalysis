@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class VariableDeclaratorSyntax : SyntaxNode
 {
+    public VariableDeclaratorSyntax()
+    {
+        Identifier = null!;
+        ArgumentList = null!;
+        Initializer = null!;
+        Parent = null;
+    }
+
     public VariableDeclaratorSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.VariableDeclaratorSyntax node, SyntaxNode? parent)
     {
         Identifier = Cloner.ToToken(node.Identifier);
@@ -14,8 +22,8 @@ public class VariableDeclaratorSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken Identifier { get; }
-    public BracketedArgumentListSyntax? ArgumentList { get; }
-    public EqualsValueClauseSyntax? Initializer { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken Identifier { get; init; }
+    public BracketedArgumentListSyntax? ArgumentList { get; init; }
+    public EqualsValueClauseSyntax? Initializer { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

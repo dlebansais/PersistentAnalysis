@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AnonymousObjectMemberDeclaratorSyntax : SyntaxNode
 {
+    public AnonymousObjectMemberDeclaratorSyntax()
+    {
+        NameEquals = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public AnonymousObjectMemberDeclaratorSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AnonymousObjectMemberDeclaratorSyntax node, SyntaxNode? parent)
     {
         NameEquals = node.NameEquals is null ? null : new NameEqualsSyntax(node.NameEquals, this);
@@ -13,7 +20,7 @@ public class AnonymousObjectMemberDeclaratorSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public NameEqualsSyntax? NameEquals { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public NameEqualsSyntax? NameEquals { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

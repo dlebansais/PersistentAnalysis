@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class InvocationExpressionSyntax : ExpressionSyntax
 {
+    public InvocationExpressionSyntax()
+    {
+        Expression = null!;
+        ArgumentList = null!;
+        Parent = null;
+    }
+
     public InvocationExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.InvocationExpressionSyntax node, SyntaxNode? parent)
     {
         Expression = ExpressionSyntax.From(node.Expression, this);
@@ -13,7 +20,7 @@ public class InvocationExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public ExpressionSyntax Expression { get; }
-    public ArgumentListSyntax ArgumentList { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax Expression { get; init; }
+    public ArgumentListSyntax ArgumentList { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

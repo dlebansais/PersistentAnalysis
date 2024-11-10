@@ -6,6 +6,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class InterpolationSyntax : InterpolatedStringContentSyntax
 {
+    public InterpolationSyntax()
+    {
+        OpenBraceToken = null!;
+        Expression = null!;
+        AlignmentClause = null!;
+        FormatClause = null!;
+        CloseBraceToken = null!;
+        Parent = null;
+    }
+
     public InterpolationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.InterpolationSyntax node, SyntaxNode? parent)
     {
         OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
@@ -16,10 +26,10 @@ public class InterpolationSyntax : InterpolatedStringContentSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OpenBraceToken { get; }
-    public ExpressionSyntax Expression { get; }
-    public InterpolationAlignmentClauseSyntax? AlignmentClause { get; }
-    public InterpolationFormatClauseSyntax? FormatClause { get; }
-    public SyntaxToken CloseBraceToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenBraceToken { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public InterpolationAlignmentClauseSyntax? AlignmentClause { get; init; }
+    public InterpolationFormatClauseSyntax? FormatClause { get; init; }
+    public SyntaxToken CloseBraceToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

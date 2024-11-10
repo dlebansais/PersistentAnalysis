@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class QueryExpressionSyntax : ExpressionSyntax
 {
+    public QueryExpressionSyntax()
+    {
+        FromClause = null!;
+        Body = null!;
+        Parent = null;
+    }
+
     public QueryExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.QueryExpressionSyntax node, SyntaxNode? parent)
     {
         FromClause = new FromClauseSyntax(node.FromClause, this);
@@ -13,7 +20,7 @@ public class QueryExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public FromClauseSyntax FromClause { get; }
-    public QueryBodySyntax Body { get; }
-    public SyntaxNode? Parent { get; }
+    public FromClauseSyntax FromClause { get; init; }
+    public QueryBodySyntax Body { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

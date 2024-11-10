@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ConditionalAccessExpressionSyntax : ExpressionSyntax
 {
+    public ConditionalAccessExpressionSyntax()
+    {
+        Expression = null!;
+        OperatorToken = null!;
+        WhenNotNull = null!;
+        Parent = null;
+    }
+
     public ConditionalAccessExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ConditionalAccessExpressionSyntax node, SyntaxNode? parent)
     {
         Expression = ExpressionSyntax.From(node.Expression, this);
@@ -14,8 +22,8 @@ public class ConditionalAccessExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public ExpressionSyntax Expression { get; }
-    public SyntaxToken OperatorToken { get; }
-    public ExpressionSyntax WhenNotNull { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxToken OperatorToken { get; init; }
+    public ExpressionSyntax WhenNotNull { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

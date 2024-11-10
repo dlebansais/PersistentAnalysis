@@ -6,6 +6,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class GotoStatementSyntax : StatementSyntax
 {
+    public GotoStatementSyntax()
+    {
+        AttributeLists = null!;
+        GotoKeyword = null!;
+        CaseOrDefaultKeyword = null!;
+        Expression = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public GotoStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.GotoStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -16,10 +26,10 @@ public class GotoStatementSyntax : StatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken GotoKeyword { get; }
-    public SyntaxToken CaseOrDefaultKeyword { get; }
-    public ExpressionSyntax? Expression { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken GotoKeyword { get; init; }
+    public SyntaxToken CaseOrDefaultKeyword { get; init; }
+    public ExpressionSyntax? Expression { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

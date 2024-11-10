@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AttributeListSyntax : SyntaxNode
 {
+    public AttributeListSyntax()
+    {
+        OpenBracketToken = null!;
+        Target = null!;
+        Attributes = null!;
+        CloseBracketToken = null!;
+        Parent = null;
+    }
+
     public AttributeListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
@@ -15,9 +24,9 @@ public class AttributeListSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken OpenBracketToken { get; }
-    public AttributeTargetSpecifierSyntax? Target { get; }
-    public SeparatedSyntaxList<AttributeSyntax> Attributes { get; }
-    public SyntaxToken CloseBracketToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenBracketToken { get; init; }
+    public AttributeTargetSpecifierSyntax? Target { get; init; }
+    public SeparatedSyntaxList<AttributeSyntax> Attributes { get; init; }
+    public SyntaxToken CloseBracketToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

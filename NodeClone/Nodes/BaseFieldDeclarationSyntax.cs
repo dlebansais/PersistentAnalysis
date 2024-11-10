@@ -4,8 +4,9 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(FieldDeclarationSyntax))]
-[JsonDerivedType(typeof(EventFieldDeclarationSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(FieldDeclarationSyntax), typeDiscriminator: "FieldDeclarationSyntax")]
+[JsonDerivedType(typeof(EventFieldDeclarationSyntax), typeDiscriminator: "EventFieldDeclarationSyntax")]
 public abstract class BaseFieldDeclarationSyntax : MemberDeclarationSyntax
 {
     public static BaseFieldDeclarationSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BaseFieldDeclarationSyntax node, SyntaxNode? parent)

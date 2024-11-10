@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class StackAllocArrayCreationExpressionSyntax : ExpressionSyntax
 {
+    public StackAllocArrayCreationExpressionSyntax()
+    {
+        StackAllocKeyword = null!;
+        Type = null!;
+        Initializer = null!;
+        Parent = null;
+    }
+
     public StackAllocArrayCreationExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.StackAllocArrayCreationExpressionSyntax node, SyntaxNode? parent)
     {
         StackAllocKeyword = Cloner.ToToken(node.StackAllocKeyword);
@@ -14,8 +22,8 @@ public class StackAllocArrayCreationExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken StackAllocKeyword { get; }
-    public TypeSyntax Type { get; }
-    public InitializerExpressionSyntax? Initializer { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken StackAllocKeyword { get; init; }
+    public TypeSyntax Type { get; init; }
+    public InitializerExpressionSyntax? Initializer { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

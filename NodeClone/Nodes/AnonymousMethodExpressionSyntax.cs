@@ -6,6 +6,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AnonymousMethodExpressionSyntax : AnonymousFunctionExpressionSyntax
 {
+    public AnonymousMethodExpressionSyntax()
+    {
+        AsyncKeyword = null!;
+        DelegateKeyword = null!;
+        ParameterList = null!;
+        Block = null!;
+        ExpressionBody = null!;
+        Parent = null;
+    }
+
     public AnonymousMethodExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AnonymousMethodExpressionSyntax node, SyntaxNode? parent)
     {
         AsyncKeyword = Cloner.ToToken(node.AsyncKeyword);
@@ -16,10 +26,10 @@ public class AnonymousMethodExpressionSyntax : AnonymousFunctionExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken AsyncKeyword { get; }
-    public SyntaxToken DelegateKeyword { get; }
-    public ParameterListSyntax? ParameterList { get; }
-    public BlockSyntax Block { get; }
-    public ExpressionSyntax? ExpressionBody { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken AsyncKeyword { get; init; }
+    public SyntaxToken DelegateKeyword { get; init; }
+    public ParameterListSyntax? ParameterList { get; init; }
+    public BlockSyntax Block { get; init; }
+    public ExpressionSyntax? ExpressionBody { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

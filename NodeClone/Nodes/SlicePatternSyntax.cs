@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class SlicePatternSyntax : PatternSyntax
 {
+    public SlicePatternSyntax()
+    {
+        DotDotToken = null!;
+        Pattern = null!;
+        Parent = null;
+    }
+
     public SlicePatternSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.SlicePatternSyntax node, SyntaxNode? parent)
     {
         DotDotToken = Cloner.ToToken(node.DotDotToken);
@@ -13,7 +20,7 @@ public class SlicePatternSyntax : PatternSyntax
         Parent = parent;
     }
 
-    public SyntaxToken DotDotToken { get; }
-    public PatternSyntax? Pattern { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken DotDotToken { get; init; }
+    public PatternSyntax? Pattern { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

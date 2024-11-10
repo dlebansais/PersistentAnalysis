@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ListPatternSyntax : PatternSyntax
 {
+    public ListPatternSyntax()
+    {
+        OpenBracketToken = null!;
+        Patterns = null!;
+        CloseBracketToken = null!;
+        Designation = null!;
+        Parent = null;
+    }
+
     public ListPatternSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ListPatternSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
@@ -15,9 +24,9 @@ public class ListPatternSyntax : PatternSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OpenBracketToken { get; }
-    public SeparatedSyntaxList<PatternSyntax> Patterns { get; }
-    public SyntaxToken CloseBracketToken { get; }
-    public VariableDesignationSyntax? Designation { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenBracketToken { get; init; }
+    public SeparatedSyntaxList<PatternSyntax> Patterns { get; init; }
+    public SyntaxToken CloseBracketToken { get; init; }
+    public VariableDesignationSyntax? Designation { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

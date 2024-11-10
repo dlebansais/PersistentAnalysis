@@ -6,6 +6,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class FromClauseSyntax : QueryClauseSyntax
 {
+    public FromClauseSyntax()
+    {
+        FromKeyword = null!;
+        Type = null!;
+        Identifier = null!;
+        InKeyword = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public FromClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FromClauseSyntax node, SyntaxNode? parent)
     {
         FromKeyword = Cloner.ToToken(node.FromKeyword);
@@ -16,10 +26,10 @@ public class FromClauseSyntax : QueryClauseSyntax
         Parent = parent;
     }
 
-    public SyntaxToken FromKeyword { get; }
-    public TypeSyntax? Type { get; }
-    public SyntaxToken Identifier { get; }
-    public SyntaxToken InKeyword { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken FromKeyword { get; init; }
+    public TypeSyntax? Type { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public SyntaxToken InKeyword { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

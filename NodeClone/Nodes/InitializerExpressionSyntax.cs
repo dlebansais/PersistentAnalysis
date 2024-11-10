@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class InitializerExpressionSyntax : ExpressionSyntax
 {
+    public InitializerExpressionSyntax()
+    {
+        OpenBraceToken = null!;
+        Expressions = null!;
+        CloseBraceToken = null!;
+        Parent = null;
+    }
+
     public InitializerExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.InitializerExpressionSyntax node, SyntaxNode? parent)
     {
         OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
@@ -14,8 +22,8 @@ public class InitializerExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OpenBraceToken { get; }
-    public SeparatedSyntaxList<ExpressionSyntax> Expressions { get; }
-    public SyntaxToken CloseBraceToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenBraceToken { get; init; }
+    public SeparatedSyntaxList<ExpressionSyntax> Expressions { get; init; }
+    public SyntaxToken CloseBraceToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

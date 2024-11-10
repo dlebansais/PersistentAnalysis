@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AnonymousObjectCreationExpressionSyntax : ExpressionSyntax
 {
+    public AnonymousObjectCreationExpressionSyntax()
+    {
+        NewKeyword = null!;
+        OpenBraceToken = null!;
+        Initializers = null!;
+        CloseBraceToken = null!;
+        Parent = null;
+    }
+
     public AnonymousObjectCreationExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AnonymousObjectCreationExpressionSyntax node, SyntaxNode? parent)
     {
         NewKeyword = Cloner.ToToken(node.NewKeyword);
@@ -15,9 +24,9 @@ public class AnonymousObjectCreationExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken NewKeyword { get; }
-    public SyntaxToken OpenBraceToken { get; }
-    public SeparatedSyntaxList<AnonymousObjectMemberDeclaratorSyntax> Initializers { get; }
-    public SyntaxToken CloseBraceToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken NewKeyword { get; init; }
+    public SyntaxToken OpenBraceToken { get; init; }
+    public SeparatedSyntaxList<AnonymousObjectMemberDeclaratorSyntax> Initializers { get; init; }
+    public SyntaxToken CloseBraceToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

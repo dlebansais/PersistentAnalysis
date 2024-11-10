@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ThrowExpressionSyntax : ExpressionSyntax
 {
+    public ThrowExpressionSyntax()
+    {
+        ThrowKeyword = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public ThrowExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ThrowExpressionSyntax node, SyntaxNode? parent)
     {
         ThrowKeyword = Cloner.ToToken(node.ThrowKeyword);
@@ -13,7 +20,7 @@ public class ThrowExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken ThrowKeyword { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken ThrowKeyword { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

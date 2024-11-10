@@ -6,6 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class NamespaceDeclarationSyntax : BaseNamespaceDeclarationSyntax
 {
+    public NamespaceDeclarationSyntax()
+    {
+        AttributeLists = null!;
+        NamespaceKeyword = null!;
+        Name = null!;
+        OpenBraceToken = null!;
+        Externs = null!;
+        Usings = null!;
+        Members = null!;
+        CloseBraceToken = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public NamespaceDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.NamespaceDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -20,14 +34,14 @@ public class NamespaceDeclarationSyntax : BaseNamespaceDeclarationSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken NamespaceKeyword { get; }
-    public NameSyntax Name { get; }
-    public SyntaxToken OpenBraceToken { get; }
-    public SyntaxList<ExternAliasDirectiveSyntax> Externs { get; }
-    public SyntaxList<UsingDirectiveSyntax> Usings { get; }
-    public SyntaxList<MemberDeclarationSyntax> Members { get; }
-    public SyntaxToken CloseBraceToken { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken NamespaceKeyword { get; init; }
+    public NameSyntax Name { get; init; }
+    public SyntaxToken OpenBraceToken { get; init; }
+    public SyntaxList<ExternAliasDirectiveSyntax> Externs { get; init; }
+    public SyntaxList<UsingDirectiveSyntax> Usings { get; init; }
+    public SyntaxList<MemberDeclarationSyntax> Members { get; init; }
+    public SyntaxToken CloseBraceToken { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

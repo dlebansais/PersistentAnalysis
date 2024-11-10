@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class PositionalPatternClauseSyntax : SyntaxNode
 {
+    public PositionalPatternClauseSyntax()
+    {
+        OpenParenToken = null!;
+        Subpatterns = null!;
+        CloseParenToken = null!;
+        Parent = null;
+    }
+
     public PositionalPatternClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.PositionalPatternClauseSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
@@ -14,8 +22,8 @@ public class PositionalPatternClauseSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken OpenParenToken { get; }
-    public SeparatedSyntaxList<SubpatternSyntax> Subpatterns { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public SeparatedSyntaxList<SubpatternSyntax> Subpatterns { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

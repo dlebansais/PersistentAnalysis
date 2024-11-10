@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ImplicitObjectCreationExpressionSyntax : BaseObjectCreationExpressionSyntax
 {
+    public ImplicitObjectCreationExpressionSyntax()
+    {
+        NewKeyword = null!;
+        ArgumentList = null!;
+        Initializer = null!;
+        Parent = null;
+    }
+
     public ImplicitObjectCreationExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ImplicitObjectCreationExpressionSyntax node, SyntaxNode? parent)
     {
         NewKeyword = Cloner.ToToken(node.NewKeyword);
@@ -14,8 +22,8 @@ public class ImplicitObjectCreationExpressionSyntax : BaseObjectCreationExpressi
         Parent = parent;
     }
 
-    public SyntaxToken NewKeyword { get; }
-    public ArgumentListSyntax ArgumentList { get; }
-    public InitializerExpressionSyntax? Initializer { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken NewKeyword { get; init; }
+    public ArgumentListSyntax ArgumentList { get; init; }
+    public InitializerExpressionSyntax? Initializer { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

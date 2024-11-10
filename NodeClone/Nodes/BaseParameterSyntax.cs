@@ -4,8 +4,9 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(ParameterSyntax))]
-[JsonDerivedType(typeof(FunctionPointerParameterSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(ParameterSyntax), typeDiscriminator: "ParameterSyntax")]
+[JsonDerivedType(typeof(FunctionPointerParameterSyntax), typeDiscriminator: "FunctionPointerParameterSyntax")]
 public abstract class BaseParameterSyntax : SyntaxNode
 {
     public static BaseParameterSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BaseParameterSyntax node, SyntaxNode? parent)

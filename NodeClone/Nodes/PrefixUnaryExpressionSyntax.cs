@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class PrefixUnaryExpressionSyntax : ExpressionSyntax
 {
+    public PrefixUnaryExpressionSyntax()
+    {
+        OperatorToken = null!;
+        Operand = null!;
+        Parent = null;
+    }
+
     public PrefixUnaryExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.PrefixUnaryExpressionSyntax node, SyntaxNode? parent)
     {
         OperatorToken = Cloner.ToToken(node.OperatorToken);
@@ -13,7 +20,7 @@ public class PrefixUnaryExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OperatorToken { get; }
-    public ExpressionSyntax Operand { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OperatorToken { get; init; }
+    public ExpressionSyntax Operand { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ObjectCreationExpressionSyntax : BaseObjectCreationExpressionSyntax
 {
+    public ObjectCreationExpressionSyntax()
+    {
+        NewKeyword = null!;
+        Type = null!;
+        ArgumentList = null!;
+        Initializer = null!;
+        Parent = null;
+    }
+
     public ObjectCreationExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ObjectCreationExpressionSyntax node, SyntaxNode? parent)
     {
         NewKeyword = Cloner.ToToken(node.NewKeyword);
@@ -15,9 +24,9 @@ public class ObjectCreationExpressionSyntax : BaseObjectCreationExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken NewKeyword { get; }
-    public TypeSyntax Type { get; }
-    public ArgumentListSyntax? ArgumentList { get; }
-    public InitializerExpressionSyntax? Initializer { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken NewKeyword { get; init; }
+    public TypeSyntax Type { get; init; }
+    public ArgumentListSyntax? ArgumentList { get; init; }
+    public InitializerExpressionSyntax? Initializer { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

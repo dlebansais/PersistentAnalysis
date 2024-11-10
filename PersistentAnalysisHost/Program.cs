@@ -17,6 +17,12 @@ internal class Program
     {
         Trace("Starting");
 
+        if (args.Length > 0 && int.TryParse(args[0], out int MaxDuration) && MaxDuration > 0)
+        {
+            ExitTimeout = TimeSpan.FromSeconds(MaxDuration);
+            Trace($"ExitTimeout is: {ExitTimeout}");
+        }
+
         using Stream? Stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{typeof(Program).Assembly.GetName().Name}.ChannelGuid.txt");
         Stream ResourceStream = Contract.AssertNotNull(Stream);
         using StreamReader Reader = new(ResourceStream);

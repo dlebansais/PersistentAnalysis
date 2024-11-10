@@ -4,9 +4,10 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(EventDeclarationSyntax))]
-[JsonDerivedType(typeof(IndexerDeclarationSyntax))]
-[JsonDerivedType(typeof(PropertyDeclarationSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(EventDeclarationSyntax), typeDiscriminator: "EventDeclarationSyntax")]
+[JsonDerivedType(typeof(IndexerDeclarationSyntax), typeDiscriminator: "IndexerDeclarationSyntax")]
+[JsonDerivedType(typeof(PropertyDeclarationSyntax), typeDiscriminator: "PropertyDeclarationSyntax")]
 public abstract class BasePropertyDeclarationSyntax : MemberDeclarationSyntax
 {
     public static BasePropertyDeclarationSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BasePropertyDeclarationSyntax node, SyntaxNode? parent)

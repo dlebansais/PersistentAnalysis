@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class NullableTypeSyntax : TypeSyntax
 {
+    public NullableTypeSyntax()
+    {
+        ElementType = null!;
+        QuestionToken = null!;
+        Parent = null;
+    }
+
     public NullableTypeSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.NullableTypeSyntax node, SyntaxNode? parent)
     {
         ElementType = TypeSyntax.From(node.ElementType, this);
@@ -13,7 +20,7 @@ public class NullableTypeSyntax : TypeSyntax
         Parent = parent;
     }
 
-    public TypeSyntax ElementType { get; }
-    public SyntaxToken QuestionToken { get; }
-    public SyntaxNode? Parent { get; }
+    public TypeSyntax ElementType { get; init; }
+    public SyntaxToken QuestionToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

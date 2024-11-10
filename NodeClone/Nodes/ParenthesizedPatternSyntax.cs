@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ParenthesizedPatternSyntax : PatternSyntax
 {
+    public ParenthesizedPatternSyntax()
+    {
+        OpenParenToken = null!;
+        Pattern = null!;
+        CloseParenToken = null!;
+        Parent = null;
+    }
+
     public ParenthesizedPatternSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ParenthesizedPatternSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
@@ -14,8 +22,8 @@ public class ParenthesizedPatternSyntax : PatternSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OpenParenToken { get; }
-    public PatternSyntax Pattern { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public PatternSyntax Pattern { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

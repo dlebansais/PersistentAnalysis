@@ -6,6 +6,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class IfStatementSyntax : StatementSyntax
 {
+    public IfStatementSyntax()
+    {
+        AttributeLists = null!;
+        IfKeyword = null!;
+        OpenParenToken = null!;
+        Condition = null!;
+        CloseParenToken = null!;
+        Statement = null!;
+        Else = null!;
+        Parent = null;
+    }
+
     public IfStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.IfStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -18,12 +30,12 @@ public class IfStatementSyntax : StatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken IfKeyword { get; }
-    public SyntaxToken OpenParenToken { get; }
-    public ExpressionSyntax Condition { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public StatementSyntax Statement { get; }
-    public ElseClauseSyntax? Else { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken IfKeyword { get; init; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public ExpressionSyntax Condition { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public StatementSyntax Statement { get; init; }
+    public ElseClauseSyntax? Else { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

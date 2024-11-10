@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class CatchClauseSyntax : SyntaxNode
 {
+    public CatchClauseSyntax()
+    {
+        CatchKeyword = null!;
+        Declaration = null!;
+        Filter = null!;
+        Block = null!;
+        Parent = null;
+    }
+
     public CatchClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.CatchClauseSyntax node, SyntaxNode? parent)
     {
         CatchKeyword = Cloner.ToToken(node.CatchKeyword);
@@ -15,9 +24,9 @@ public class CatchClauseSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken CatchKeyword { get; }
-    public CatchDeclarationSyntax? Declaration { get; }
-    public CatchFilterClauseSyntax? Filter { get; }
-    public BlockSyntax Block { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken CatchKeyword { get; init; }
+    public CatchDeclarationSyntax? Declaration { get; init; }
+    public CatchFilterClauseSyntax? Filter { get; init; }
+    public BlockSyntax Block { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

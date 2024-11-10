@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class CatchDeclarationSyntax : SyntaxNode
 {
+    public CatchDeclarationSyntax()
+    {
+        OpenParenToken = null!;
+        Type = null!;
+        Identifier = null!;
+        CloseParenToken = null!;
+        Parent = null;
+    }
+
     public CatchDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.CatchDeclarationSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
@@ -15,9 +24,9 @@ public class CatchDeclarationSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken OpenParenToken { get; }
-    public TypeSyntax Type { get; }
-    public SyntaxToken Identifier { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public TypeSyntax Type { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class PointerTypeSyntax : TypeSyntax
 {
+    public PointerTypeSyntax()
+    {
+        ElementType = null!;
+        AsteriskToken = null!;
+        Parent = null;
+    }
+
     public PointerTypeSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.PointerTypeSyntax node, SyntaxNode? parent)
     {
         ElementType = TypeSyntax.From(node.ElementType, this);
@@ -13,7 +20,7 @@ public class PointerTypeSyntax : TypeSyntax
         Parent = parent;
     }
 
-    public TypeSyntax ElementType { get; }
-    public SyntaxToken AsteriskToken { get; }
-    public SyntaxNode? Parent { get; }
+    public TypeSyntax ElementType { get; init; }
+    public SyntaxToken AsteriskToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

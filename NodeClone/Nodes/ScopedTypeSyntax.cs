@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ScopedTypeSyntax : TypeSyntax
 {
+    public ScopedTypeSyntax()
+    {
+        ScopedKeyword = null!;
+        Type = null!;
+        Parent = null;
+    }
+
     public ScopedTypeSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ScopedTypeSyntax node, SyntaxNode? parent)
     {
         ScopedKeyword = Cloner.ToToken(node.ScopedKeyword);
@@ -13,7 +20,7 @@ public class ScopedTypeSyntax : TypeSyntax
         Parent = parent;
     }
 
-    public SyntaxToken ScopedKeyword { get; }
-    public TypeSyntax Type { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken ScopedKeyword { get; init; }
+    public TypeSyntax Type { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

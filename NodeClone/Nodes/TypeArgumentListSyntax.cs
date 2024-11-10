@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class TypeArgumentListSyntax : SyntaxNode
 {
+    public TypeArgumentListSyntax()
+    {
+        LessThanToken = null!;
+        Arguments = null!;
+        GreaterThanToken = null!;
+        Parent = null;
+    }
+
     public TypeArgumentListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TypeArgumentListSyntax node, SyntaxNode? parent)
     {
         LessThanToken = Cloner.ToToken(node.LessThanToken);
@@ -14,8 +22,8 @@ public class TypeArgumentListSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken LessThanToken { get; }
-    public SeparatedSyntaxList<TypeSyntax> Arguments { get; }
-    public SyntaxToken GreaterThanToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken LessThanToken { get; init; }
+    public SeparatedSyntaxList<TypeSyntax> Arguments { get; init; }
+    public SyntaxToken GreaterThanToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

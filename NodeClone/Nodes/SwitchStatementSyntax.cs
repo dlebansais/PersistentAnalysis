@@ -6,6 +6,19 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class SwitchStatementSyntax : StatementSyntax
 {
+    public SwitchStatementSyntax()
+    {
+        AttributeLists = null!;
+        SwitchKeyword = null!;
+        OpenParenToken = null!;
+        Expression = null!;
+        CloseParenToken = null!;
+        OpenBraceToken = null!;
+        Sections = null!;
+        CloseBraceToken = null!;
+        Parent = null;
+    }
+
     public SwitchStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.SwitchStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -19,13 +32,13 @@ public class SwitchStatementSyntax : StatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken SwitchKeyword { get; }
-    public SyntaxToken OpenParenToken { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public SyntaxToken OpenBraceToken { get; }
-    public SyntaxList<SwitchSectionSyntax> Sections { get; }
-    public SyntaxToken CloseBraceToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken SwitchKeyword { get; init; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public SyntaxToken OpenBraceToken { get; init; }
+    public SyntaxList<SwitchSectionSyntax> Sections { get; init; }
+    public SyntaxToken CloseBraceToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

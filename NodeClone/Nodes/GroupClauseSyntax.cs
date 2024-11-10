@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class GroupClauseSyntax : SelectOrGroupClauseSyntax
 {
+    public GroupClauseSyntax()
+    {
+        GroupKeyword = null!;
+        GroupExpression = null!;
+        ByKeyword = null!;
+        ByExpression = null!;
+        Parent = null;
+    }
+
     public GroupClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.GroupClauseSyntax node, SyntaxNode? parent)
     {
         GroupKeyword = Cloner.ToToken(node.GroupKeyword);
@@ -15,9 +24,9 @@ public class GroupClauseSyntax : SelectOrGroupClauseSyntax
         Parent = parent;
     }
 
-    public SyntaxToken GroupKeyword { get; }
-    public ExpressionSyntax GroupExpression { get; }
-    public SyntaxToken ByKeyword { get; }
-    public ExpressionSyntax ByExpression { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken GroupKeyword { get; init; }
+    public ExpressionSyntax GroupExpression { get; init; }
+    public SyntaxToken ByKeyword { get; init; }
+    public ExpressionSyntax ByExpression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

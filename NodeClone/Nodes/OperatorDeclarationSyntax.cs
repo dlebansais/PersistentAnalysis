@@ -6,6 +6,21 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class OperatorDeclarationSyntax : BaseMethodDeclarationSyntax
 {
+    public OperatorDeclarationSyntax()
+    {
+        AttributeLists = null!;
+        ReturnType = null!;
+        ExplicitInterfaceSpecifier = null!;
+        OperatorKeyword = null!;
+        CheckedKeyword = null!;
+        OperatorToken = null!;
+        ParameterList = null!;
+        Body = null!;
+        ExpressionBody = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public OperatorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.OperatorDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -21,15 +36,15 @@ public class OperatorDeclarationSyntax : BaseMethodDeclarationSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public TypeSyntax ReturnType { get; }
-    public ExplicitInterfaceSpecifierSyntax? ExplicitInterfaceSpecifier { get; }
-    public SyntaxToken OperatorKeyword { get; }
-    public SyntaxToken CheckedKeyword { get; }
-    public SyntaxToken OperatorToken { get; }
-    public ParameterListSyntax ParameterList { get; }
-    public BlockSyntax? Body { get; }
-    public ArrowExpressionClauseSyntax? ExpressionBody { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public TypeSyntax ReturnType { get; init; }
+    public ExplicitInterfaceSpecifierSyntax? ExplicitInterfaceSpecifier { get; init; }
+    public SyntaxToken OperatorKeyword { get; init; }
+    public SyntaxToken CheckedKeyword { get; init; }
+    public SyntaxToken OperatorToken { get; init; }
+    public ParameterListSyntax ParameterList { get; init; }
+    public BlockSyntax? Body { get; init; }
+    public ArrowExpressionClauseSyntax? ExpressionBody { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

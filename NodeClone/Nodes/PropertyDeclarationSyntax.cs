@@ -6,6 +6,19 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class PropertyDeclarationSyntax : BasePropertyDeclarationSyntax
 {
+    public PropertyDeclarationSyntax()
+    {
+        AttributeLists = null!;
+        Type = null!;
+        ExplicitInterfaceSpecifier = null!;
+        Identifier = null!;
+        AccessorList = null!;
+        ExpressionBody = null!;
+        Initializer = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public PropertyDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.PropertyDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -19,13 +32,13 @@ public class PropertyDeclarationSyntax : BasePropertyDeclarationSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public TypeSyntax Type { get; }
-    public ExplicitInterfaceSpecifierSyntax? ExplicitInterfaceSpecifier { get; }
-    public SyntaxToken Identifier { get; }
-    public AccessorListSyntax? AccessorList { get; }
-    public ArrowExpressionClauseSyntax? ExpressionBody { get; }
-    public EqualsValueClauseSyntax? Initializer { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public TypeSyntax Type { get; init; }
+    public ExplicitInterfaceSpecifierSyntax? ExplicitInterfaceSpecifier { get; init; }
+    public SyntaxToken Identifier { get; init; }
+    public AccessorListSyntax? AccessorList { get; init; }
+    public ArrowExpressionClauseSyntax? ExpressionBody { get; init; }
+    public EqualsValueClauseSyntax? Initializer { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ExplicitInterfaceSpecifierSyntax : SyntaxNode
 {
+    public ExplicitInterfaceSpecifierSyntax()
+    {
+        Name = null!;
+        DotToken = null!;
+        Parent = null;
+    }
+
     public ExplicitInterfaceSpecifierSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ExplicitInterfaceSpecifierSyntax node, SyntaxNode? parent)
     {
         Name = NameSyntax.From(node.Name, this);
@@ -13,7 +20,7 @@ public class ExplicitInterfaceSpecifierSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public NameSyntax Name { get; }
-    public SyntaxToken DotToken { get; }
-    public SyntaxNode? Parent { get; }
+    public NameSyntax Name { get; init; }
+    public SyntaxToken DotToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

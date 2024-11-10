@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ArrayRankSpecifierSyntax : SyntaxNode
 {
+    public ArrayRankSpecifierSyntax()
+    {
+        OpenBracketToken = null!;
+        Sizes = null!;
+        CloseBracketToken = null!;
+        Parent = null;
+    }
+
     public ArrayRankSpecifierSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ArrayRankSpecifierSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
@@ -14,8 +22,8 @@ public class ArrayRankSpecifierSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken OpenBracketToken { get; }
-    public SeparatedSyntaxList<ExpressionSyntax> Sizes { get; }
-    public SyntaxToken CloseBracketToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenBracketToken { get; init; }
+    public SeparatedSyntaxList<ExpressionSyntax> Sizes { get; init; }
+    public SyntaxToken CloseBracketToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AssignmentExpressionSyntax : ExpressionSyntax
 {
+    public AssignmentExpressionSyntax()
+    {
+        Left = null!;
+        OperatorToken = null!;
+        Right = null!;
+        Parent = null;
+    }
+
     public AssignmentExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AssignmentExpressionSyntax node, SyntaxNode? parent)
     {
         Left = ExpressionSyntax.From(node.Left, this);
@@ -14,8 +22,8 @@ public class AssignmentExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public ExpressionSyntax Left { get; }
-    public SyntaxToken OperatorToken { get; }
-    public ExpressionSyntax Right { get; }
-    public SyntaxNode? Parent { get; }
+    public ExpressionSyntax Left { get; init; }
+    public SyntaxToken OperatorToken { get; init; }
+    public ExpressionSyntax Right { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

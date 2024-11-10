@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class BracketedArgumentListSyntax : BaseArgumentListSyntax
 {
+    public BracketedArgumentListSyntax()
+    {
+        OpenBracketToken = null!;
+        Arguments = null!;
+        CloseBracketToken = null!;
+        Parent = null;
+    }
+
     public BracketedArgumentListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.BracketedArgumentListSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
@@ -14,8 +22,8 @@ public class BracketedArgumentListSyntax : BaseArgumentListSyntax
         Parent = parent;
     }
 
-    public SyntaxToken OpenBracketToken { get; }
-    public SeparatedSyntaxList<ArgumentSyntax> Arguments { get; }
-    public SyntaxToken CloseBracketToken { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken OpenBracketToken { get; init; }
+    public SeparatedSyntaxList<ArgumentSyntax> Arguments { get; init; }
+    public SyntaxToken CloseBracketToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

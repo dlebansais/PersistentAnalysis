@@ -4,11 +4,12 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(ClassOrStructConstraintSyntax))]
-[JsonDerivedType(typeof(ConstructorConstraintSyntax))]
-[JsonDerivedType(typeof(TypeConstraintSyntax))]
-[JsonDerivedType(typeof(DefaultConstraintSyntax))]
-[JsonDerivedType(typeof(AllowsConstraintClauseSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(ClassOrStructConstraintSyntax), typeDiscriminator: "ClassOrStructConstraintSyntax")]
+[JsonDerivedType(typeof(ConstructorConstraintSyntax), typeDiscriminator: "ConstructorConstraintSyntax")]
+[JsonDerivedType(typeof(TypeConstraintSyntax), typeDiscriminator: "TypeConstraintSyntax")]
+[JsonDerivedType(typeof(DefaultConstraintSyntax), typeDiscriminator: "DefaultConstraintSyntax")]
+[JsonDerivedType(typeof(AllowsConstraintClauseSyntax), typeDiscriminator: "AllowsConstraintClauseSyntax")]
 public abstract class TypeParameterConstraintSyntax : SyntaxNode
 {
     public static TypeParameterConstraintSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterConstraintSyntax node, SyntaxNode? parent)

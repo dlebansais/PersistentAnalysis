@@ -4,11 +4,12 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(ClassDeclarationSyntax))]
-[JsonDerivedType(typeof(InterfaceDeclarationSyntax))]
-[JsonDerivedType(typeof(RecordDeclarationSyntax))]
-[JsonDerivedType(typeof(StructDeclarationSyntax))]
-[JsonDerivedType(typeof(EnumDeclarationSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(ClassDeclarationSyntax), typeDiscriminator: "ClassDeclarationSyntax")]
+[JsonDerivedType(typeof(InterfaceDeclarationSyntax), typeDiscriminator: "InterfaceDeclarationSyntax")]
+[JsonDerivedType(typeof(RecordDeclarationSyntax), typeDiscriminator: "RecordDeclarationSyntax")]
+[JsonDerivedType(typeof(StructDeclarationSyntax), typeDiscriminator: "StructDeclarationSyntax")]
+[JsonDerivedType(typeof(EnumDeclarationSyntax), typeDiscriminator: "EnumDeclarationSyntax")]
 public abstract class BaseTypeDeclarationSyntax : MemberDeclarationSyntax
 {
     public static BaseTypeDeclarationSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.BaseTypeDeclarationSyntax node, SyntaxNode? parent)

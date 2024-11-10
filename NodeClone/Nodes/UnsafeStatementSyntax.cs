@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class UnsafeStatementSyntax : StatementSyntax
 {
+    public UnsafeStatementSyntax()
+    {
+        AttributeLists = null!;
+        UnsafeKeyword = null!;
+        Block = null!;
+        Parent = null;
+    }
+
     public UnsafeStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.UnsafeStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -14,8 +22,8 @@ public class UnsafeStatementSyntax : StatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken UnsafeKeyword { get; }
-    public BlockSyntax Block { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken UnsafeKeyword { get; init; }
+    public BlockSyntax Block { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

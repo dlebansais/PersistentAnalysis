@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class RefTypeSyntax : TypeSyntax
 {
+    public RefTypeSyntax()
+    {
+        RefKeyword = null!;
+        ReadOnlyKeyword = null!;
+        Type = null!;
+        Parent = null;
+    }
+
     public RefTypeSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.RefTypeSyntax node, SyntaxNode? parent)
     {
         RefKeyword = Cloner.ToToken(node.RefKeyword);
@@ -14,8 +22,8 @@ public class RefTypeSyntax : TypeSyntax
         Parent = parent;
     }
 
-    public SyntaxToken RefKeyword { get; }
-    public SyntaxToken ReadOnlyKeyword { get; }
-    public TypeSyntax Type { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken RefKeyword { get; init; }
+    public SyntaxToken ReadOnlyKeyword { get; init; }
+    public TypeSyntax Type { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

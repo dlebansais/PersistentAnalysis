@@ -6,6 +6,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class TryStatementSyntax : StatementSyntax
 {
+    public TryStatementSyntax()
+    {
+        AttributeLists = null!;
+        TryKeyword = null!;
+        Block = null!;
+        Catches = null!;
+        Finally = null!;
+        Parent = null;
+    }
+
     public TryStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TryStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -16,10 +26,10 @@ public class TryStatementSyntax : StatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken TryKeyword { get; }
-    public BlockSyntax Block { get; }
-    public SyntaxList<CatchClauseSyntax> Catches { get; }
-    public FinallyClauseSyntax? Finally { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken TryKeyword { get; init; }
+    public BlockSyntax Block { get; init; }
+    public SyntaxList<CatchClauseSyntax> Catches { get; init; }
+    public FinallyClauseSyntax? Finally { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

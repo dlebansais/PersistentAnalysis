@@ -6,6 +6,19 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class UsingDirectiveSyntax : SyntaxNode
 {
+    public UsingDirectiveSyntax()
+    {
+        Name = null!;
+        GlobalKeyword = null!;
+        UsingKeyword = null!;
+        StaticKeyword = null!;
+        UnsafeKeyword = null!;
+        Alias = null!;
+        NamespaceOrType = null!;
+        SemicolonToken = null!;
+        Parent = null;
+    }
+
     public UsingDirectiveSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.UsingDirectiveSyntax node, SyntaxNode? parent)
     {
         Name = node.Name is null ? null : NameSyntax.From(node.Name, this);
@@ -19,13 +32,13 @@ public class UsingDirectiveSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public NameSyntax? Name { get; }
-    public SyntaxToken GlobalKeyword { get; }
-    public SyntaxToken UsingKeyword { get; }
-    public SyntaxToken StaticKeyword { get; }
-    public SyntaxToken UnsafeKeyword { get; }
-    public NameEqualsSyntax? Alias { get; }
-    public TypeSyntax NamespaceOrType { get; }
-    public SyntaxToken SemicolonToken { get; }
-    public SyntaxNode? Parent { get; }
+    public NameSyntax? Name { get; init; }
+    public SyntaxToken GlobalKeyword { get; init; }
+    public SyntaxToken UsingKeyword { get; init; }
+    public SyntaxToken StaticKeyword { get; init; }
+    public SyntaxToken UnsafeKeyword { get; init; }
+    public NameEqualsSyntax? Alias { get; init; }
+    public TypeSyntax NamespaceOrType { get; init; }
+    public SyntaxToken SemicolonToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

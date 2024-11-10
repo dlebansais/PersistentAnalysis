@@ -6,6 +6,14 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class QueryBodySyntax : SyntaxNode
 {
+    public QueryBodySyntax()
+    {
+        Clauses = null!;
+        SelectOrGroup = null!;
+        Continuation = null!;
+        Parent = null;
+    }
+
     public QueryBodySyntax(Microsoft.CodeAnalysis.CSharp.Syntax.QueryBodySyntax node, SyntaxNode? parent)
     {
         Clauses = Cloner.ListFrom<QueryClauseSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.QueryClauseSyntax>(node.Clauses, parent);
@@ -14,8 +22,8 @@ public class QueryBodySyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxList<QueryClauseSyntax> Clauses { get; }
-    public SelectOrGroupClauseSyntax SelectOrGroup { get; }
-    public QueryContinuationSyntax? Continuation { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<QueryClauseSyntax> Clauses { get; init; }
+    public SelectOrGroupClauseSyntax SelectOrGroup { get; init; }
+    public QueryContinuationSyntax? Continuation { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

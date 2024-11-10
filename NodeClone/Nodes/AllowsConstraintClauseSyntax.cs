@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class AllowsConstraintClauseSyntax : TypeParameterConstraintSyntax
 {
+    public AllowsConstraintClauseSyntax()
+    {
+        AllowsKeyword = null!;
+        Constraints = null!;
+        Parent = null;
+    }
+
     public AllowsConstraintClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AllowsConstraintClauseSyntax node, SyntaxNode? parent)
     {
         AllowsKeyword = Cloner.ToToken(node.AllowsKeyword);
@@ -13,7 +20,7 @@ public class AllowsConstraintClauseSyntax : TypeParameterConstraintSyntax
         Parent = parent;
     }
 
-    public SyntaxToken AllowsKeyword { get; }
-    public SeparatedSyntaxList<AllowsConstraintSyntax> Constraints { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken AllowsKeyword { get; init; }
+    public SeparatedSyntaxList<AllowsConstraintSyntax> Constraints { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

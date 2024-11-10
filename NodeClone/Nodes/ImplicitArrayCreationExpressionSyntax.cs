@@ -6,6 +6,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ImplicitArrayCreationExpressionSyntax : ExpressionSyntax
 {
+    public ImplicitArrayCreationExpressionSyntax()
+    {
+        NewKeyword = null!;
+        OpenBracketToken = null!;
+        CloseBracketToken = null!;
+        Initializer = null!;
+        Parent = null;
+    }
+
     public ImplicitArrayCreationExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ImplicitArrayCreationExpressionSyntax node, SyntaxNode? parent)
     {
         NewKeyword = Cloner.ToToken(node.NewKeyword);
@@ -15,9 +24,9 @@ public class ImplicitArrayCreationExpressionSyntax : ExpressionSyntax
         Parent = parent;
     }
 
-    public SyntaxToken NewKeyword { get; }
-    public SyntaxToken OpenBracketToken { get; }
-    public SyntaxToken CloseBracketToken { get; }
-    public InitializerExpressionSyntax Initializer { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken NewKeyword { get; init; }
+    public SyntaxToken OpenBracketToken { get; init; }
+    public SyntaxToken CloseBracketToken { get; init; }
+    public InitializerExpressionSyntax Initializer { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

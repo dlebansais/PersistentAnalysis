@@ -6,6 +6,22 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ForStatementSyntax : StatementSyntax
 {
+    public ForStatementSyntax()
+    {
+        AttributeLists = null!;
+        ForKeyword = null!;
+        OpenParenToken = null!;
+        Declaration = null!;
+        Initializers = null!;
+        FirstSemicolonToken = null!;
+        Condition = null!;
+        SecondSemicolonToken = null!;
+        Incrementors = null!;
+        CloseParenToken = null!;
+        Statement = null!;
+        Parent = null;
+    }
+
     public ForStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ForStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
@@ -22,16 +38,16 @@ public class ForStatementSyntax : StatementSyntax
         Parent = parent;
     }
 
-    public SyntaxList<AttributeListSyntax> AttributeLists { get; }
-    public SyntaxToken ForKeyword { get; }
-    public SyntaxToken OpenParenToken { get; }
-    public VariableDeclarationSyntax? Declaration { get; }
-    public SeparatedSyntaxList<ExpressionSyntax> Initializers { get; }
-    public SyntaxToken FirstSemicolonToken { get; }
-    public ExpressionSyntax? Condition { get; }
-    public SyntaxToken SecondSemicolonToken { get; }
-    public SeparatedSyntaxList<ExpressionSyntax> Incrementors { get; }
-    public SyntaxToken CloseParenToken { get; }
-    public StatementSyntax Statement { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxToken ForKeyword { get; init; }
+    public SyntaxToken OpenParenToken { get; init; }
+    public VariableDeclarationSyntax? Declaration { get; init; }
+    public SeparatedSyntaxList<ExpressionSyntax> Initializers { get; init; }
+    public SyntaxToken FirstSemicolonToken { get; init; }
+    public ExpressionSyntax? Condition { get; init; }
+    public SyntaxToken SecondSemicolonToken { get; init; }
+    public SeparatedSyntaxList<ExpressionSyntax> Incrementors { get; init; }
+    public SyntaxToken CloseParenToken { get; init; }
+    public StatementSyntax Statement { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

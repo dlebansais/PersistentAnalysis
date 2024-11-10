@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class ArrowExpressionClauseSyntax : SyntaxNode
 {
+    public ArrowExpressionClauseSyntax()
+    {
+        ArrowToken = null!;
+        Expression = null!;
+        Parent = null;
+    }
+
     public ArrowExpressionClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ArrowExpressionClauseSyntax node, SyntaxNode? parent)
     {
         ArrowToken = Cloner.ToToken(node.ArrowToken);
@@ -13,7 +20,7 @@ public class ArrowExpressionClauseSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public SyntaxToken ArrowToken { get; }
-    public ExpressionSyntax Expression { get; }
-    public SyntaxNode? Parent { get; }
+    public SyntaxToken ArrowToken { get; init; }
+    public ExpressionSyntax Expression { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }

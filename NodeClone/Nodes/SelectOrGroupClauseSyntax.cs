@@ -4,8 +4,9 @@ using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-[JsonDerivedType(typeof(SelectClauseSyntax))]
-[JsonDerivedType(typeof(GroupClauseSyntax))]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$discriminator")]
+[JsonDerivedType(typeof(SelectClauseSyntax), typeDiscriminator: "SelectClauseSyntax")]
+[JsonDerivedType(typeof(GroupClauseSyntax), typeDiscriminator: "GroupClauseSyntax")]
 public abstract class SelectOrGroupClauseSyntax : SyntaxNode
 {
     public static SelectOrGroupClauseSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.SelectOrGroupClauseSyntax node, SyntaxNode? parent)

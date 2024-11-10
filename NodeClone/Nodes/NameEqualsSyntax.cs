@@ -6,6 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public class NameEqualsSyntax : SyntaxNode
 {
+    public NameEqualsSyntax()
+    {
+        Name = null!;
+        EqualsToken = null!;
+        Parent = null;
+    }
+
     public NameEqualsSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.NameEqualsSyntax node, SyntaxNode? parent)
     {
         Name = new IdentifierNameSyntax(node.Name, this);
@@ -13,7 +20,7 @@ public class NameEqualsSyntax : SyntaxNode
         Parent = parent;
     }
 
-    public IdentifierNameSyntax Name { get; }
-    public SyntaxToken EqualsToken { get; }
-    public SyntaxNode? Parent { get; }
+    public IdentifierNameSyntax Name { get; init; }
+    public SyntaxToken EqualsToken { get; init; }
+    public SyntaxNode? Parent { get; init; }
 }
