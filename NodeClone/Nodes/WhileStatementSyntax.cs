@@ -19,7 +19,7 @@ public class WhileStatementSyntax : StatementSyntax
 
     public WhileStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.WhileStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         WhileKeyword = Cloner.ToToken(node.WhileKeyword);
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         Condition = ExpressionSyntax.From(node.Condition, this);

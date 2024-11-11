@@ -15,7 +15,7 @@ public class FunctionPointerParameterSyntax : BaseParameterSyntax
 
     public FunctionPointerParameterSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FunctionPointerParameterSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Type = TypeSyntax.From(node.Type, this);
         Parent = parent;
     }

@@ -23,7 +23,7 @@ public class ForEachStatementSyntax : CommonForEachStatementSyntax
 
     public ForEachStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ForEachStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         AwaitKeyword = Cloner.ToToken(node.AwaitKeyword);
         ForEachKeyword = Cloner.ToToken(node.ForEachKeyword);
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);

@@ -17,7 +17,7 @@ public class PropertyPatternClauseSyntax : SyntaxNode
     public PropertyPatternClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.PropertyPatternClauseSyntax node, SyntaxNode? parent)
     {
         OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
-        Subpatterns = Cloner.SeparatedListFrom<SubpatternSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.SubpatternSyntax>(node.Subpatterns, parent);
+        Subpatterns = Cloner.SeparatedListFrom<SubpatternSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.SubpatternSyntax>(node.Subpatterns, this);
         CloseBraceToken = Cloner.ToToken(node.CloseBraceToken);
         Parent = parent;
     }

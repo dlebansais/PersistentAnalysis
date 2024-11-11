@@ -17,7 +17,7 @@ public class TupleExpressionSyntax : ExpressionSyntax
     public TupleExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TupleExpressionSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
-        Arguments = Cloner.SeparatedListFrom<ArgumentSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ArgumentSyntax>(node.Arguments, parent);
+        Arguments = Cloner.SeparatedListFrom<ArgumentSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ArgumentSyntax>(node.Arguments, this);
         CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Parent = parent;
     }

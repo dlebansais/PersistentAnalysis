@@ -21,7 +21,7 @@ public class UsingStatementSyntax : StatementSyntax
 
     public UsingStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.UsingStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         AwaitKeyword = Cloner.ToToken(node.AwaitKeyword);
         UsingKeyword = Cloner.ToToken(node.UsingKeyword);
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);

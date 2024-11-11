@@ -23,7 +23,7 @@ public class OperatorDeclarationSyntax : BaseMethodDeclarationSyntax
 
     public OperatorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.OperatorDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         ReturnType = TypeSyntax.From(node.ReturnType, this);
         ExplicitInterfaceSpecifier = node.ExplicitInterfaceSpecifier is null ? null : new ExplicitInterfaceSpecifierSyntax(node.ExplicitInterfaceSpecifier, this);
         OperatorKeyword = Cloner.ToToken(node.OperatorKeyword);

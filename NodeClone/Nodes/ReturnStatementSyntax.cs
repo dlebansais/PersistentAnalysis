@@ -17,7 +17,7 @@ public class ReturnStatementSyntax : StatementSyntax
 
     public ReturnStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ReturnStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         ReturnKeyword = Cloner.ToToken(node.ReturnKeyword);
         Expression = node.Expression is null ? null : ExpressionSyntax.From(node.Expression, this);
         SemicolonToken = Cloner.ToToken(node.SemicolonToken);

@@ -24,15 +24,15 @@ public class InterfaceDeclarationSyntax : TypeDeclarationSyntax
 
     public InterfaceDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.InterfaceDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Keyword = Cloner.ToToken(node.Keyword);
         Identifier = Cloner.ToToken(node.Identifier);
         TypeParameterList = node.TypeParameterList is null ? null : new TypeParameterListSyntax(node.TypeParameterList, this);
         ParameterList = node.ParameterList is null ? null : new ParameterListSyntax(node.ParameterList, this);
         BaseList = node.BaseList is null ? null : new BaseListSyntax(node.BaseList, this);
-        ConstraintClauses = Cloner.ListFrom<TypeParameterConstraintClauseSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterConstraintClauseSyntax>(node.ConstraintClauses, parent);
+        ConstraintClauses = Cloner.ListFrom<TypeParameterConstraintClauseSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterConstraintClauseSyntax>(node.ConstraintClauses, this);
         OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
-        Members = Cloner.ListFrom<MemberDeclarationSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.MemberDeclarationSyntax>(node.Members, parent);
+        Members = Cloner.ListFrom<MemberDeclarationSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.MemberDeclarationSyntax>(node.Members, this);
         CloseBraceToken = Cloner.ToToken(node.CloseBraceToken);
         SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;

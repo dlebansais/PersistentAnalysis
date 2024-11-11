@@ -17,7 +17,7 @@ public class EventFieldDeclarationSyntax : BaseFieldDeclarationSyntax
 
     public EventFieldDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.EventFieldDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         EventKeyword = Cloner.ToToken(node.EventKeyword);
         Declaration = new VariableDeclarationSyntax(node.Declaration, this);
         SemicolonToken = Cloner.ToToken(node.SemicolonToken);

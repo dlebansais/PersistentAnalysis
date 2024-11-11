@@ -17,7 +17,7 @@ public class FunctionPointerParameterListSyntax : SyntaxNode
     public FunctionPointerParameterListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FunctionPointerParameterListSyntax node, SyntaxNode? parent)
     {
         LessThanToken = Cloner.ToToken(node.LessThanToken);
-        Parameters = Cloner.SeparatedListFrom<FunctionPointerParameterSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.FunctionPointerParameterSyntax>(node.Parameters, parent);
+        Parameters = Cloner.SeparatedListFrom<FunctionPointerParameterSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.FunctionPointerParameterSyntax>(node.Parameters, this);
         GreaterThanToken = Cloner.ToToken(node.GreaterThanToken);
         Parent = parent;
     }

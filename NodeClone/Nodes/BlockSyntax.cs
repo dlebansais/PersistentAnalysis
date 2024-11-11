@@ -17,9 +17,9 @@ public class BlockSyntax : StatementSyntax
 
     public BlockSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.BlockSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
-        Statements = Cloner.ListFrom<StatementSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax>(node.Statements, parent);
+        Statements = Cloner.ListFrom<StatementSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax>(node.Statements, this);
         CloseBraceToken = Cloner.ToToken(node.CloseBraceToken);
         Parent = parent;
     }

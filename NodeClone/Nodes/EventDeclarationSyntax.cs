@@ -20,7 +20,7 @@ public class EventDeclarationSyntax : BasePropertyDeclarationSyntax
 
     public EventDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.EventDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         EventKeyword = Cloner.ToToken(node.EventKeyword);
         Type = TypeSyntax.From(node.Type, this);
         ExplicitInterfaceSpecifier = node.ExplicitInterfaceSpecifier is null ? null : new ExplicitInterfaceSpecifierSyntax(node.ExplicitInterfaceSpecifier, this);

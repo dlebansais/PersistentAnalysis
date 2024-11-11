@@ -16,7 +16,7 @@ public class BreakStatementSyntax : StatementSyntax
 
     public BreakStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.BreakStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         BreakKeyword = Cloner.ToToken(node.BreakKeyword);
         SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;

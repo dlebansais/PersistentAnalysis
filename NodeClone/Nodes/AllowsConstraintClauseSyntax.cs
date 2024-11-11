@@ -16,7 +16,7 @@ public class AllowsConstraintClauseSyntax : TypeParameterConstraintSyntax
     public AllowsConstraintClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AllowsConstraintClauseSyntax node, SyntaxNode? parent)
     {
         AllowsKeyword = Cloner.ToToken(node.AllowsKeyword);
-        Constraints = Cloner.SeparatedListFrom<AllowsConstraintSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AllowsConstraintSyntax>(node.Constraints, parent);
+        Constraints = Cloner.SeparatedListFrom<AllowsConstraintSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AllowsConstraintSyntax>(node.Constraints, this);
         Parent = parent;
     }
 

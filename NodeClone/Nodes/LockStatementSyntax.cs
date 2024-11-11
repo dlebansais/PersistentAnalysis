@@ -19,7 +19,7 @@ public class LockStatementSyntax : StatementSyntax
 
     public LockStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.LockStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         LockKeyword = Cloner.ToToken(node.LockKeyword);
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         Expression = ExpressionSyntax.From(node.Expression, this);

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 internal partial class Program
 {
@@ -98,6 +99,7 @@ public abstract class {ClassName} : {BaseClassName}
         using StreamWriter writer = new(Stream, Encoding.UTF8);
 
         string BaseClassName = nodeCloneInfo.BaseClassName ?? nameof(Microsoft.CodeAnalysis.SyntaxNode);
+        bool IsNullParent = type.Name == nameof(CompilationUnitSyntax);
 
         string EmptyConstructorInitCode = string.Empty;
 
@@ -115,6 +117,7 @@ public abstract class {ClassName} : {BaseClassName}
         }
 
         string ConstructorInitCode = string.Empty;
+        string ParentParameter = IsNullParent ? string.Empty : ", SyntaxNode? parent";
 
         foreach (KeyValuePair<string, NodePropertyInfo> Entry in nodeCloneInfo.PropertiesInfo)
         {
@@ -125,7 +128,8 @@ public abstract class {ClassName} : {BaseClassName}
             string PropertyName = Entry.Key;
             NodePropertyInfo NodePropertyInfo = Entry.Value;
 
-            string InitCode = GenerateInitCode(PropertyName, NodePropertyInfo);
+            string InitCode = GenerateInitCode(PropertyName, NodePropertyInfo, IsNullParent);
+
             ConstructorInitCode += $"        {InitCode}";
         }
 
@@ -157,7 +161,7 @@ public class {ClassName} : {BaseClassName}
 {EmptyConstructorInitCode}
     }}
 
-    public {ClassName}(Microsoft.CodeAnalysis.CSharp.Syntax.{ClassName} node, SyntaxNode? parent)
+    public {ClassName}(Microsoft.CodeAnalysis.CSharp.Syntax.{ClassName} node{ParentParameter})
     {{
 {ConstructorInitCode}
     }}
@@ -178,7 +182,7 @@ public class {ClassName} : {BaseClassName}
         return $"{propertyName} = {ValueString};";
     }
 
-    private static string GenerateInitCode(string propertyName, NodePropertyInfo nodePropertyInfo)
+    private static string GenerateInitCode(string propertyName, NodePropertyInfo nodePropertyInfo, bool isNullParent)
     {
         string? ValueString = null;
 
@@ -190,7 +194,7 @@ public class {ClassName} : {BaseClassName}
         if (nodePropertyInfo.Node is Type NodeType)
         {
             if (propertyName == "Parent")
-                ValueString = "parent";
+                ValueString = isNullParent ? "null" : "parent";
             else if (NodeType.IsAbstract)
             {
                 if (nodePropertyInfo.IsNullable)
@@ -209,12 +213,12 @@ public class {ClassName} : {BaseClassName}
 
         if (nodePropertyInfo.List is Type ListType)
         {
-            ValueString = $"Cloner.ListFrom<{ListType.Name}, Microsoft.CodeAnalysis.CSharp.Syntax.{ListType.Name}>(node.{propertyName}, parent)";
+            ValueString = $"Cloner.ListFrom<{ListType.Name}, Microsoft.CodeAnalysis.CSharp.Syntax.{ListType.Name}>(node.{propertyName}, this)";
         }
 
         if (nodePropertyInfo.SeparatedList is Type SeparatedListType)
         {
-            ValueString = $"Cloner.SeparatedListFrom<{SeparatedListType.Name}, Microsoft.CodeAnalysis.CSharp.Syntax.{SeparatedListType.Name}>(node.{propertyName}, parent)";
+            ValueString = $"Cloner.SeparatedListFrom<{SeparatedListType.Name}, Microsoft.CodeAnalysis.CSharp.Syntax.{SeparatedListType.Name}>(node.{propertyName}, this)";
         }
 
         Debug.Assert(ValueString is not null);

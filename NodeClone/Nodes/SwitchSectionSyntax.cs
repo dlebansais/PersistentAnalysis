@@ -15,8 +15,8 @@ public class SwitchSectionSyntax : SyntaxNode
 
     public SwitchSectionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.SwitchSectionSyntax node, SyntaxNode? parent)
     {
-        Labels = Cloner.ListFrom<SwitchLabelSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.SwitchLabelSyntax>(node.Labels, parent);
-        Statements = Cloner.ListFrom<StatementSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax>(node.Statements, parent);
+        Labels = Cloner.ListFrom<SwitchLabelSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.SwitchLabelSyntax>(node.Labels, this);
+        Statements = Cloner.ListFrom<StatementSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax>(node.Statements, this);
         Parent = parent;
     }
 

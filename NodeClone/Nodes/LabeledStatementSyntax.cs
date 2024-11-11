@@ -17,7 +17,7 @@ public class LabeledStatementSyntax : StatementSyntax
 
     public LabeledStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.LabeledStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Identifier = Cloner.ToToken(node.Identifier);
         ColonToken = Cloner.ToToken(node.ColonToken);
         Statement = StatementSyntax.From(node.Statement, this);

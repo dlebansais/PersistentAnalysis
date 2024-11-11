@@ -21,7 +21,7 @@ public class IndexerDeclarationSyntax : BasePropertyDeclarationSyntax
 
     public IndexerDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.IndexerDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Type = TypeSyntax.From(node.Type, this);
         ExplicitInterfaceSpecifier = node.ExplicitInterfaceSpecifier is null ? null : new ExplicitInterfaceSpecifierSyntax(node.ExplicitInterfaceSpecifier, this);
         ThisKeyword = Cloner.ToToken(node.ThisKeyword);

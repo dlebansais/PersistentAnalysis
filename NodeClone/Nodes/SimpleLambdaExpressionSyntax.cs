@@ -20,7 +20,7 @@ public class SimpleLambdaExpressionSyntax : LambdaExpressionSyntax
     public SimpleLambdaExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.SimpleLambdaExpressionSyntax node, SyntaxNode? parent)
     {
         AsyncKeyword = Cloner.ToToken(node.AsyncKeyword);
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Parameter = new ParameterSyntax(node.Parameter, this);
         ArrowToken = Cloner.ToToken(node.ArrowToken);
         Block = node.Block is null ? null : new BlockSyntax(node.Block, this);

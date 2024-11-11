@@ -16,7 +16,7 @@ public class ArrayTypeSyntax : TypeSyntax
     public ArrayTypeSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ArrayTypeSyntax node, SyntaxNode? parent)
     {
         ElementType = TypeSyntax.From(node.ElementType, this);
-        RankSpecifiers = Cloner.ListFrom<ArrayRankSpecifierSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ArrayRankSpecifierSyntax>(node.RankSpecifiers, parent);
+        RankSpecifiers = Cloner.ListFrom<ArrayRankSpecifierSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ArrayRankSpecifierSyntax>(node.RankSpecifiers, this);
         Parent = parent;
     }
 

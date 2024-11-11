@@ -17,7 +17,7 @@ public class ParenthesizedVariableDesignationSyntax : VariableDesignationSyntax
     public ParenthesizedVariableDesignationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ParenthesizedVariableDesignationSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
-        Variables = Cloner.SeparatedListFrom<VariableDesignationSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.VariableDesignationSyntax>(node.Variables, parent);
+        Variables = Cloner.SeparatedListFrom<VariableDesignationSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.VariableDesignationSyntax>(node.Variables, this);
         CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Parent = parent;
     }

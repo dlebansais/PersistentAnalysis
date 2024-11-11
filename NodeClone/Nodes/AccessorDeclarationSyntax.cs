@@ -18,7 +18,7 @@ public class AccessorDeclarationSyntax : SyntaxNode
 
     public AccessorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AccessorDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Keyword = Cloner.ToToken(node.Keyword);
         Body = node.Body is null ? null : new BlockSyntax(node.Body, this);
         ExpressionBody = node.ExpressionBody is null ? null : new ArrowExpressionClauseSyntax(node.ExpressionBody, this);

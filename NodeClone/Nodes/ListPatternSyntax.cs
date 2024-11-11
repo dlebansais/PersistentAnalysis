@@ -18,7 +18,7 @@ public class ListPatternSyntax : PatternSyntax
     public ListPatternSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ListPatternSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
-        Patterns = Cloner.SeparatedListFrom<PatternSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.PatternSyntax>(node.Patterns, parent);
+        Patterns = Cloner.SeparatedListFrom<PatternSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.PatternSyntax>(node.Patterns, this);
         CloseBracketToken = Cloner.ToToken(node.CloseBracketToken);
         Designation = node.Designation is null ? null : VariableDesignationSyntax.From(node.Designation, this);
         Parent = parent;

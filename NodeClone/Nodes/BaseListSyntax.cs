@@ -16,7 +16,7 @@ public class BaseListSyntax : SyntaxNode
     public BaseListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.BaseListSyntax node, SyntaxNode? parent)
     {
         ColonToken = Cloner.ToToken(node.ColonToken);
-        Types = Cloner.SeparatedListFrom<BaseTypeSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.BaseTypeSyntax>(node.Types, parent);
+        Types = Cloner.SeparatedListFrom<BaseTypeSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.BaseTypeSyntax>(node.Types, this);
         Parent = parent;
     }
 

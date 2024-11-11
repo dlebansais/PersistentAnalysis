@@ -16,7 +16,7 @@ public class VariableDeclarationSyntax : SyntaxNode
     public VariableDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.VariableDeclarationSyntax node, SyntaxNode? parent)
     {
         Type = TypeSyntax.From(node.Type, this);
-        Variables = Cloner.SeparatedListFrom<VariableDeclaratorSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.VariableDeclaratorSyntax>(node.Variables, parent);
+        Variables = Cloner.SeparatedListFrom<VariableDeclaratorSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.VariableDeclaratorSyntax>(node.Variables, this);
         Parent = parent;
     }
 

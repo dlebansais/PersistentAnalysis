@@ -17,7 +17,7 @@ public class PositionalPatternClauseSyntax : SyntaxNode
     public PositionalPatternClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.PositionalPatternClauseSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
-        Subpatterns = Cloner.SeparatedListFrom<SubpatternSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.SubpatternSyntax>(node.Subpatterns, parent);
+        Subpatterns = Cloner.SeparatedListFrom<SubpatternSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.SubpatternSyntax>(node.Subpatterns, this);
         CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Parent = parent;
     }

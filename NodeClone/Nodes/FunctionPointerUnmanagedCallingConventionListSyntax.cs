@@ -17,7 +17,7 @@ public class FunctionPointerUnmanagedCallingConventionListSyntax : SyntaxNode
     public FunctionPointerUnmanagedCallingConventionListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FunctionPointerUnmanagedCallingConventionListSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
-        CallingConventions = Cloner.SeparatedListFrom<FunctionPointerUnmanagedCallingConventionSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.FunctionPointerUnmanagedCallingConventionSyntax>(node.CallingConventions, parent);
+        CallingConventions = Cloner.SeparatedListFrom<FunctionPointerUnmanagedCallingConventionSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.FunctionPointerUnmanagedCallingConventionSyntax>(node.CallingConventions, this);
         CloseBracketToken = Cloner.ToToken(node.CloseBracketToken);
         Parent = parent;
     }

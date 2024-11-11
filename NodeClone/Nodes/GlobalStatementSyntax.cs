@@ -15,7 +15,7 @@ public class GlobalStatementSyntax : MemberDeclarationSyntax
 
     public GlobalStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.GlobalStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Statement = StatementSyntax.From(node.Statement, this);
         Parent = parent;
     }

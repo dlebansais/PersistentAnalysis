@@ -15,7 +15,7 @@ public class IncompleteMemberSyntax : MemberDeclarationSyntax
 
     public IncompleteMemberSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.IncompleteMemberSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Type = node.Type is null ? null : TypeSyntax.From(node.Type, this);
         Parent = parent;
     }

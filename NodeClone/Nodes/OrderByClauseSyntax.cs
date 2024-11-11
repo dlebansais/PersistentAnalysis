@@ -16,7 +16,7 @@ public class OrderByClauseSyntax : QueryClauseSyntax
     public OrderByClauseSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.OrderByClauseSyntax node, SyntaxNode? parent)
     {
         OrderByKeyword = Cloner.ToToken(node.OrderByKeyword);
-        Orderings = Cloner.SeparatedListFrom<OrderingSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.OrderingSyntax>(node.Orderings, parent);
+        Orderings = Cloner.SeparatedListFrom<OrderingSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.OrderingSyntax>(node.Orderings, this);
         Parent = parent;
     }
 

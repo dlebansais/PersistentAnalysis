@@ -17,7 +17,7 @@ public class InterpolatedStringExpressionSyntax : ExpressionSyntax
     public InterpolatedStringExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.InterpolatedStringExpressionSyntax node, SyntaxNode? parent)
     {
         StringStartToken = Cloner.ToToken(node.StringStartToken);
-        Contents = Cloner.ListFrom<InterpolatedStringContentSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.InterpolatedStringContentSyntax>(node.Contents, parent);
+        Contents = Cloner.ListFrom<InterpolatedStringContentSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.InterpolatedStringContentSyntax>(node.Contents, this);
         StringEndToken = Cloner.ToToken(node.StringEndToken);
         Parent = parent;
     }

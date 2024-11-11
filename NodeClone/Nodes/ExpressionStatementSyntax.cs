@@ -16,7 +16,7 @@ public class ExpressionStatementSyntax : StatementSyntax
 
     public ExpressionStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Expression = ExpressionSyntax.From(node.Expression, this);
         SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;

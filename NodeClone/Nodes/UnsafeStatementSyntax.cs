@@ -16,7 +16,7 @@ public class UnsafeStatementSyntax : StatementSyntax
 
     public UnsafeStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.UnsafeStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         UnsafeKeyword = Cloner.ToToken(node.UnsafeKeyword);
         Block = new BlockSyntax(node.Block, this);
         Parent = parent;

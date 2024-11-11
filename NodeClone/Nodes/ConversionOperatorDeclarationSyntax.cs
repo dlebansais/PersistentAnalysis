@@ -23,7 +23,7 @@ public class ConversionOperatorDeclarationSyntax : BaseMethodDeclarationSyntax
 
     public ConversionOperatorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ConversionOperatorDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         ImplicitOrExplicitKeyword = Cloner.ToToken(node.ImplicitOrExplicitKeyword);
         ExplicitInterfaceSpecifier = node.ExplicitInterfaceSpecifier is null ? null : new ExplicitInterfaceSpecifierSyntax(node.ExplicitInterfaceSpecifier, this);
         OperatorKeyword = Cloner.ToToken(node.OperatorKeyword);

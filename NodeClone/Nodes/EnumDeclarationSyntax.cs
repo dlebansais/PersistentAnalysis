@@ -21,12 +21,12 @@ public class EnumDeclarationSyntax : BaseTypeDeclarationSyntax
 
     public EnumDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.EnumDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         EnumKeyword = Cloner.ToToken(node.EnumKeyword);
         Identifier = Cloner.ToToken(node.Identifier);
         BaseList = node.BaseList is null ? null : new BaseListSyntax(node.BaseList, this);
         OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
-        Members = Cloner.SeparatedListFrom<EnumMemberDeclarationSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.EnumMemberDeclarationSyntax>(node.Members, parent);
+        Members = Cloner.SeparatedListFrom<EnumMemberDeclarationSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.EnumMemberDeclarationSyntax>(node.Members, this);
         CloseBraceToken = Cloner.ToToken(node.CloseBraceToken);
         SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;

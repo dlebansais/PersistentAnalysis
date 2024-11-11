@@ -17,7 +17,7 @@ public class AttributeArgumentListSyntax : SyntaxNode
     public AttributeArgumentListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.AttributeArgumentListSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
-        Arguments = Cloner.SeparatedListFrom<AttributeArgumentSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeArgumentSyntax>(node.Arguments, parent);
+        Arguments = Cloner.SeparatedListFrom<AttributeArgumentSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeArgumentSyntax>(node.Arguments, this);
         CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Parent = parent;
     }

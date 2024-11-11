@@ -18,7 +18,7 @@ public class YieldStatementSyntax : StatementSyntax
 
     public YieldStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.YieldStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         YieldKeyword = Cloner.ToToken(node.YieldKeyword);
         ReturnOrBreakKeyword = Cloner.ToToken(node.ReturnOrBreakKeyword);
         Expression = node.Expression is null ? null : ExpressionSyntax.From(node.Expression, this);

@@ -19,7 +19,7 @@ public class AnonymousObjectCreationExpressionSyntax : ExpressionSyntax
     {
         NewKeyword = Cloner.ToToken(node.NewKeyword);
         OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
-        Initializers = Cloner.SeparatedListFrom<AnonymousObjectMemberDeclaratorSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AnonymousObjectMemberDeclaratorSyntax>(node.Initializers, parent);
+        Initializers = Cloner.SeparatedListFrom<AnonymousObjectMemberDeclaratorSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AnonymousObjectMemberDeclaratorSyntax>(node.Initializers, this);
         CloseBraceToken = Cloner.ToToken(node.CloseBraceToken);
         Parent = parent;
     }

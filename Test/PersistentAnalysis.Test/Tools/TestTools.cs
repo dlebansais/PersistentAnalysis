@@ -53,7 +53,7 @@ public static class TestTools
         //SyntaxTree SyntaxTree = Compilation.SyntaxTrees.FirstOrDefault();
         SyntaxTree SyntaxTree = ParsedSyntaxTree;
         CompilationUnitSyntax Root = (CompilationUnitSyntax)SyntaxTree.GetRoot();
-        NodeClone.CompilationUnitSyntax RootClone = new(Root, parent: null);
+        NodeClone.CompilationUnitSyntax RootClone = new(Root);
 
         return RootClone;
     }

@@ -17,7 +17,7 @@ public class TypeArgumentListSyntax : SyntaxNode
     public TypeArgumentListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TypeArgumentListSyntax node, SyntaxNode? parent)
     {
         LessThanToken = Cloner.ToToken(node.LessThanToken);
-        Arguments = Cloner.SeparatedListFrom<TypeSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax>(node.Arguments, parent);
+        Arguments = Cloner.SeparatedListFrom<TypeSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax>(node.Arguments, this);
         GreaterThanToken = Cloner.ToToken(node.GreaterThanToken);
         Parent = parent;
     }

@@ -17,7 +17,7 @@ public class ArrayRankSpecifierSyntax : SyntaxNode
     public ArrayRankSpecifierSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ArrayRankSpecifierSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
-        Sizes = Cloner.SeparatedListFrom<ExpressionSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax>(node.Sizes, parent);
+        Sizes = Cloner.SeparatedListFrom<ExpressionSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax>(node.Sizes, this);
         CloseBracketToken = Cloner.ToToken(node.CloseBracketToken);
         Parent = parent;
     }

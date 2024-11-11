@@ -21,7 +21,7 @@ public class DoStatementSyntax : StatementSyntax
 
     public DoStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.DoStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         DoKeyword = Cloner.ToToken(node.DoKeyword);
         Statement = StatementSyntax.From(node.Statement, this);
         WhileKeyword = Cloner.ToToken(node.WhileKeyword);

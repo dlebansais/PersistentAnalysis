@@ -20,7 +20,7 @@ public class ConstructorDeclarationSyntax : BaseMethodDeclarationSyntax
 
     public ConstructorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Identifier = Cloner.ToToken(node.Identifier);
         ParameterList = new ParameterListSyntax(node.ParameterList, this);
         Initializer = node.Initializer is null ? null : new ConstructorInitializerSyntax(node.Initializer, this);

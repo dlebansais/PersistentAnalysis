@@ -17,7 +17,7 @@ public class TypeParameterListSyntax : SyntaxNode
     public TypeParameterListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterListSyntax node, SyntaxNode? parent)
     {
         LessThanToken = Cloner.ToToken(node.LessThanToken);
-        Parameters = Cloner.SeparatedListFrom<TypeParameterSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterSyntax>(node.Parameters, parent);
+        Parameters = Cloner.SeparatedListFrom<TypeParameterSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterSyntax>(node.Parameters, this);
         GreaterThanToken = Cloner.ToToken(node.GreaterThanToken);
         Parent = parent;
     }

@@ -19,7 +19,7 @@ public class AttributeListSyntax : SyntaxNode
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
         Target = node.Target is null ? null : new AttributeTargetSpecifierSyntax(node.Target, this);
-        Attributes = Cloner.SeparatedListFrom<AttributeSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeSyntax>(node.Attributes, parent);
+        Attributes = Cloner.SeparatedListFrom<AttributeSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeSyntax>(node.Attributes, this);
         CloseBracketToken = Cloner.ToToken(node.CloseBracketToken);
         Parent = parent;
     }

@@ -21,7 +21,7 @@ public class SwitchExpressionSyntax : ExpressionSyntax
         GoverningExpression = ExpressionSyntax.From(node.GoverningExpression, this);
         SwitchKeyword = Cloner.ToToken(node.SwitchKeyword);
         OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
-        Arms = Cloner.SeparatedListFrom<SwitchExpressionArmSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.SwitchExpressionArmSyntax>(node.Arms, parent);
+        Arms = Cloner.SeparatedListFrom<SwitchExpressionArmSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.SwitchExpressionArmSyntax>(node.Arms, this);
         CloseBraceToken = Cloner.ToToken(node.CloseBraceToken);
         Parent = parent;
     }

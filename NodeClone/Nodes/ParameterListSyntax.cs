@@ -17,7 +17,7 @@ public class ParameterListSyntax : BaseParameterListSyntax
     public ParameterListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ParameterListSyntax node, SyntaxNode? parent)
     {
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
-        Parameters = Cloner.SeparatedListFrom<ParameterSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ParameterSyntax>(node.Parameters, parent);
+        Parameters = Cloner.SeparatedListFrom<ParameterSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ParameterSyntax>(node.Parameters, this);
         CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Parent = parent;
     }

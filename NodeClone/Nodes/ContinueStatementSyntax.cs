@@ -16,7 +16,7 @@ public class ContinueStatementSyntax : StatementSyntax
 
     public ContinueStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ContinueStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         ContinueKeyword = Cloner.ToToken(node.ContinueKeyword);
         SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;

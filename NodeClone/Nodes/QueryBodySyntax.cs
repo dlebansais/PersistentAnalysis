@@ -16,7 +16,7 @@ public class QueryBodySyntax : SyntaxNode
 
     public QueryBodySyntax(Microsoft.CodeAnalysis.CSharp.Syntax.QueryBodySyntax node, SyntaxNode? parent)
     {
-        Clauses = Cloner.ListFrom<QueryClauseSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.QueryClauseSyntax>(node.Clauses, parent);
+        Clauses = Cloner.ListFrom<QueryClauseSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.QueryClauseSyntax>(node.Clauses, this);
         SelectOrGroup = SelectOrGroupClauseSyntax.From(node.SelectOrGroup, this);
         Continuation = node.Continuation is null ? null : new QueryContinuationSyntax(node.Continuation, this);
         Parent = parent;

@@ -16,7 +16,7 @@ public class FieldDeclarationSyntax : BaseFieldDeclarationSyntax
 
     public FieldDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FieldDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Declaration = new VariableDeclarationSyntax(node.Declaration, this);
         SemicolonToken = Cloner.ToToken(node.SemicolonToken);
         Parent = parent;

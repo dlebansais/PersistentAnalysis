@@ -18,10 +18,10 @@ public class TryStatementSyntax : StatementSyntax
 
     public TryStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TryStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         TryKeyword = Cloner.ToToken(node.TryKeyword);
         Block = new BlockSyntax(node.Block, this);
-        Catches = Cloner.ListFrom<CatchClauseSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.CatchClauseSyntax>(node.Catches, parent);
+        Catches = Cloner.ListFrom<CatchClauseSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.CatchClauseSyntax>(node.Catches, this);
         Finally = node.Finally is null ? null : new FinallyClauseSyntax(node.Finally, this);
         Parent = parent;
     }

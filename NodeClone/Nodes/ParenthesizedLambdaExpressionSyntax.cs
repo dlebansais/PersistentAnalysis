@@ -21,7 +21,7 @@ public class ParenthesizedLambdaExpressionSyntax : LambdaExpressionSyntax
     public ParenthesizedLambdaExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ParenthesizedLambdaExpressionSyntax node, SyntaxNode? parent)
     {
         AsyncKeyword = Cloner.ToToken(node.AsyncKeyword);
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         ReturnType = node.ReturnType is null ? null : TypeSyntax.From(node.ReturnType, this);
         ParameterList = new ParameterListSyntax(node.ParameterList, this);
         ArrowToken = Cloner.ToToken(node.ArrowToken);

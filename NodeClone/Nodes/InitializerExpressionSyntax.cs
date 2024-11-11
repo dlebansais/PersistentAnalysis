@@ -17,7 +17,7 @@ public class InitializerExpressionSyntax : ExpressionSyntax
     public InitializerExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.InitializerExpressionSyntax node, SyntaxNode? parent)
     {
         OpenBraceToken = Cloner.ToToken(node.OpenBraceToken);
-        Expressions = Cloner.SeparatedListFrom<ExpressionSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax>(node.Expressions, parent);
+        Expressions = Cloner.SeparatedListFrom<ExpressionSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax>(node.Expressions, this);
         CloseBraceToken = Cloner.ToToken(node.CloseBraceToken);
         Parent = parent;
     }

@@ -24,15 +24,15 @@ public class ForStatementSyntax : StatementSyntax
 
     public ForStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ForStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         ForKeyword = Cloner.ToToken(node.ForKeyword);
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         Declaration = node.Declaration is null ? null : new VariableDeclarationSyntax(node.Declaration, this);
-        Initializers = Cloner.SeparatedListFrom<ExpressionSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax>(node.Initializers, parent);
+        Initializers = Cloner.SeparatedListFrom<ExpressionSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax>(node.Initializers, this);
         FirstSemicolonToken = Cloner.ToToken(node.FirstSemicolonToken);
         Condition = node.Condition is null ? null : ExpressionSyntax.From(node.Condition, this);
         SecondSemicolonToken = Cloner.ToToken(node.SecondSemicolonToken);
-        Incrementors = Cloner.SeparatedListFrom<ExpressionSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax>(node.Incrementors, parent);
+        Incrementors = Cloner.SeparatedListFrom<ExpressionSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax>(node.Incrementors, this);
         CloseParenToken = Cloner.ToToken(node.CloseParenToken);
         Statement = StatementSyntax.From(node.Statement, this);
         Parent = parent;

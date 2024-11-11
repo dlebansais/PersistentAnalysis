@@ -16,7 +16,7 @@ public class TypeParameterSyntax : SyntaxNode
 
     public TypeParameterSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         VarianceKeyword = Cloner.ToToken(node.VarianceKeyword);
         Identifier = Cloner.ToToken(node.Identifier);
         Parent = parent;

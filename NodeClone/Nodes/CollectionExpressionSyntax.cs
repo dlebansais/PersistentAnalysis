@@ -17,7 +17,7 @@ public class CollectionExpressionSyntax : ExpressionSyntax
     public CollectionExpressionSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.CollectionExpressionSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
-        Elements = Cloner.SeparatedListFrom<CollectionElementSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.CollectionElementSyntax>(node.Elements, parent);
+        Elements = Cloner.SeparatedListFrom<CollectionElementSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.CollectionElementSyntax>(node.Elements, this);
         CloseBracketToken = Cloner.ToToken(node.CloseBracketToken);
         Parent = parent;
     }

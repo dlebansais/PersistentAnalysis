@@ -20,7 +20,7 @@ public class IfStatementSyntax : StatementSyntax
 
     public IfStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.IfStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         IfKeyword = Cloner.ToToken(node.IfKeyword);
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         Condition = ExpressionSyntax.From(node.Condition, this);

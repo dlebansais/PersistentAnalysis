@@ -20,7 +20,7 @@ public class TypeParameterConstraintClauseSyntax : SyntaxNode
         WhereKeyword = Cloner.ToToken(node.WhereKeyword);
         Name = new IdentifierNameSyntax(node.Name, this);
         ColonToken = Cloner.ToToken(node.ColonToken);
-        Constraints = Cloner.SeparatedListFrom<TypeParameterConstraintSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterConstraintSyntax>(node.Constraints, parent);
+        Constraints = Cloner.SeparatedListFrom<TypeParameterConstraintSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterConstraintSyntax>(node.Constraints, this);
         Parent = parent;
     }
 

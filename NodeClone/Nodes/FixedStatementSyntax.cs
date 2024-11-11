@@ -19,7 +19,7 @@ public class FixedStatementSyntax : StatementSyntax
 
     public FixedStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.FixedStatementSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         FixedKeyword = Cloner.ToToken(node.FixedKeyword);
         OpenParenToken = Cloner.ToToken(node.OpenParenToken);
         Declaration = new VariableDeclarationSyntax(node.Declaration, this);

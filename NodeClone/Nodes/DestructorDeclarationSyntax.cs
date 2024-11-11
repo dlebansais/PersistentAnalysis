@@ -20,7 +20,7 @@ public class DestructorDeclarationSyntax : BaseMethodDeclarationSyntax
 
     public DestructorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.DestructorDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         TildeToken = Cloner.ToToken(node.TildeToken);
         Identifier = Cloner.ToToken(node.Identifier);
         ParameterList = new ParameterListSyntax(node.ParameterList, this);

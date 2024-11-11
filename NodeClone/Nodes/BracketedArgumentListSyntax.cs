@@ -17,7 +17,7 @@ public class BracketedArgumentListSyntax : BaseArgumentListSyntax
     public BracketedArgumentListSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.BracketedArgumentListSyntax node, SyntaxNode? parent)
     {
         OpenBracketToken = Cloner.ToToken(node.OpenBracketToken);
-        Arguments = Cloner.SeparatedListFrom<ArgumentSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ArgumentSyntax>(node.Arguments, parent);
+        Arguments = Cloner.SeparatedListFrom<ArgumentSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.ArgumentSyntax>(node.Arguments, this);
         CloseBracketToken = Cloner.ToToken(node.CloseBracketToken);
         Parent = parent;
     }

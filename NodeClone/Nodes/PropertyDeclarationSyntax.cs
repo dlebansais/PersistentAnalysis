@@ -21,7 +21,7 @@ public class PropertyDeclarationSyntax : BasePropertyDeclarationSyntax
 
     public PropertyDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.PropertyDeclarationSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Type = TypeSyntax.From(node.Type, this);
         ExplicitInterfaceSpecifier = node.ExplicitInterfaceSpecifier is null ? null : new ExplicitInterfaceSpecifierSyntax(node.ExplicitInterfaceSpecifier, this);
         Identifier = Cloner.ToToken(node.Identifier);

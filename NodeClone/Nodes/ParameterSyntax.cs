@@ -17,7 +17,7 @@ public class ParameterSyntax : BaseParameterSyntax
 
     public ParameterSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.ParameterSyntax node, SyntaxNode? parent)
     {
-        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, parent);
+        AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
         Type = node.Type is null ? null : TypeSyntax.From(node.Type, this);
         Identifier = Cloner.ToToken(node.Identifier);
         Default = node.Default is null ? null : new EqualsValueClauseSyntax(node.Default, this);
