@@ -48,10 +48,10 @@ public static partial class Persist
 
         bool IsOpen = Channel is not null && Channel.IsOpen;
 
-        Trace($"Open: {IsOpen}");
-
         if (IsOpen)
             SendInit();
+
+        Trace($"Open: {IsOpen}");
 
         return IsOpen;
     }
@@ -97,7 +97,7 @@ public static partial class Persist
     private static void SendInit()
     {
         string Version = $"{Assembly.GetExecutingAssembly().GetName().Version}";
-        _ = Send(new Command(new InitCommand(ClientGuid.ToString(), Version)));
+        _ = Send(new Command(new InitCommand(ClientGuid.ToString(), Version, "SampleAnalyzer.dll")));
     }
 
     /// <summary>

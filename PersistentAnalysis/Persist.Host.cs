@@ -2,6 +2,10 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
+using System.Reflection;
+using NodeClone;
+using ProcessCommunication;
 
 /// <summary>
 /// Provides tools for analyzers that need persistence.
@@ -17,6 +21,11 @@ public static partial class Persist
     /// Gets the last client version.
     /// </summary>
     public static string LastClientVersion { get; private set; } = string.Empty;
+
+    /// <summary>
+    /// Gets the last analyzer file name.
+    /// </summary>
+    public static string LastAnalyzerFileName { get; private set; } = string.Empty;
 
     /// <summary>
     /// Parses a command.
@@ -38,6 +47,7 @@ public static partial class Persist
     {
         string ClientGuidString;
         string VersionString;
+        string AnalyzerFileNameString;
         const string Unknown = "Unknown";
 
         if (Guid.TryParse(initCommand.ClientGuid, out Guid ParsedGuid))
@@ -62,7 +72,45 @@ public static partial class Persist
             VersionString = Unknown;
         }
 
-        Trace($"INIT {nameof(InitCommand.ClientGuid)}: {ClientGuidString}, {nameof(InitCommand.Version)}: {VersionString}");
+        if (initCommand.AnalyzerFileName is string ParsedAnalyzerFileNameString)
+        {
+            LastAnalyzerFileName = ParsedAnalyzerFileNameString;
+            AnalyzerFileNameString = ParsedAnalyzerFileNameString;
+        }
+        else
+        {
+            LastAnalyzerFileName = string.Empty;
+            AnalyzerFileNameString = Unknown;
+        }
+
+        Trace($"INIT {nameof(InitCommand.ClientGuid)}: {ClientGuidString}, {nameof(InitCommand.Version)}: {VersionString}, {nameof(InitCommand.AnalyzerFileName)}: {AnalyzerFileNameString}");
+
+        if (LastAnalyzerFileName != string.Empty)
+            LoadAnalyzer(LastAnalyzerFileName);
+    }
+
+    private static void LoadAnalyzer(string analyzerFileName)
+    {
+        string LoadStatus = string.Empty;
+
+        try
+        {
+            string AnalyzerPath = Remote.GetSiblingFullPath(analyzerFileName);
+            Assembly AnalyzerAssembly = Assembly.LoadFile(AnalyzerPath);
+            Type AnalyzerApiType = AnalyzerAssembly.GetTypes()
+                                                   .FirstOrDefault(type => typeof(IAnalyzerApi).IsAssignableFrom(type))
+                                                   ?? throw new DllNotFoundException($"{AnalyzerPath} not found.");
+            AnalyzerInstance = (Activator.CreateInstance(AnalyzerApiType) as IAnalyzerApi) ?? throw new InvalidOperationException($"Unable to create instance of {AnalyzerApiType.FullName}.");
+            AnalyzerInstance.DiagnosticChangedEvent += OnDiagnosticChanged;
+
+            LoadStatus = $"Loaded Analyzer: {AnalyzerPath}, Selected API: {AnalyzerApiType.Name}";
+        }
+        catch (Exception e)
+        {
+            LoadStatus = e.Message;
+        }
+
+        Trace(LoadStatus);
     }
 
     private static void ParseExit(ExitCommand exitCommand)
@@ -70,6 +118,9 @@ public static partial class Persist
         string DelayString = exitCommand.Delay.ToString("c", CultureInfo.InvariantCulture);
 
         Trace($"EXIT {nameof(ExitCommand.Delay)}: {DelayString}");
+
+        if (AnalyzerInstance is not null)
+            AnalyzerInstance.DiagnosticChangedEvent -= OnDiagnosticChanged;
 
         RaiseExitRequested(exitCommand.Delay);
     }
@@ -86,6 +137,16 @@ public static partial class Persist
 
     private static void ParseUpdate(UpdateCommand updateCommand)
     {
-        Trace($"UPDATE");
+        Trace("UPDATE");
+
+        if (AnalyzerInstance is not null && updateCommand.Root is CompilationUnitSyntax Root)
+            AnalyzerInstance.Update(Root);
     }
+
+    private static void OnDiagnosticChanged(object? sender, DiagnosticChangedEventArgs args)
+    {
+        Trace("DiagnosticChanged");
+    }
+
+    private static IAnalyzerApi? AnalyzerInstance;
 }

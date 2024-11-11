@@ -16,19 +16,23 @@ public class TestParsing
     {
         Assert.That(Persist.LastClientGuid, Is.EqualTo(Guid.Empty));
         Assert.That(Persist.LastClientVersion, Is.EqualTo(string.Empty));
+        Assert.That(Persist.LastAnalyzerFileName, Is.EqualTo(string.Empty));
 
         Guid TestGuid = new("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA");
         const string TestVersion = "1.2.3";
+        const string TestAnalyzerFileName = "foo.dll";
 
-        Persist.Parse($"{{\"Name\":\"InitCommand\",\"InitCommand\":{{\"ClientGuid\":\"{TestGuid}\",\"Version\":\"{TestVersion}\"}}}}");
+        Persist.Parse($"{{\"Name\":\"InitCommand\",\"InitCommand\":{{\"ClientGuid\":\"{TestGuid}\",\"Version\":\"{TestVersion}\",\"AnalyzerFileName\":\"{TestAnalyzerFileName}\"}}}}");
 
         Assert.That(Persist.LastClientGuid, Is.EqualTo(TestGuid));
         Assert.That(Persist.LastClientVersion, Is.EqualTo(TestVersion));
+        Assert.That(Persist.LastAnalyzerFileName, Is.EqualTo(TestAnalyzerFileName));
 
-        Persist.Parse($"{{\"Name\":\"InitCommand\",\"InitCommand\":{{\"ClientGuid\":\"\",\"Version\": null}}}}");
+        Persist.Parse($"{{\"Name\":\"InitCommand\",\"InitCommand\":{{\"ClientGuid\":\"\",\"Version\": null,\"AnalyzerFileName\": null}}}}");
 
         Assert.That(Persist.LastClientGuid, Is.EqualTo(Guid.Empty));
         Assert.That(Persist.LastClientVersion, Is.EqualTo(string.Empty));
+        Assert.That(Persist.LastAnalyzerFileName, Is.EqualTo(string.Empty));
     }
 
     [Test]

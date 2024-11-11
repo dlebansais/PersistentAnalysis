@@ -50,7 +50,7 @@ public class Foo
 }}
 ");
 
-        _ = Assert.Throws< InvalidOperationException >(() => Persist.Update(Root));
+        _ = Assert.Throws<InvalidOperationException>(() => Persist.Update(Root));
 
         Stopwatch LaunchStopwatch = Stopwatch.StartNew();
         bool IsOpen;
@@ -67,6 +67,8 @@ public class Foo
 
         bool IsUpdated = Persist.Update(Root);
         Assert.That(IsUpdated, Is.True);
+
+        _ = Persist.Exit(TimeSpan.FromSeconds(1));
 
         await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
     }

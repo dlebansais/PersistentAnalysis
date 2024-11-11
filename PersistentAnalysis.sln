@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersistentAnalysisHost", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersistentAnalysis.Test", "Test\PersistentAnalysis.Test\PersistentAnalysis.Test.csproj", "{1FDE835F-79E2-4E02-9F3F-AFB5FD0FAAB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAnalyzer", "SampleAnalyzer\SampleAnalyzer.csproj", "{55ACF01D-6A56-4AB2-BB29-C78C41BE8886}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -39,6 +41,10 @@ Global
 		{1FDE835F-79E2-4E02-9F3F-AFB5FD0FAAB9}.Debug|x64.Build.0 = Debug|x64
 		{1FDE835F-79E2-4E02-9F3F-AFB5FD0FAAB9}.Release|x64.ActiveCfg = Release|x64
 		{1FDE835F-79E2-4E02-9F3F-AFB5FD0FAAB9}.Release|x64.Build.0 = Release|x64
+		{55ACF01D-6A56-4AB2-BB29-C78C41BE8886}.Debug|x64.ActiveCfg = Debug|x64
+		{55ACF01D-6A56-4AB2-BB29-C78C41BE8886}.Debug|x64.Build.0 = Debug|x64
+		{55ACF01D-6A56-4AB2-BB29-C78C41BE8886}.Release|x64.ActiveCfg = Release|x64
+		{55ACF01D-6A56-4AB2-BB29-C78C41BE8886}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

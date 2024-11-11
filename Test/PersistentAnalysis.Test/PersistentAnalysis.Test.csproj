@@ -38,13 +38,14 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
-        <PackageReference Include="dlebansais.DebugLogging-Debug" Version="1.0.7" GeneratePathProperty="true" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-        <PackageReference Include="dlebansais.DebugLogging" Version="1.0.7" GeneratePathProperty="true" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
+        <PackageReference Include="dlebansais.DebugLogging-Debug" Version="1.0.8" GeneratePathProperty="true" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+        <PackageReference Include="dlebansais.DebugLogging" Version="1.0.8" GeneratePathProperty="true" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\PersistentAnalysisHost\PersistentAnalysisHost.csproj" />
         <ProjectReference Include="..\..\PersistentAnalysis\PersistentAnalysis.csproj" />
+        <ProjectReference Include="..\..\SampleAnalyzer\SampleAnalyzer.csproj" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(SolutionDir)'!='*Undefined*'">
