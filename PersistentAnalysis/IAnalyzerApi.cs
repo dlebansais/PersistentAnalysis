@@ -1,13 +1,12 @@
 ﻿namespace PersistentAnalysis;
 
 using System;
-using System.Collections.Generic;
 using NodeClone;
 
 /// <summary>
 /// Represents a type implementing the analysis API.
 /// </summary>
-public interface IAnalyzerApi
+public interface IAnalyzerApi : IDisposable
 {
     /// <summary>
     /// Updates the analyzer with a new root.

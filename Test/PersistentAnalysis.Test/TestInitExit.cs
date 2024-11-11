@@ -9,10 +9,10 @@ using NUnit.Framework;
 using ProcessCommunication;
 
 [TestFixture]
+[NonParallelizable]
 public class TestInitExit
 {
     [Test]
-    [NonParallelizable]
     public async Task TestSuccess()
     {
         Remote.Reset();
@@ -40,7 +40,6 @@ public class TestInitExit
     }
 
     [Test]
-    [NonParallelizable]
     public async Task TestShortTimeout()
     {
         Remote.Reset();
@@ -60,7 +59,6 @@ public class TestInitExit
     }
 
     [Test]
-    [NonParallelizable]
     public async Task TestAsyncSuccess()
     {
         Remote.Reset();
@@ -79,7 +77,6 @@ public class TestInitExit
     }
 
     [Test]
-    [NonParallelizable]
     public async Task TestAsyncShortDuration()
     {
         Remote.Reset();

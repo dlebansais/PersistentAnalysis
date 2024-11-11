@@ -3,17 +3,18 @@
 namespace PersistentAnalysis.Test;
 
 using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using ProcessCommunication;
 
 [TestFixture]
+[NonParallelizable]
 public class TestParsing
 {
     [Test]
     public void TestInit()
     {
+        Remote.Reset();
+
         Assert.That(Persist.LastClientGuid, Is.EqualTo(Guid.Empty));
         Assert.That(Persist.LastClientVersion, Is.EqualTo(string.Empty));
         Assert.That(Persist.LastAnalyzerFileName, Is.EqualTo(string.Empty));
@@ -36,8 +37,10 @@ public class TestParsing
     }
 
     [Test]
-    public void TestExitNoEvent()
+    public void TestExitWithEvent()
     {
+        Remote.Reset();
+
         ObservedDelay = TimeSpan.Zero;
         Persist.ExitRequested += OnExitRequested;
 
@@ -49,8 +52,10 @@ public class TestParsing
     }
 
     [Test]
-    public void TestExitWithEvent()
+    public void TestExitNoEvent()
     {
+        Remote.Reset();
+
         ObservedDelay = TimeSpan.Zero;
 
         Persist.Parse("{\"Name\":\"ExitCommand\",\"ExitCommand\":{\"Delay\":\"00:00:01\"}}");
@@ -66,9 +71,29 @@ public class TestParsing
     private TimeSpan ObservedDelay;
 
     [Test]
+    public void TestInitExit()
+    {
+        Remote.Reset();
+
+        Guid TestGuid = new("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA");
+        const string TestVersion = "1.2.3";
+
+        Persist.Parse($"{{\"Name\":\"InitCommand\",\"InitCommand\":{{\"ClientGuid\":\"{TestGuid}\",\"Version\":\"{TestVersion}\",\"AnalyzerFileName\":\"{TestTools.TestAnalyzer}\"}}}}");
+        Persist.Parse("{\"Name\":\"UpdateCommand\",\"UpdateCommand\":{\"DeviceId\":\"{C5F19A64-5DDD-4B91-9F08-C2119E501BFE}\",\"Root\": null}}");
+        Persist.Parse("{\"Name\":\"ExitCommand\",\"ExitCommand\":{\"Delay\":\"00:00:00\"}}");
+        Persist.Parse("{\"Name\":\"ExitCommand\",\"ExitCommand\":{\"Delay\":\"00:00:00\"}}");
+    }
+
+    [Test]
     public void TestUpdate()
     {
         Persist.Parse("{\"Name\":\"UpdateCommand\",\"UpdateCommand\":{\"DeviceId\":\"{C5F19A64-5DDD-4B91-9F08-C2119E501BFE}\",\"Root\":{\"Externs\":[],\"Usings\":[],\"AttributeLists\":[],\"Members\":[{\"$discriminator\":\"FileScopedNamespaceDeclarationSyntax\",\"AttributeLists\":[],\"NamespaceKeyword\":{\"Text\":\"namespace\"},\"Name\":{\"$discriminator\":\"IdentifierNameSyntax\",\"Identifier\":{\"Text\":\"Test\"},\"Parent\":{}},\"SemicolonToken\":{\"Text\":\";\"},\"Externs\":[],\"Usings\":[],\"Members\":[{\"$discriminator\":\"ClassDeclarationSyntax\",\"AttributeLists\":[],\"Keyword\":{\"Text\":\"class\"},\"Identifier\":{\"Text\":\"Foo\"},\"ConstraintClauses\":[],\"OpenBraceToken\":{\"Text\":\"{\"},\"Members\":[],\"CloseBraceToken\":{\"Text\":\"}\"},\"SemicolonToken\":{\"Text\":\"\"}}]}],\"EndOfFileToken\":{\"Text\":\"\"}}}}");
+    }
+
+    [Test]
+    public void TestUpdateNoAnalyzer()
+    {
+        Persist.Parse("{\"Name\":\"UpdateCommand\",\"UpdateCommand\":{\"DeviceId\":\"{C5F19A64-5DDD-4B91-9F08-C2119E501BFE}\",\"Root\": null}}");
     }
 
     [Test]

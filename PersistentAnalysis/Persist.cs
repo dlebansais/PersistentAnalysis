@@ -35,20 +35,12 @@ public static partial class Persist
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool Init(TimeSpan duration, string analyzerFileName)
     {
-        if (ChannelGuid == Guid.Empty)
-            ChannelGuid = Guid.NewGuid();
+        InitProlog(duration, out string Arguments);
 
-        int Seconds = (int)duration.TotalSeconds;
-        string Arguments = $"{ChannelGuid} {Seconds}";
+        IChannel? NewChannel = Remote.LaunchAndOpenChannel(HostResourceName, UpdateChannelGuid, Arguments);
+        SetUpdateChannel(NewChannel);
 
-        // Propagate the max duration to the debugger.
-        if (duration > TimeSpan.Zero)
-            Logger.DisplayAppArguments = $"{Seconds + 60}";
-
-        IChannel? NewChannel = Remote.LaunchAndOpenChannel(HostResourceName, ChannelGuid, Arguments);
-        SetChannel(NewChannel);
-
-        bool IsOpen = Channel is not null && Channel.IsOpen;
+        bool IsOpen = UpdateChannel is not null && UpdateChannel.IsOpen;
 
         if (IsOpen)
             SendInit(analyzerFileName);
@@ -67,20 +59,12 @@ public static partial class Persist
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static async Task<bool> InitAsync(TimeSpan duration, string analyzerFileName)
     {
-        if (ChannelGuid == Guid.Empty)
-            ChannelGuid = Guid.NewGuid();
+        InitProlog(duration, out string Arguments);
 
-        int Seconds = (int)duration.TotalSeconds;
-        string Arguments = $"{ChannelGuid} {Seconds}";
+        IChannel? NewChannel = await Remote.LaunchAndOpenChannelAsync(HostResourceName, UpdateChannelGuid, Arguments).ConfigureAwait(false);
+        SetUpdateChannel(NewChannel);
 
-        // Propagate the max duration to the debugger.
-        if (duration > TimeSpan.Zero)
-            Logger.DisplayAppArguments = $"{Seconds + 60}";
-
-        IChannel? NewChannel = await Remote.LaunchAndOpenChannelAsync(HostResourceName, ChannelGuid, Arguments).ConfigureAwait(false);
-        SetChannel(NewChannel);
-
-        bool IsOpen = Channel is not null;
+        bool IsOpen = UpdateChannel is not null;
 
         Trace($"Open: {IsOpen}");
 
@@ -90,13 +74,29 @@ public static partial class Persist
         return IsOpen;
     }
 
-    private static string GetResourceString(string resourceName)
+    private static void InitProlog(TimeSpan duration, out string arguments)
     {
-        using Stream? Stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{typeof(Persist).Assembly.GetName().Name}.Resources.{resourceName}");
-        Stream ResourceStream = Contract.AssertNotNull(Stream);
-        using StreamReader Reader = new(ResourceStream);
+        if (UpdateChannelGuid == Guid.Empty)
+        {
+            UpdateChannelGuid = Guid.NewGuid();
+            DiagnosticChannelGuid = Guid.NewGuid();
+        }
 
-        return Reader.ReadToEnd();
+        int Seconds = (int)duration.TotalSeconds;
+        arguments = $"{UpdateChannelGuid} {DiagnosticChannelGuid} {Seconds}";
+
+        // Propagate the max duration to the debugger.
+        if (duration > TimeSpan.Zero)
+            Logger.DisplayAppArguments = $"{Seconds + 60}";
+
+        if (DiagnosticChannel is null)
+        {
+            Channel NewChannel = new(DiagnosticChannelGuid, ChannelMode.Receive);
+            NewChannel.Open();
+            Contract.Assert(NewChannel.IsOpen);
+
+            SetDiagnosticChannel(NewChannel);
+        }
     }
 
     private static void SendInit(string analyzerFileName)
@@ -113,13 +113,18 @@ public static partial class Persist
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool Exit(TimeSpan delay)
     {
-        if (Channel is null || !Channel.IsOpen)
+        if (UpdateChannel is null || !UpdateChannel.IsOpen)
             throw new InvalidOperationException();
 
         bool IsExitSent = Send(new Command(new ExitCommand(delay)));
 
-        Channel.Close();
-        SetChannel(null);
+        UpdateChannel.Close();
+        SetUpdateChannel(null);
+
+        IChannel DisposedChannel = Contract.AssertNotNull(DiagnosticChannel);
+        DisposedChannel.Close();
+
+        SetDiagnosticChannel(null);
 
         return IsExitSent;
     }
@@ -146,13 +151,34 @@ public static partial class Persist
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool Update(string? deviceId, string? solutionPath, string? projectPath, CompilationUnitSyntax root)
     {
-        if (Channel is null || !Channel.IsOpen)
+        if (UpdateChannel is null || !UpdateChannel.IsOpen)
             throw new InvalidOperationException();
+
+        ReportReceivedDiagnostics();
 
         if (deviceId is null)
             WindowsDeviceId = WindowsDeviceId ?? GetWindowsDeviceId();
 
         return Send(new Command(new UpdateCommand(deviceId ?? WindowsDeviceId, solutionPath, projectPath, root)));
+    }
+
+    private static void ReportReceivedDiagnostics()
+    {
+        IChannel Channel = Contract.AssertNotNull(DiagnosticChannel);
+
+        string? LastJsonText = null;
+        while (Channel.TryRead(out byte[] Data))
+        {
+            int Offset = 0;
+            while (Converter.TryDecodeString(Data, ref Offset, out string JsonText))
+                LastJsonText = JsonText;
+        }
+
+        if (LastJsonText is not null)
+        {
+            AnalyzerDiagnosticCollection Diagnostics = Contract.AssertNotNull(JsonSerializer.Deserialize<AnalyzerDiagnosticCollection>(LastJsonText));
+            RaiseDiagnosticChanged(new DiagnosticChangedEventArgs(Diagnostics));
+        }
     }
 
     /// <summary>
@@ -175,15 +201,24 @@ public static partial class Persist
         }
     }
 
-    private static void SetChannel(IChannel? channel)
+    private static void SetUpdateChannel(IChannel? updateChannel)
     {
-        Channel?.Dispose();
+        UpdateChannel?.Dispose();
 
-        Channel = channel;
+        UpdateChannel = updateChannel;
     }
 
-    private static Guid ChannelGuid = Guid.Empty;
-    private static IChannel? Channel;
+    private static void SetDiagnosticChannel(IChannel? diagnosticChannel)
+    {
+        DiagnosticChannel?.Dispose();
+
+        DiagnosticChannel = diagnosticChannel;
+    }
+
+    private static Guid UpdateChannelGuid = Guid.Empty;
+    private static Guid DiagnosticChannelGuid = Guid.Empty;
+    private static IChannel? UpdateChannel;
+    private static IChannel? DiagnosticChannel;
     private static readonly DebugLogger Logger = new();
     private static string? WindowsDeviceId;
 }

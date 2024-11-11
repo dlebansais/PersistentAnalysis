@@ -26,7 +26,7 @@ public static partial class Persist
 
     private static bool Send(Command command)
     {
-        IChannel OpenChannel = Contract.AssertNotNull(Channel);
+        IChannel OpenChannel = Contract.AssertNotNull(UpdateChannel);
         Contract.Assert(OpenChannel.IsOpen);
 
         string Text = JsonSerializer.Serialize(command, SerializingOptions);

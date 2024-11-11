@@ -9,13 +9,61 @@ using NUnit.Framework;
 using ProcessCommunication;
 
 [TestFixture]
+[NonParallelizable]
 public class TestUpdate
 {
     [Test]
-    [NonParallelizable]
     public async Task TestSuccess()
     {
         Remote.Reset();
+
+        bool IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer).ConfigureAwait(true);
+        Assert.That(IsOpen, Is.True);
+
+        Persist.DiagnosticChanged += OnDiagnosticChanged;
+
+        var Root = TestTools.Compile(@"namespace Test;
+
+public class Foo
+{{
+}}
+");
+
+        for (int i = 0; i < 10; i++)
+        {
+            if (i > 0)
+                await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(true);
+
+            bool IsUpdated = Persist.Update(Root);
+            Assert.That(IsUpdated, Is.True);
+        }
+
+        Assert.That(LastSender, Is.Null);
+        Assert.That(LastDiagnosticChangedEventArgs, Is.Not.Null);
+
+        Persist.DiagnosticChanged -= OnDiagnosticChanged;
+
+        _ = Persist.Exit(TimeSpan.Zero);
+
+        await Task.Delay(TimeSpan.FromSeconds(TestTools.ExitDelay + 10)).ConfigureAwait(true);
+    }
+
+    private void OnDiagnosticChanged(object? sender, DiagnosticChangedEventArgs args)
+    {
+        LastSender = sender;
+        LastDiagnosticChangedEventArgs = args;
+    }
+
+    private object? LastSender;
+    private DiagnosticChangedEventArgs? LastDiagnosticChangedEventArgs;
+
+    [Test]
+    public async Task TestSuccessNoReporting()
+    {
+        Remote.Reset();
+
+        LastSender = null;
+        LastDiagnosticChangedEventArgs = null;
 
         bool IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer).ConfigureAwait(true);
         Assert.That(IsOpen, Is.True);
@@ -27,8 +75,17 @@ public class Foo
 }}
 ");
 
-        bool IsUpdated = Persist.Update(Root);
-        Assert.That(IsUpdated, Is.True);
+        for (int i = 0; i < 10; i++)
+        {
+            if (i > 0)
+                await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(true);
+
+            bool IsUpdated = Persist.Update(Root);
+            Assert.That(IsUpdated, Is.True);
+        }
+
+        Assert.That(LastSender, Is.Null);
+        Assert.That(LastDiagnosticChangedEventArgs, Is.Null);
 
         _ = Persist.Exit(TimeSpan.Zero);
 
@@ -36,7 +93,6 @@ public class Foo
     }
 
     [Test]
-    [NonParallelizable]
     public async Task TestUpdateError()
     {
         Remote.Reset();
@@ -72,7 +128,6 @@ public class Foo
     }
 
     [Test]
-    [NonParallelizable]
     public async Task TestSaturateUpdate()
     {
         Remote.Reset();
@@ -106,7 +161,6 @@ public class Foo
     }
 
     [Test]
-    [NonParallelizable]
     public async Task TestUpdateSpecificSolution()
     {
         Remote.Reset();

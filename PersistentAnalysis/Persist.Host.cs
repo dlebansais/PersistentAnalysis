@@ -100,8 +100,9 @@ public static partial class Persist
             Type AnalyzerApiType = AnalyzerAssembly.GetTypes()
                                                    .FirstOrDefault(type => typeof(IAnalyzerApi).IsAssignableFrom(type))
                                                    ?? throw new DllNotFoundException($"{AnalyzerPath} not found.");
-            AnalyzerInstance = (Activator.CreateInstance(AnalyzerApiType) as IAnalyzerApi) ?? throw new InvalidOperationException($"Unable to create instance of {AnalyzerApiType.FullName}.");
-            AnalyzerInstance.DiagnosticChangedEvent += OnDiagnosticChanged;
+            IAnalyzerApi NewInstance = (Activator.CreateInstance(AnalyzerApiType) as IAnalyzerApi) ?? throw new InvalidOperationException($"Unable to create instance of {AnalyzerApiType.FullName}.");
+            NewInstance.DiagnosticChangedEvent += OnDiagnosticChanged;
+            SetAnalyzerInstance(NewInstance);
 
             LoadStatus = $"Loaded Analyzer: {AnalyzerPath}, Selected API: {AnalyzerApiType.Name}";
         }
@@ -119,8 +120,7 @@ public static partial class Persist
 
         Trace($"EXIT {nameof(ExitCommand.Delay)}: {DelayString}");
 
-        if (AnalyzerInstance is not null)
-            AnalyzerInstance.DiagnosticChangedEvent -= OnDiagnosticChanged;
+        SetAnalyzerInstance(null);
 
         RaiseExitRequested(exitCommand.Delay);
     }
@@ -146,6 +146,26 @@ public static partial class Persist
     private static void OnDiagnosticChanged(object? sender, DiagnosticChangedEventArgs args)
     {
         Trace("DiagnosticChanged");
+
+        // Raise our own event.
+        RaiseDiagnosticChanged(args);
+    }
+
+    /// <summary>
+    /// Event signaled when a new set of diagnotics must be reported to a client.
+    /// </summary>
+    public static event EventHandler<DiagnosticChangedEventArgs>? DiagnosticChanged;
+
+    private static void RaiseDiagnosticChanged(DiagnosticChangedEventArgs args)
+    {
+        DiagnosticChanged?.Invoke(null, args);
+    }
+
+    private static void SetAnalyzerInstance(IAnalyzerApi? analyzerInstance)
+    {
+        AnalyzerInstance?.Dispose();
+
+        AnalyzerInstance = analyzerInstance;
     }
 
     private static IAnalyzerApi? AnalyzerInstance;
