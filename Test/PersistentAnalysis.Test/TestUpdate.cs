@@ -11,15 +11,13 @@ using ProcessCommunication;
 [TestFixture]
 public class TestUpdate
 {
-    private const int ExitDelay = 20;
-
     [Test]
     [NonParallelizable]
     public async Task TestSuccess()
     {
         Remote.Reset();
 
-        bool IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(ExitDelay)).ConfigureAwait(true);
+        bool IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer).ConfigureAwait(true);
         Assert.That(IsOpen, Is.True);
 
         var Root = TestTools.Compile(@"namespace Test;
@@ -34,7 +32,7 @@ public class Foo
 
         _ = Persist.Exit(TimeSpan.Zero);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(TestTools.ExitDelay + 10)).ConfigureAwait(true);
     }
 
     [Test]
@@ -55,14 +53,14 @@ public class Foo
         Stopwatch LaunchStopwatch = Stopwatch.StartNew();
         bool IsOpen;
 
-        IsOpen = Persist.Init(TimeSpan.FromSeconds(ExitDelay));
+        IsOpen = Persist.Init(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer);
         Assert.That(IsOpen, Is.False);
 
         _ = Assert.Throws<InvalidOperationException>(() => Persist.Update(Root));
 
         await TestTools.WaitDelay(Timeouts.ProcessLaunchTimeout - TimeSpan.FromSeconds(1) - LaunchStopwatch.Elapsed).ConfigureAwait(true);
 
-        IsOpen = Persist.Init(TimeSpan.FromSeconds(ExitDelay));
+        IsOpen = Persist.Init(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer);
         Assert.That(IsOpen, Is.True);
 
         bool IsUpdated = Persist.Update(Root);
@@ -70,7 +68,7 @@ public class Foo
 
         _ = Persist.Exit(TimeSpan.FromSeconds(1));
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(TestTools.ExitDelay + 10)).ConfigureAwait(true);
     }
 
     [Test]
@@ -82,7 +80,7 @@ public class Foo
         int OldCapacity = Channel.Capacity;
         Channel.Capacity = 0x100;
 
-        bool IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(ExitDelay)).ConfigureAwait(true);
+        bool IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer).ConfigureAwait(true);
 
         Channel.Capacity = OldCapacity;
 
@@ -104,7 +102,7 @@ public class Foo
 
         _ = Persist.Exit(TimeSpan.Zero);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(TestTools.ExitDelay + 10)).ConfigureAwait(true);
     }
 
     [Test]
@@ -113,7 +111,7 @@ public class Foo
     {
         Remote.Reset();
 
-        bool IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(ExitDelay)).ConfigureAwait(true);
+        bool IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer).ConfigureAwait(true);
         Assert.That(IsOpen, Is.True);
 
         var Root = TestTools.Compile(@"namespace Test;
@@ -128,6 +126,6 @@ public class Foo
 
         _ = Persist.Exit(TimeSpan.Zero);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(TestTools.ExitDelay + 10)).ConfigureAwait(true);
     }
 }

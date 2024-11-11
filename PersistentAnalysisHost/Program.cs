@@ -15,23 +15,22 @@ internal class Program
 {
     public static void Main(string[] args)
     {
-        if (args.Length > 0 && int.TryParse(args[0], out int MaxDuration) && MaxDuration > 0)
+        Guid ChannelGuid;
+
+        if (args.Length <= 0 || !Guid.TryParse(args[0], out ChannelGuid))
+            return;
+
+        if (args.Length > 1 && int.TryParse(args[1], out int MaxDuration) && MaxDuration > 0)
         {
             ExitTimeout = TimeSpan.FromSeconds(MaxDuration);
 
             // Propagate the max duration to the debugger.
             Logger.DisplayAppArguments = $"{MaxDuration + 60}";
 
-            Trace($"Starting, exit timeout is: {ExitTimeout}");
+            Trace($"Starting, guid is: {ChannelGuid}, exit timeout is: {ExitTimeout}");
         }
         else
-            Trace("Starting, no timeout");
-
-        using Stream? Stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{typeof(Program).Assembly.GetName().Name}.ChannelGuid.txt");
-        Stream ResourceStream = Contract.AssertNotNull(Stream);
-        using StreamReader Reader = new(ResourceStream);
-        string GuidString = Reader.ReadToEnd();
-        Guid ChannelGuid = new(GuidString);
+            Trace($"Starting, guid is: {ChannelGuid}, no timeout");
 
         Channel = new Channel(ChannelGuid, ChannelMode.Receive);
         Channel.Open();

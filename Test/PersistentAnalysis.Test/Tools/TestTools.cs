@@ -13,6 +13,9 @@ using ProcessCommunication;
 
 public static class TestTools
 {
+    public const int ExitDelay = 20;
+    public const string TestAnalyzer = "SampleAnalyzer.dll";
+
     public static async Task WaitDelay(TimeSpan delay)
     {
         TimeSpan MinZeroDelay = TimeSpan.FromSeconds(Math.Max(0, delay.TotalSeconds));

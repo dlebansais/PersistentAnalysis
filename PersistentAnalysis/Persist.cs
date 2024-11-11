@@ -18,7 +18,6 @@ using ProcessCommunication;
 /// </summary>
 public static partial class Persist
 {
-    private const string ChannelGuidResourceName = "ChannelGuid.txt";
     private const string HostResourceName = "PersistentAnalysisHost.exe";
 
     /// <summary>
@@ -32,12 +31,15 @@ public static partial class Persist
     /// A program might need several attempts at initialization before it's successful.
     /// </summary>
     /// <param name="duration">The persistence duration. Use <see cref="TimeSpan.Zero"/> for no limit.</param>
+    /// <param name="analyzerFileName">The analyzer file name.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool Init(TimeSpan duration)
+    public static bool Init(TimeSpan duration, string analyzerFileName)
     {
-        Guid ChannelGuid = new(GetResourceString(ChannelGuidResourceName));
+        if (ChannelGuid == Guid.Empty)
+            ChannelGuid = Guid.NewGuid();
+
         int Seconds = (int)duration.TotalSeconds;
-        string Arguments = Seconds.ToString(CultureInfo.InvariantCulture);
+        string Arguments = $"{ChannelGuid} {Seconds}";
 
         // Propagate the max duration to the debugger.
         if (duration > TimeSpan.Zero)
@@ -49,7 +51,7 @@ public static partial class Persist
         bool IsOpen = Channel is not null && Channel.IsOpen;
 
         if (IsOpen)
-            SendInit();
+            SendInit(analyzerFileName);
 
         Trace($"Open: {IsOpen}");
 
@@ -61,12 +63,15 @@ public static partial class Persist
     /// This method is intended for the client side.
     /// </summary>
     /// <param name="duration">The persistence duration. Use <see cref="TimeSpan.Zero"/> for no limit.</param>
+    /// <param name="analyzerFileName">The analyzer file name.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static async Task<bool> InitAsync(TimeSpan duration)
+    public static async Task<bool> InitAsync(TimeSpan duration, string analyzerFileName)
     {
-        Guid ChannelGuid = new(GetResourceString(ChannelGuidResourceName));
+        if (ChannelGuid == Guid.Empty)
+            ChannelGuid = Guid.NewGuid();
+
         int Seconds = (int)duration.TotalSeconds;
-        string Arguments = Seconds.ToString(CultureInfo.InvariantCulture);
+        string Arguments = $"{ChannelGuid} {Seconds}";
 
         // Propagate the max duration to the debugger.
         if (duration > TimeSpan.Zero)
@@ -80,7 +85,7 @@ public static partial class Persist
         Trace($"Open: {IsOpen}");
 
         if (IsOpen)
-            SendInit();
+            SendInit(analyzerFileName);
 
         return IsOpen;
     }
@@ -94,7 +99,7 @@ public static partial class Persist
         return Reader.ReadToEnd();
     }
 
-    private static void SendInit()
+    private static void SendInit(string analyzerFileName)
     {
         string Version = $"{Assembly.GetExecutingAssembly().GetName().Version}";
         _ = Send(new Command(new InitCommand(ClientGuid.ToString(), Version, "SampleAnalyzer.dll")));
@@ -177,6 +182,7 @@ public static partial class Persist
         Channel = channel;
     }
 
+    private static Guid ChannelGuid = Guid.Empty;
     private static IChannel? Channel;
     private static readonly DebugLogger Logger = new();
     private static string? WindowsDeviceId;

@@ -11,8 +11,6 @@ using ProcessCommunication;
 [TestFixture]
 public class TestInitExit
 {
-    private const int ExitDelay = 20;
-
     [Test]
     [NonParallelizable]
     public async Task TestSuccess()
@@ -25,20 +23,20 @@ public class TestInitExit
 
         _ = Assert.Throws<InvalidOperationException>(() => Persist.Exit(TimeSpan.Zero));
 
-        IsOpen = Persist.Init(TimeSpan.FromSeconds(ExitDelay));
+        IsOpen = Persist.Init(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer);
         Assert.That(IsOpen, Is.False);
 
         _ = Assert.Throws<InvalidOperationException>(() => Persist.Exit(TimeSpan.Zero));
 
         await TestTools.WaitDelay(Timeouts.ProcessLaunchTimeout - TimeSpan.FromSeconds(1) - LaunchStopwatch.Elapsed).ConfigureAwait(true);
 
-        IsOpen = Persist.Init(TimeSpan.FromSeconds(ExitDelay));
+        IsOpen = Persist.Init(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer);
         Assert.That(IsOpen, Is.True);
 
         IsExitSent = Persist.Exit(TimeSpan.FromSeconds(1));
         Assert.That(IsExitSent, Is.True);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(TestTools.ExitDelay + 10)).ConfigureAwait(true);
     }
 
     [Test]
@@ -50,12 +48,12 @@ public class TestInitExit
         Stopwatch LaunchStopwatch = Stopwatch.StartNew();
         bool IsOpen;
 
-        IsOpen = Persist.Init(TimeSpan.FromSeconds(1));
+        IsOpen = Persist.Init(TimeSpan.FromSeconds(1), TestTools.TestAnalyzer);
         Assert.That(IsOpen, Is.False);
 
         await TestTools.WaitDelay(Timeouts.ProcessLaunchTimeout + TimeSpan.FromSeconds(1) - LaunchStopwatch.Elapsed).ConfigureAwait(true);
 
-        IsOpen = Persist.Init(TimeSpan.Zero);
+        IsOpen = Persist.Init(TimeSpan.Zero, TestTools.TestAnalyzer);
         Assert.That(IsOpen, Is.False);
 
         await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(true);
@@ -69,15 +67,15 @@ public class TestInitExit
 
         bool IsOpen;
 
-        IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(ExitDelay)).ConfigureAwait(true);
+        IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer).ConfigureAwait(true);
         Assert.That(IsOpen, Is.True);
 
         Remote.Reset();
 
-        IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(ExitDelay)).ConfigureAwait(true);
+        IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer).ConfigureAwait(true);
         Assert.That(IsOpen, Is.False);
 
-        await Task.Delay(TimeSpan.FromSeconds(ExitDelay + 10)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(TestTools.ExitDelay + 10)).ConfigureAwait(true);
     }
 
     [Test]
@@ -88,12 +86,12 @@ public class TestInitExit
 
         bool IsOpen;
 
-        IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(1)).ConfigureAwait(true);
+        IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(1), TestTools.TestAnalyzer).ConfigureAwait(true);
         Assert.That(IsOpen, Is.True);
 
         Remote.Reset();
 
-        IsOpen = await Persist.InitAsync(TimeSpan.Zero).ConfigureAwait(true);
+        IsOpen = await Persist.InitAsync(TimeSpan.Zero, TestTools.TestAnalyzer).ConfigureAwait(true);
         Assert.That(IsOpen, Is.False);
 
         await Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(true);
