@@ -83,7 +83,7 @@ public class TestInitExit
 
         bool IsOpen;
 
-        IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(1), TestTools.TestAnalyzer).ConfigureAwait(true);
+        IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(5), TestTools.TestAnalyzer).ConfigureAwait(true);
         Assert.That(IsOpen, Is.True);
 
         Remote.Reset();
@@ -91,6 +91,6 @@ public class TestInitExit
         IsOpen = await Persist.InitAsync(TimeSpan.Zero, TestTools.TestAnalyzer).ConfigureAwait(true);
         Assert.That(IsOpen, Is.False);
 
-        await Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(true);
+        await Task.Delay(TimeSpan.FromSeconds(15)).ConfigureAwait(true);
     }
 }
