@@ -9,7 +9,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 [JsonDerivedType(typeof(ConstructorConstraintSyntax), typeDiscriminator: "ConstructorConstraintSyntax")]
 [JsonDerivedType(typeof(TypeConstraintSyntax), typeDiscriminator: "TypeConstraintSyntax")]
 [JsonDerivedType(typeof(DefaultConstraintSyntax), typeDiscriminator: "DefaultConstraintSyntax")]
-[JsonDerivedType(typeof(AllowsConstraintClauseSyntax), typeDiscriminator: "AllowsConstraintClauseSyntax")]
 public abstract class TypeParameterConstraintSyntax : SyntaxNode
 {
     public static TypeParameterConstraintSyntax From(Microsoft.CodeAnalysis.CSharp.Syntax.TypeParameterConstraintSyntax node, SyntaxNode? parent)
@@ -20,7 +19,6 @@ public abstract class TypeParameterConstraintSyntax : SyntaxNode
             Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorConstraintSyntax AsConstructorConstraintSyntax => new ConstructorConstraintSyntax(AsConstructorConstraintSyntax, parent),
             Microsoft.CodeAnalysis.CSharp.Syntax.TypeConstraintSyntax AsTypeConstraintSyntax => new TypeConstraintSyntax(AsTypeConstraintSyntax, parent),
             Microsoft.CodeAnalysis.CSharp.Syntax.DefaultConstraintSyntax AsDefaultConstraintSyntax => new DefaultConstraintSyntax(AsDefaultConstraintSyntax, parent),
-            Microsoft.CodeAnalysis.CSharp.Syntax.AllowsConstraintClauseSyntax AsAllowsConstraintClauseSyntax => new AllowsConstraintClauseSyntax(AsAllowsConstraintClauseSyntax, parent),
             _ => null!,
         };
     }
