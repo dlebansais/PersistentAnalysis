@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -32,4 +33,13 @@ public class TryStatementSyntax : StatementSyntax
     public SyntaxList<CatchClauseSyntax> Catches { get; init; }
     public FinallyClauseSyntax? Finally { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        TryKeyword.AppendTo(stringBuilder);
+        Block.AppendTo(stringBuilder);
+        Catches.AppendTo(stringBuilder);
+        Finally?.AppendTo(stringBuilder);
+    }
 }

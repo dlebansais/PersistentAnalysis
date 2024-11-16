@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class MemberAccessExpressionSyntax : ExpressionSyntax
     public SyntaxToken OperatorToken { get; init; }
     public SimpleNameSyntax Name { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        Expression.AppendTo(stringBuilder);
+        OperatorToken.AppendTo(stringBuilder);
+        Name.AppendTo(stringBuilder);
+    }
 }

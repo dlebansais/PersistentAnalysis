@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -47,4 +48,18 @@ public class ForEachStatementSyntax : CommonForEachStatementSyntax
     public SyntaxToken CloseParenToken { get; init; }
     public StatementSyntax Statement { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        AwaitKeyword.AppendTo(stringBuilder);
+        ForEachKeyword.AppendTo(stringBuilder);
+        OpenParenToken.AppendTo(stringBuilder);
+        Type.AppendTo(stringBuilder);
+        Identifier.AppendTo(stringBuilder);
+        InKeyword.AppendTo(stringBuilder);
+        Expression.AppendTo(stringBuilder);
+        CloseParenToken.AppendTo(stringBuilder);
+        Statement.AppendTo(stringBuilder);
+    }
 }

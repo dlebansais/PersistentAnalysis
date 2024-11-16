@@ -33,6 +33,10 @@ internal partial class Program
             {
                 PropertiesInfo.Add(Property.Name, new NodePropertyInfo() { IsToken = true });
             }
+            else if (IsSyntaxTokenListProperty(PropertyType))
+            {
+                PropertiesInfo.Add(Property.Name, new NodePropertyInfo() { IsTokenList = true });
+            }
             else
             {
                 bool IsNullable = IsPropertyNullable(Property);
@@ -69,6 +73,11 @@ internal partial class Program
     private static bool IsSyntaxTokenProperty(Type propertyType)
     {
         return propertyType.IsAssignableTo(typeof(SyntaxToken));
+    }
+
+    private static bool IsSyntaxTokenListProperty(Type propertyType)
+    {
+        return propertyType.IsAssignableTo(typeof(SyntaxTokenList));
     }
 
     private static bool IsSyntaxNodeProperty(Type propertyType)

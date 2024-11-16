@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class AssignmentExpressionSyntax : ExpressionSyntax
     public SyntaxToken OperatorToken { get; init; }
     public ExpressionSyntax Right { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        Left.AppendTo(stringBuilder);
+        OperatorToken.AppendTo(stringBuilder);
+        Right.AppendTo(stringBuilder);
+    }
 }

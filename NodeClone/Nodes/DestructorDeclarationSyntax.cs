@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -9,6 +10,7 @@ public class DestructorDeclarationSyntax : BaseMethodDeclarationSyntax
     public DestructorDeclarationSyntax()
     {
         AttributeLists = null!;
+        Modifiers = null!;
         TildeToken = null!;
         Identifier = null!;
         ParameterList = null!;
@@ -21,6 +23,7 @@ public class DestructorDeclarationSyntax : BaseMethodDeclarationSyntax
     public DestructorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.DestructorDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
+        Modifiers = Cloner.ToTokenList(node.Modifiers);
         TildeToken = Cloner.ToToken(node.TildeToken);
         Identifier = Cloner.ToToken(node.Identifier);
         ParameterList = new ParameterListSyntax(node.ParameterList, this);
@@ -31,6 +34,7 @@ public class DestructorDeclarationSyntax : BaseMethodDeclarationSyntax
     }
 
     public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxTokenList Modifiers { get; init; }
     public SyntaxToken TildeToken { get; init; }
     public SyntaxToken Identifier { get; init; }
     public ParameterListSyntax ParameterList { get; init; }
@@ -38,4 +42,16 @@ public class DestructorDeclarationSyntax : BaseMethodDeclarationSyntax
     public ArrowExpressionClauseSyntax? ExpressionBody { get; init; }
     public SyntaxToken SemicolonToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        Modifiers.AppendTo(stringBuilder);
+        TildeToken.AppendTo(stringBuilder);
+        Identifier.AppendTo(stringBuilder);
+        ParameterList.AppendTo(stringBuilder);
+        Body?.AppendTo(stringBuilder);
+        ExpressionBody?.AppendTo(stringBuilder);
+        SemicolonToken.AppendTo(stringBuilder);
+    }
 }

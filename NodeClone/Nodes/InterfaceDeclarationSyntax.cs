@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -9,6 +10,7 @@ public class InterfaceDeclarationSyntax : TypeDeclarationSyntax
     public InterfaceDeclarationSyntax()
     {
         AttributeLists = null!;
+        Modifiers = null!;
         Keyword = null!;
         Identifier = null!;
         TypeParameterList = null!;
@@ -25,6 +27,7 @@ public class InterfaceDeclarationSyntax : TypeDeclarationSyntax
     public InterfaceDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.InterfaceDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
+        Modifiers = Cloner.ToTokenList(node.Modifiers);
         Keyword = Cloner.ToToken(node.Keyword);
         Identifier = Cloner.ToToken(node.Identifier);
         TypeParameterList = node.TypeParameterList is null ? null : new TypeParameterListSyntax(node.TypeParameterList, this);
@@ -39,6 +42,7 @@ public class InterfaceDeclarationSyntax : TypeDeclarationSyntax
     }
 
     public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxTokenList Modifiers { get; init; }
     public SyntaxToken Keyword { get; init; }
     public SyntaxToken Identifier { get; init; }
     public TypeParameterListSyntax? TypeParameterList { get; init; }
@@ -50,4 +54,20 @@ public class InterfaceDeclarationSyntax : TypeDeclarationSyntax
     public SyntaxToken CloseBraceToken { get; init; }
     public SyntaxToken SemicolonToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        Modifiers.AppendTo(stringBuilder);
+        Keyword.AppendTo(stringBuilder);
+        Identifier.AppendTo(stringBuilder);
+        TypeParameterList?.AppendTo(stringBuilder);
+        ParameterList?.AppendTo(stringBuilder);
+        BaseList?.AppendTo(stringBuilder);
+        ConstraintClauses.AppendTo(stringBuilder);
+        OpenBraceToken.AppendTo(stringBuilder);
+        Members.AppendTo(stringBuilder);
+        CloseBraceToken.AppendTo(stringBuilder);
+        SemicolonToken.AppendTo(stringBuilder);
+    }
 }

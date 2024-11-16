@@ -1,7 +1,7 @@
 ﻿namespace SampleAnalyzer;
 
 using System;
-using NodeClone;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using PersistentAnalysis;
 
 /// <summary>
@@ -10,8 +10,10 @@ using PersistentAnalysis;
 public class SampleAnalyzerApi : IAnalyzerApi
 {
     /// <inheritdoc />
-    public void Update(CompilationUnitSyntax root)
+    public void Update(NodeClone.CompilationUnitSyntax root)
     {
+        CompilationUnitSyntax Root = NodeClone.Cloner.Reconstruct(root);
+
         Diagnostics.Clear();
         Diagnostics.Add(new AnalyzerDiagnostic("FOO1234", "Foo"));
 

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class FunctionPointerParameterListSyntax : SyntaxNode
     public SeparatedSyntaxList<FunctionPointerParameterSyntax> Parameters { get; init; }
     public SyntaxToken GreaterThanToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        LessThanToken.AppendTo(stringBuilder);
+        Parameters.AppendTo(stringBuilder);
+        GreaterThanToken.AppendTo(stringBuilder);
+    }
 }

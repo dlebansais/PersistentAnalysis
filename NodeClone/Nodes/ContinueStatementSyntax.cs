@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class ContinueStatementSyntax : StatementSyntax
     public SyntaxToken ContinueKeyword { get; init; }
     public SyntaxToken SemicolonToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        ContinueKeyword.AppendTo(stringBuilder);
+        SemicolonToken.AppendTo(stringBuilder);
+    }
 }

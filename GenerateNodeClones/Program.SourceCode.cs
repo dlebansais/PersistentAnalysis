@@ -148,8 +148,27 @@ public abstract class {ClassName} : {BaseClassName}
             PropertiesSourceCode += $"    {PropertySourceCode}";
         }
 
+        string StringBuilderSourceCode = string.Empty;
+
+        foreach (KeyValuePair<string, NodePropertyInfo> Entry in nodeCloneInfo.PropertiesInfo)
+        {
+            string PropertyName = Entry.Key;
+            if (PropertyName == "Parent")
+                continue;
+
+            if (StringBuilderSourceCode.Length > 0)
+                StringBuilderSourceCode += @$"
+";
+
+            NodePropertyInfo NodePropertyInfo = Entry.Value;
+
+            string PropertySourceCode = GenerateStringBuilderSourceCode(PropertyName, NodePropertyInfo);
+            StringBuilderSourceCode += $"        {PropertySourceCode}";
+        }
+
         writer.WriteLine(@$"namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -167,6 +186,11 @@ public class {ClassName} : {BaseClassName}
     }}
 
 {PropertiesSourceCode}
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {{
+{StringBuilderSourceCode}
+    }}
 }}");
     }
 
@@ -189,6 +213,11 @@ public class {ClassName} : {BaseClassName}
         if (nodePropertyInfo.IsToken)
         {
             ValueString = $"Cloner.ToToken(node.{propertyName})";
+        }
+
+        if (nodePropertyInfo.IsTokenList)
+        {
+            ValueString = $"Cloner.ToTokenList(node.{propertyName})";
         }
 
         if (nodePropertyInfo.Node is Type NodeType)
@@ -233,6 +262,9 @@ public class {ClassName} : {BaseClassName}
         if (nodePropertyInfo.IsToken)
             PropertyTypeString = "SyntaxToken";
 
+        if (nodePropertyInfo.IsTokenList)
+            PropertyTypeString = "SyntaxTokenList";
+
         if (nodePropertyInfo.Node is Type NodeType)
         {
             PropertyTypeString = $"{NodeType.Name}";
@@ -253,5 +285,13 @@ public class {ClassName} : {BaseClassName}
         string? Nullability = nodePropertyInfo.IsNullable ? "?" : string.Empty;
 
         return $"public {PropertyTypeString}{Nullability} {propertyName} {{ get; init; }}";
+    }
+
+    private static string GenerateStringBuilderSourceCode(string propertyName, NodePropertyInfo nodePropertyInfo)
+    {
+        if (nodePropertyInfo.IsNullable)
+            return $"{propertyName}?.AppendTo(stringBuilder);";
+        else
+            return $"{propertyName}.AppendTo(stringBuilder);";
     }
 }

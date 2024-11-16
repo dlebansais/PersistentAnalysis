@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -20,4 +21,9 @@ public class ElementBindingExpressionSyntax : ExpressionSyntax
 
     public BracketedArgumentListSyntax ArgumentList { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        ArgumentList.AppendTo(stringBuilder);
+    }
 }

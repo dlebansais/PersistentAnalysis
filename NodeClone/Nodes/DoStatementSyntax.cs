@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -41,4 +42,16 @@ public class DoStatementSyntax : StatementSyntax
     public SyntaxToken CloseParenToken { get; init; }
     public SyntaxToken SemicolonToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        DoKeyword.AppendTo(stringBuilder);
+        Statement.AppendTo(stringBuilder);
+        WhileKeyword.AppendTo(stringBuilder);
+        OpenParenToken.AppendTo(stringBuilder);
+        Condition.AppendTo(stringBuilder);
+        CloseParenToken.AppendTo(stringBuilder);
+        SemicolonToken.AppendTo(stringBuilder);
+    }
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class PositionalPatternClauseSyntax : SyntaxNode
     public SeparatedSyntaxList<SubpatternSyntax> Subpatterns { get; init; }
     public SyntaxToken CloseParenToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        OpenParenToken.AppendTo(stringBuilder);
+        Subpatterns.AppendTo(stringBuilder);
+        CloseParenToken.AppendTo(stringBuilder);
+    }
 }

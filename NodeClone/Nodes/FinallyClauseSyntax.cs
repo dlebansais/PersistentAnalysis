@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -23,4 +24,10 @@ public class FinallyClauseSyntax : SyntaxNode
     public SyntaxToken FinallyKeyword { get; init; }
     public BlockSyntax Block { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        FinallyKeyword.AppendTo(stringBuilder);
+        Block.AppendTo(stringBuilder);
+    }
 }

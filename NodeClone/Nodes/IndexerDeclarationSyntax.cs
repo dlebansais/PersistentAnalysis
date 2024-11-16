@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -9,6 +10,7 @@ public class IndexerDeclarationSyntax : BasePropertyDeclarationSyntax
     public IndexerDeclarationSyntax()
     {
         AttributeLists = null!;
+        Modifiers = null!;
         Type = null!;
         ExplicitInterfaceSpecifier = null!;
         ThisKeyword = null!;
@@ -22,6 +24,7 @@ public class IndexerDeclarationSyntax : BasePropertyDeclarationSyntax
     public IndexerDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.IndexerDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
+        Modifiers = Cloner.ToTokenList(node.Modifiers);
         Type = TypeSyntax.From(node.Type, this);
         ExplicitInterfaceSpecifier = node.ExplicitInterfaceSpecifier is null ? null : new ExplicitInterfaceSpecifierSyntax(node.ExplicitInterfaceSpecifier, this);
         ThisKeyword = Cloner.ToToken(node.ThisKeyword);
@@ -33,6 +36,7 @@ public class IndexerDeclarationSyntax : BasePropertyDeclarationSyntax
     }
 
     public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxTokenList Modifiers { get; init; }
     public TypeSyntax Type { get; init; }
     public ExplicitInterfaceSpecifierSyntax? ExplicitInterfaceSpecifier { get; init; }
     public SyntaxToken ThisKeyword { get; init; }
@@ -41,4 +45,17 @@ public class IndexerDeclarationSyntax : BasePropertyDeclarationSyntax
     public ArrowExpressionClauseSyntax? ExpressionBody { get; init; }
     public SyntaxToken SemicolonToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        Modifiers.AppendTo(stringBuilder);
+        Type.AppendTo(stringBuilder);
+        ExplicitInterfaceSpecifier?.AppendTo(stringBuilder);
+        ThisKeyword.AppendTo(stringBuilder);
+        ParameterList.AppendTo(stringBuilder);
+        AccessorList?.AppendTo(stringBuilder);
+        ExpressionBody?.AppendTo(stringBuilder);
+        SemicolonToken.AppendTo(stringBuilder);
+    }
 }

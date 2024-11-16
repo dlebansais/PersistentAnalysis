@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class InterpolatedStringExpressionSyntax : ExpressionSyntax
     public SyntaxList<InterpolatedStringContentSyntax> Contents { get; init; }
     public SyntaxToken StringEndToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        StringStartToken.AppendTo(stringBuilder);
+        Contents.AppendTo(stringBuilder);
+        StringEndToken.AppendTo(stringBuilder);
+    }
 }

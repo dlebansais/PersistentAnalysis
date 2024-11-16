@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -32,4 +33,13 @@ public class FromClauseSyntax : QueryClauseSyntax
     public SyntaxToken InKeyword { get; init; }
     public ExpressionSyntax Expression { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        FromKeyword.AppendTo(stringBuilder);
+        Type?.AppendTo(stringBuilder);
+        Identifier.AppendTo(stringBuilder);
+        InKeyword.AppendTo(stringBuilder);
+        Expression.AppendTo(stringBuilder);
+    }
 }

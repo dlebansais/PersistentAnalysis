@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class RangeExpressionSyntax : ExpressionSyntax
     public SyntaxToken OperatorToken { get; init; }
     public ExpressionSyntax? RightOperand { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        LeftOperand?.AppendTo(stringBuilder);
+        OperatorToken.AppendTo(stringBuilder);
+        RightOperand?.AppendTo(stringBuilder);
+    }
 }

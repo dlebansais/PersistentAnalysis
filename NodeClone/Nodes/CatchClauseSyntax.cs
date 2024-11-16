@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -29,4 +30,12 @@ public class CatchClauseSyntax : SyntaxNode
     public CatchFilterClauseSyntax? Filter { get; init; }
     public BlockSyntax Block { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        CatchKeyword.AppendTo(stringBuilder);
+        Declaration?.AppendTo(stringBuilder);
+        Filter?.AppendTo(stringBuilder);
+        Block.AppendTo(stringBuilder);
+    }
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -23,4 +24,10 @@ public class ExpressionColonSyntax : BaseExpressionColonSyntax
     public ExpressionSyntax Expression { get; init; }
     public SyntaxToken ColonToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        Expression.AppendTo(stringBuilder);
+        ColonToken.AppendTo(stringBuilder);
+    }
 }

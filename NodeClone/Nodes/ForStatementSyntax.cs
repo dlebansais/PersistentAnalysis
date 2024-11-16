@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -50,4 +51,19 @@ public class ForStatementSyntax : StatementSyntax
     public SyntaxToken CloseParenToken { get; init; }
     public StatementSyntax Statement { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        ForKeyword.AppendTo(stringBuilder);
+        OpenParenToken.AppendTo(stringBuilder);
+        Declaration?.AppendTo(stringBuilder);
+        Initializers.AppendTo(stringBuilder);
+        FirstSemicolonToken.AppendTo(stringBuilder);
+        Condition?.AppendTo(stringBuilder);
+        SecondSemicolonToken.AppendTo(stringBuilder);
+        Incrementors.AppendTo(stringBuilder);
+        CloseParenToken.AppendTo(stringBuilder);
+        Statement.AppendTo(stringBuilder);
+    }
 }

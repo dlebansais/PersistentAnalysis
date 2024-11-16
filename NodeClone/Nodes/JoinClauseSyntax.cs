@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -47,4 +48,18 @@ public class JoinClauseSyntax : QueryClauseSyntax
     public ExpressionSyntax RightExpression { get; init; }
     public JoinIntoClauseSyntax? Into { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        JoinKeyword.AppendTo(stringBuilder);
+        Type?.AppendTo(stringBuilder);
+        Identifier.AppendTo(stringBuilder);
+        InKeyword.AppendTo(stringBuilder);
+        InExpression.AppendTo(stringBuilder);
+        OnKeyword.AppendTo(stringBuilder);
+        LeftExpression.AppendTo(stringBuilder);
+        EqualsKeyword.AppendTo(stringBuilder);
+        RightExpression.AppendTo(stringBuilder);
+        Into?.AppendTo(stringBuilder);
+    }
 }

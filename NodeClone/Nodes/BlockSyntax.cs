@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -29,4 +30,12 @@ public class BlockSyntax : StatementSyntax
     public SyntaxList<StatementSyntax> Statements { get; init; }
     public SyntaxToken CloseBraceToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        OpenBraceToken.AppendTo(stringBuilder);
+        Statements.AppendTo(stringBuilder);
+        CloseBraceToken.AppendTo(stringBuilder);
+    }
 }

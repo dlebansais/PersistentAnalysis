@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -20,4 +21,9 @@ public class SimpleBaseTypeSyntax : BaseTypeSyntax
 
     public TypeSyntax Type { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        Type.AppendTo(stringBuilder);
+    }
 }

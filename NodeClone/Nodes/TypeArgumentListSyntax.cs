@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class TypeArgumentListSyntax : SyntaxNode
     public SeparatedSyntaxList<TypeSyntax> Arguments { get; init; }
     public SyntaxToken GreaterThanToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        LessThanToken.AppendTo(stringBuilder);
+        Arguments.AppendTo(stringBuilder);
+        GreaterThanToken.AppendTo(stringBuilder);
+    }
 }

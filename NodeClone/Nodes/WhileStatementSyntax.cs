@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -35,4 +36,14 @@ public class WhileStatementSyntax : StatementSyntax
     public SyntaxToken CloseParenToken { get; init; }
     public StatementSyntax Statement { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        WhileKeyword.AppendTo(stringBuilder);
+        OpenParenToken.AppendTo(stringBuilder);
+        Condition.AppendTo(stringBuilder);
+        CloseParenToken.AppendTo(stringBuilder);
+        Statement.AppendTo(stringBuilder);
+    }
 }

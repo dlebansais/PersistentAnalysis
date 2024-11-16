@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -29,4 +30,12 @@ public class ImplicitStackAllocArrayCreationExpressionSyntax : ExpressionSyntax
     public SyntaxToken CloseBracketToken { get; init; }
     public InitializerExpressionSyntax Initializer { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        StackAllocKeyword.AppendTo(stringBuilder);
+        OpenBracketToken.AppendTo(stringBuilder);
+        CloseBracketToken.AppendTo(stringBuilder);
+        Initializer.AppendTo(stringBuilder);
+    }
 }

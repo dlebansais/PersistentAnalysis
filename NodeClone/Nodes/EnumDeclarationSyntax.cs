@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -9,6 +10,7 @@ public class EnumDeclarationSyntax : BaseTypeDeclarationSyntax
     public EnumDeclarationSyntax()
     {
         AttributeLists = null!;
+        Modifiers = null!;
         EnumKeyword = null!;
         Identifier = null!;
         BaseList = null!;
@@ -22,6 +24,7 @@ public class EnumDeclarationSyntax : BaseTypeDeclarationSyntax
     public EnumDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.EnumDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
+        Modifiers = Cloner.ToTokenList(node.Modifiers);
         EnumKeyword = Cloner.ToToken(node.EnumKeyword);
         Identifier = Cloner.ToToken(node.Identifier);
         BaseList = node.BaseList is null ? null : new BaseListSyntax(node.BaseList, this);
@@ -33,6 +36,7 @@ public class EnumDeclarationSyntax : BaseTypeDeclarationSyntax
     }
 
     public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxTokenList Modifiers { get; init; }
     public SyntaxToken EnumKeyword { get; init; }
     public SyntaxToken Identifier { get; init; }
     public BaseListSyntax? BaseList { get; init; }
@@ -41,4 +45,17 @@ public class EnumDeclarationSyntax : BaseTypeDeclarationSyntax
     public SyntaxToken CloseBraceToken { get; init; }
     public SyntaxToken SemicolonToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        Modifiers.AppendTo(stringBuilder);
+        EnumKeyword.AppendTo(stringBuilder);
+        Identifier.AppendTo(stringBuilder);
+        BaseList?.AppendTo(stringBuilder);
+        OpenBraceToken.AppendTo(stringBuilder);
+        Members.AppendTo(stringBuilder);
+        CloseBraceToken.AppendTo(stringBuilder);
+        SemicolonToken.AppendTo(stringBuilder);
+    }
 }

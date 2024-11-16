@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -29,4 +30,12 @@ public class AnonymousObjectCreationExpressionSyntax : ExpressionSyntax
     public SeparatedSyntaxList<AnonymousObjectMemberDeclaratorSyntax> Initializers { get; init; }
     public SyntaxToken CloseBraceToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        NewKeyword.AppendTo(stringBuilder);
+        OpenBraceToken.AppendTo(stringBuilder);
+        Initializers.AppendTo(stringBuilder);
+        CloseBraceToken.AppendTo(stringBuilder);
+    }
 }

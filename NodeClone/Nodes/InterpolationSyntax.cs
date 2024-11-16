@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -32,4 +33,13 @@ public class InterpolationSyntax : InterpolatedStringContentSyntax
     public InterpolationFormatClauseSyntax? FormatClause { get; init; }
     public SyntaxToken CloseBraceToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        OpenBraceToken.AppendTo(stringBuilder);
+        Expression.AppendTo(stringBuilder);
+        AlignmentClause?.AppendTo(stringBuilder);
+        FormatClause?.AppendTo(stringBuilder);
+        CloseBraceToken.AppendTo(stringBuilder);
+    }
 }

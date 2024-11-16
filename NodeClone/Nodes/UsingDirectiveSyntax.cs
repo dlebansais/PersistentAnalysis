@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -41,4 +42,16 @@ public class UsingDirectiveSyntax : SyntaxNode
     public TypeSyntax NamespaceOrType { get; init; }
     public SyntaxToken SemicolonToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        Name?.AppendTo(stringBuilder);
+        GlobalKeyword.AppendTo(stringBuilder);
+        UsingKeyword.AppendTo(stringBuilder);
+        StaticKeyword.AppendTo(stringBuilder);
+        UnsafeKeyword.AppendTo(stringBuilder);
+        Alias?.AppendTo(stringBuilder);
+        NamespaceOrType.AppendTo(stringBuilder);
+        SemicolonToken.AppendTo(stringBuilder);
+    }
 }

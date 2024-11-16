@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -23,4 +24,10 @@ public class WhereClauseSyntax : QueryClauseSyntax
     public SyntaxToken WhereKeyword { get; init; }
     public ExpressionSyntax Condition { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        WhereKeyword.AppendTo(stringBuilder);
+        Condition.AppendTo(stringBuilder);
+    }
 }

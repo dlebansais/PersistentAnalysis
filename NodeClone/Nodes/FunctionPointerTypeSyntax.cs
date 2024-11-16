@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -29,4 +30,12 @@ public class FunctionPointerTypeSyntax : TypeSyntax
     public FunctionPointerCallingConventionSyntax? CallingConvention { get; init; }
     public FunctionPointerParameterListSyntax ParameterList { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        DelegateKeyword.AppendTo(stringBuilder);
+        AsteriskToken.AppendTo(stringBuilder);
+        CallingConvention?.AppendTo(stringBuilder);
+        ParameterList.AppendTo(stringBuilder);
+    }
 }

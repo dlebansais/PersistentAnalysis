@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class UnsafeStatementSyntax : StatementSyntax
     public SyntaxToken UnsafeKeyword { get; init; }
     public BlockSyntax Block { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        UnsafeKeyword.AppendTo(stringBuilder);
+        Block.AppendTo(stringBuilder);
+    }
 }

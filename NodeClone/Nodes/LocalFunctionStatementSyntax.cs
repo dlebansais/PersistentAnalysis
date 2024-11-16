@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -9,6 +10,7 @@ public class LocalFunctionStatementSyntax : StatementSyntax
     public LocalFunctionStatementSyntax()
     {
         AttributeLists = null!;
+        Modifiers = null!;
         ReturnType = null!;
         Identifier = null!;
         TypeParameterList = null!;
@@ -23,6 +25,7 @@ public class LocalFunctionStatementSyntax : StatementSyntax
     public LocalFunctionStatementSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.LocalFunctionStatementSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
+        Modifiers = Cloner.ToTokenList(node.Modifiers);
         ReturnType = TypeSyntax.From(node.ReturnType, this);
         Identifier = Cloner.ToToken(node.Identifier);
         TypeParameterList = node.TypeParameterList is null ? null : new TypeParameterListSyntax(node.TypeParameterList, this);
@@ -35,6 +38,7 @@ public class LocalFunctionStatementSyntax : StatementSyntax
     }
 
     public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxTokenList Modifiers { get; init; }
     public TypeSyntax ReturnType { get; init; }
     public SyntaxToken Identifier { get; init; }
     public TypeParameterListSyntax? TypeParameterList { get; init; }
@@ -44,4 +48,18 @@ public class LocalFunctionStatementSyntax : StatementSyntax
     public ArrowExpressionClauseSyntax? ExpressionBody { get; init; }
     public SyntaxToken SemicolonToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        Modifiers.AppendTo(stringBuilder);
+        ReturnType.AppendTo(stringBuilder);
+        Identifier.AppendTo(stringBuilder);
+        TypeParameterList?.AppendTo(stringBuilder);
+        ParameterList.AppendTo(stringBuilder);
+        ConstraintClauses.AppendTo(stringBuilder);
+        Body?.AppendTo(stringBuilder);
+        ExpressionBody?.AppendTo(stringBuilder);
+        SemicolonToken.AppendTo(stringBuilder);
+    }
 }

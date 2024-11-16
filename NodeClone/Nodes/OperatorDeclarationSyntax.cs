@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -9,6 +10,7 @@ public class OperatorDeclarationSyntax : BaseMethodDeclarationSyntax
     public OperatorDeclarationSyntax()
     {
         AttributeLists = null!;
+        Modifiers = null!;
         ReturnType = null!;
         ExplicitInterfaceSpecifier = null!;
         OperatorKeyword = null!;
@@ -24,6 +26,7 @@ public class OperatorDeclarationSyntax : BaseMethodDeclarationSyntax
     public OperatorDeclarationSyntax(Microsoft.CodeAnalysis.CSharp.Syntax.OperatorDeclarationSyntax node, SyntaxNode? parent)
     {
         AttributeLists = Cloner.ListFrom<AttributeListSyntax, Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax>(node.AttributeLists, this);
+        Modifiers = Cloner.ToTokenList(node.Modifiers);
         ReturnType = TypeSyntax.From(node.ReturnType, this);
         ExplicitInterfaceSpecifier = node.ExplicitInterfaceSpecifier is null ? null : new ExplicitInterfaceSpecifierSyntax(node.ExplicitInterfaceSpecifier, this);
         OperatorKeyword = Cloner.ToToken(node.OperatorKeyword);
@@ -37,6 +40,7 @@ public class OperatorDeclarationSyntax : BaseMethodDeclarationSyntax
     }
 
     public SyntaxList<AttributeListSyntax> AttributeLists { get; init; }
+    public SyntaxTokenList Modifiers { get; init; }
     public TypeSyntax ReturnType { get; init; }
     public ExplicitInterfaceSpecifierSyntax? ExplicitInterfaceSpecifier { get; init; }
     public SyntaxToken OperatorKeyword { get; init; }
@@ -47,4 +51,19 @@ public class OperatorDeclarationSyntax : BaseMethodDeclarationSyntax
     public ArrowExpressionClauseSyntax? ExpressionBody { get; init; }
     public SyntaxToken SemicolonToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        Modifiers.AppendTo(stringBuilder);
+        ReturnType.AppendTo(stringBuilder);
+        ExplicitInterfaceSpecifier?.AppendTo(stringBuilder);
+        OperatorKeyword.AppendTo(stringBuilder);
+        CheckedKeyword.AppendTo(stringBuilder);
+        OperatorToken.AppendTo(stringBuilder);
+        ParameterList.AppendTo(stringBuilder);
+        Body?.AppendTo(stringBuilder);
+        ExpressionBody?.AppendTo(stringBuilder);
+        SemicolonToken.AppendTo(stringBuilder);
+    }
 }

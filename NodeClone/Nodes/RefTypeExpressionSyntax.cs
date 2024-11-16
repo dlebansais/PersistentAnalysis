@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -29,4 +30,12 @@ public class RefTypeExpressionSyntax : ExpressionSyntax
     public ExpressionSyntax Expression { get; init; }
     public SyntaxToken CloseParenToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        Keyword.AppendTo(stringBuilder);
+        OpenParenToken.AppendTo(stringBuilder);
+        Expression.AppendTo(stringBuilder);
+        CloseParenToken.AppendTo(stringBuilder);
+    }
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class TupleTypeSyntax : TypeSyntax
     public SeparatedSyntaxList<TupleElementSyntax> Elements { get; init; }
     public SyntaxToken CloseParenToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        OpenParenToken.AppendTo(stringBuilder);
+        Elements.AppendTo(stringBuilder);
+        CloseParenToken.AppendTo(stringBuilder);
+    }
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -23,4 +24,10 @@ public class AttributeSyntax : SyntaxNode
     public NameSyntax Name { get; init; }
     public AttributeArgumentListSyntax? ArgumentList { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        Name.AppendTo(stringBuilder);
+        ArgumentList?.AppendTo(stringBuilder);
+    }
 }

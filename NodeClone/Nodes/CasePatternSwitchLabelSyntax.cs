@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -29,4 +30,12 @@ public class CasePatternSwitchLabelSyntax : SwitchLabelSyntax
     public WhenClauseSyntax? WhenClause { get; init; }
     public SyntaxToken ColonToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        Keyword.AppendTo(stringBuilder);
+        Pattern.AppendTo(stringBuilder);
+        WhenClause?.AppendTo(stringBuilder);
+        ColonToken.AppendTo(stringBuilder);
+    }
 }

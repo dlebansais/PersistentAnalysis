@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -29,4 +30,12 @@ public class ListPatternSyntax : PatternSyntax
     public SyntaxToken CloseBracketToken { get; init; }
     public VariableDesignationSyntax? Designation { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        OpenBracketToken.AppendTo(stringBuilder);
+        Patterns.AppendTo(stringBuilder);
+        CloseBracketToken.AppendTo(stringBuilder);
+        Designation?.AppendTo(stringBuilder);
+    }
 }

@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class FunctionPointerUnmanagedCallingConventionListSyntax : SyntaxNode
     public SeparatedSyntaxList<FunctionPointerUnmanagedCallingConventionSyntax> CallingConventions { get; init; }
     public SyntaxToken CloseBracketToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        OpenBracketToken.AppendTo(stringBuilder);
+        CallingConventions.AppendTo(stringBuilder);
+        CloseBracketToken.AppendTo(stringBuilder);
+    }
 }

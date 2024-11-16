@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class QueryContinuationSyntax : SyntaxNode
     public SyntaxToken Identifier { get; init; }
     public QueryBodySyntax Body { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        IntoKeyword.AppendTo(stringBuilder);
+        Identifier.AppendTo(stringBuilder);
+        Body.AppendTo(stringBuilder);
+    }
 }

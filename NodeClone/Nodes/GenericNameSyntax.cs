@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -23,4 +24,10 @@ public class GenericNameSyntax : SimpleNameSyntax
     public SyntaxToken Identifier { get; init; }
     public TypeArgumentListSyntax TypeArgumentList { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        Identifier.AppendTo(stringBuilder);
+        TypeArgumentList.AppendTo(stringBuilder);
+    }
 }

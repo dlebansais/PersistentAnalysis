@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -32,4 +33,13 @@ public class ConditionalExpressionSyntax : ExpressionSyntax
     public SyntaxToken ColonToken { get; init; }
     public ExpressionSyntax WhenFalse { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        Condition.AppendTo(stringBuilder);
+        QuestionToken.AppendTo(stringBuilder);
+        WhenTrue.AppendTo(stringBuilder);
+        ColonToken.AppendTo(stringBuilder);
+        WhenFalse.AppendTo(stringBuilder);
+    }
 }

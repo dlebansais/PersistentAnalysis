@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -26,4 +27,11 @@ public class AccessorListSyntax : SyntaxNode
     public SyntaxList<AccessorDeclarationSyntax> Accessors { get; init; }
     public SyntaxToken CloseBraceToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        OpenBraceToken.AppendTo(stringBuilder);
+        Accessors.AppendTo(stringBuilder);
+        CloseBraceToken.AppendTo(stringBuilder);
+    }
 }

@@ -1,5 +1,7 @@
 ﻿namespace NodeClone;
 
+using System.Text;
+
 public class SyntaxToken
 {
     public SyntaxToken(string text)
@@ -8,4 +10,9 @@ public class SyntaxToken
     }
 
     public string Text { get; }
+
+    public void AppendTo(StringBuilder stringBuilder)
+    {
+        _ = stringBuilder.Append(Text).Append(" ");
+    }
 }

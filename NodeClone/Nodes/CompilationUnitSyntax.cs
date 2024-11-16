@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -32,4 +33,13 @@ public class CompilationUnitSyntax : SyntaxNode
     public SyntaxList<MemberDeclarationSyntax> Members { get; init; }
     public SyntaxToken EndOfFileToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        Externs.AppendTo(stringBuilder);
+        Usings.AppendTo(stringBuilder);
+        AttributeLists.AppendTo(stringBuilder);
+        Members.AppendTo(stringBuilder);
+        EndOfFileToken.AppendTo(stringBuilder);
+    }
 }

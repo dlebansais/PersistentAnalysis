@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -32,4 +33,13 @@ public class SwitchExpressionSyntax : ExpressionSyntax
     public SeparatedSyntaxList<SwitchExpressionArmSyntax> Arms { get; init; }
     public SyntaxToken CloseBraceToken { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        GoverningExpression.AppendTo(stringBuilder);
+        SwitchKeyword.AppendTo(stringBuilder);
+        OpenBraceToken.AppendTo(stringBuilder);
+        Arms.AppendTo(stringBuilder);
+        CloseBraceToken.AppendTo(stringBuilder);
+    }
 }

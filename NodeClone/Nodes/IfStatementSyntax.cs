@@ -1,5 +1,6 @@
 ﻿namespace NodeClone;
 
+using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -38,4 +39,15 @@ public class IfStatementSyntax : StatementSyntax
     public StatementSyntax Statement { get; init; }
     public ElseClauseSyntax? Else { get; init; }
     public SyntaxNode? Parent { get; init; }
+
+    public override void AppendTo(StringBuilder stringBuilder)
+    {
+        AttributeLists.AppendTo(stringBuilder);
+        IfKeyword.AppendTo(stringBuilder);
+        OpenParenToken.AppendTo(stringBuilder);
+        Condition.AppendTo(stringBuilder);
+        CloseParenToken.AppendTo(stringBuilder);
+        Statement.AppendTo(stringBuilder);
+        Else?.AppendTo(stringBuilder);
+    }
 }
