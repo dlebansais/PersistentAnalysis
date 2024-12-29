@@ -43,9 +43,7 @@ public static partial class Persist
     }
 
     private static void Trace(string message)
-    {
-        Logger.Log(message);
-    }
+        => Logger.Log(message);
 
     private static readonly JsonSerializerOptions SerializingOptions = new()
     {

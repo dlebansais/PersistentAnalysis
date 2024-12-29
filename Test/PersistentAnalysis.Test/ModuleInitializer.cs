@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using ProcessCommunication;
 
-public static class ModuleInitializer
+internal static class ModuleInitializer
 {
     [ModuleInitializer]
     public static void Init()

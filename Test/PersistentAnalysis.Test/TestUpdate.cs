@@ -5,12 +5,13 @@ namespace PersistentAnalysis.Test;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NodeClone;
 using NUnit.Framework;
 using ProcessCommunication;
 
 [TestFixture]
 [NonParallelizable]
-public class TestUpdate
+internal class TestUpdate
 {
     [Test]
     public async Task TestSuccess()
@@ -22,7 +23,7 @@ public class TestUpdate
 
         Persist.DiagnosticChanged += OnDiagnosticChanged;
 
-        var Root = TestTools.Compile(@"namespace Test;
+        CompilationUnitSyntax Root = TestTools.Compile(@"namespace Test;
 
 public class Foo
 {{
@@ -68,7 +69,7 @@ public class Foo
         bool IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer).ConfigureAwait(true);
         Assert.That(IsOpen, Is.True);
 
-        var Root = TestTools.Compile(@"namespace Test;
+        CompilationUnitSyntax Root = TestTools.Compile(@"namespace Test;
 
 public class Foo
 {{
@@ -97,7 +98,7 @@ public class Foo
     {
         Remote.Reset();
 
-        var Root = TestTools.Compile(@"namespace Test;
+        CompilationUnitSyntax Root = TestTools.Compile(@"namespace Test;
 
 public class Foo
 {{
@@ -141,7 +142,7 @@ public class Foo
 
         Assert.That(IsOpen, Is.True);
 
-        var Root = TestTools.Compile(@"namespace Test;
+        CompilationUnitSyntax Root = TestTools.Compile(@"namespace Test;
 
 public class Foo
 {{
@@ -168,7 +169,7 @@ public class Foo
         bool IsOpen = await Persist.InitAsync(TimeSpan.FromSeconds(TestTools.ExitDelay), TestTools.TestAnalyzer).ConfigureAwait(true);
         Assert.That(IsOpen, Is.True);
 
-        var Root = TestTools.Compile(@"namespace Test;
+        CompilationUnitSyntax Root = TestTools.Compile(@"namespace Test;
 
 public class Foo
 {{

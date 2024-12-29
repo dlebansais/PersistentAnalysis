@@ -1,11 +1,10 @@
-﻿namespace PersistentAnalysis;
+﻿#pragma warning disable IDE0060 // Remove unused parameter
+
+namespace PersistentAnalysis;
 
 using System;
-using System.Globalization;
-using System.IO;
 using System.Reflection;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using Contracts;
 using DebugLogging;
@@ -136,9 +135,7 @@ public static partial class Persist
     /// <param name="root">The new root.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool Update(CompilationUnitSyntax root)
-    {
-        return Update(null, null, null, root);
-    }
+        => Update(null, null, null, root);
 
     /// <summary>
     /// Updates the current persistent state.
@@ -157,7 +154,7 @@ public static partial class Persist
         ReportReceivedDiagnostics();
 
         if (deviceId is null)
-            WindowsDeviceId = WindowsDeviceId ?? GetWindowsDeviceId();
+            WindowsDeviceId ??= GetWindowsDeviceId();
 
         return Send(new Command(new UpdateCommand(deviceId ?? WindowsDeviceId, solutionPath, projectPath, root)));
     }

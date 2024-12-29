@@ -23,7 +23,7 @@ public class SampleAnalyzerApi : IAnalyzerApi
     /// <inheritdoc />
     public event EventHandler<DiagnosticChangedEventArgs>? DiagnosticChangedEvent;
 
-    private readonly AnalyzerDiagnosticCollection Diagnostics = new();
+    private readonly AnalyzerDiagnosticCollection Diagnostics = [];
     private bool disposedValue;
 
     /// <summary>

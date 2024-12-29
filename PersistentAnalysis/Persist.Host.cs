@@ -131,9 +131,7 @@ public static partial class Persist
     public static event EventHandler<ExitRequestedEventArgs>? ExitRequested;
 
     private static void RaiseExitRequested(TimeSpan delay)
-    {
-        ExitRequested?.Invoke(null, new ExitRequestedEventArgs(delay));
-    }
+        => ExitRequested?.Invoke(null, new ExitRequestedEventArgs(delay));
 
     private static void ParseUpdate(UpdateCommand updateCommand)
     {
@@ -157,9 +155,7 @@ public static partial class Persist
     public static event EventHandler<DiagnosticChangedEventArgs>? DiagnosticChanged;
 
     private static void RaiseDiagnosticChanged(DiagnosticChangedEventArgs args)
-    {
-        DiagnosticChanged?.Invoke(null, args);
-    }
+        => DiagnosticChanged?.Invoke(null, args);
 
     private static void SetAnalyzerInstance(IAnalyzerApi? analyzerInstance)
     {

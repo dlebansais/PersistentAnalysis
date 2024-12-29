@@ -10,7 +10,7 @@ using ProcessCommunication;
 
 [TestFixture]
 [NonParallelizable]
-public class TestInitExit
+internal class TestInitExit
 {
     [Test]
     public async Task TestSuccess()

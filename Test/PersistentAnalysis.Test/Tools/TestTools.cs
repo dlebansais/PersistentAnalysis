@@ -1,17 +1,12 @@
 ﻿namespace PersistentAnalysis.Test;
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using NUnit.Framework;
-using ProcessCommunication;
 
-public static class TestTools
+internal static class TestTools
 {
     public const int ExitDelay = 20;
     public const string TestAnalyzer = "SampleAnalyzer.dll";
